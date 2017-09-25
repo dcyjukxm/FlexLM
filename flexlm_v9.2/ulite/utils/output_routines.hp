@@ -1,0 +1,55 @@
+int CustomPrintHexWord(Word)
+{
+/* HACK */
+  output_hex_word(Word, TRUE, 5748);
+}
+
+int CustomPrintDecWord(Word)
+int Word;
+{
+/* HACK */
+  output_dec_word(Word, TRUE, 5748);
+}
+
+int DummyRoutine()
+{
+     CustomPrintDecWord(0xDEAD);
+     CustomPrintHexWord(0xDEAD);
+}
+
+int CustomPrintChar(c)
+char c;
+{
+
+   int          status;
+   int          R_addr[34];
+   int          *Raddr_ptr;
+
+   RADDR_ALIGN(Raddr_ptr,R_addr);
+   while (TRUE) {
+
+
+/* HACK */
+      status = iodc_io_call(49152,
+                         4052746240,
+                         IO_CONSOLE_OUTPUT,
+                         4053008384,
+                         936,
+                         Raddr_ptr,
+                         0,
+                         &c,
+                         1,
+                         0);
+
+      switch(status) {
+
+         case 0:
+            return(OK);
+
+         default:
+            return (ERROR);
+
+      }
+   }
+
+}

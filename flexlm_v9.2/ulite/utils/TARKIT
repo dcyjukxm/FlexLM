@@ -1,0 +1,18 @@
+#!/bin/csh -f
+
+if ($#argv < 2) then
+	echo usage: TARKIT version platform
+	exit
+endif
+set name = $2
+
+cd kits/$1
+
+tar cvf $name.tar $name
+if (`hostname` == oglobes || `hostname` == hp9000k) then
+	compress $name.tar
+	uuencode $name.tar.Z $name.tar.Z > $name.tar.Z.encoded
+else
+	gzip -9 $name.tar
+	uuencode $name.tar.gz $name.tar.gz > $name.tar.gz.encoded
+endif

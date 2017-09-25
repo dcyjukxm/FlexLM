@@ -1,0 +1,15 @@
+/*- 	
+	lmvkey -v demo -p ALL -c ALL 
+*/
+#undef VENDOR_KEY1
+#undef VENDOR_KEY2
+#undef VENDOR_KEY3
+#undef VENDOR_KEY4
+#undef VENDOR_KEY5
+
+
+#define VENDOR_KEY1 0xc055f8e3
+#define VENDOR_KEY2 0xdd112ce7
+#define VENDOR_KEY3 0xccbb8f7d
+#define VENDOR_KEY4 0xa9c007ac
+#define VENDOR_KEY5 0x0b165df7

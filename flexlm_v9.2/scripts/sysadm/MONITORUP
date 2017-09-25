@@ -1,0 +1,25 @@
+#!/bin/csh -f
+#
+#  MONITORUP - Monitor port systems  -send email when up 
+#
+#  Modified 04/08/97 by kdw to add steve to the adminlist.
+set adminlist = (karenw johna daniel matt pennyc jadams@garlic.com steve sesch2@home.com)
+#
+#set port = (agent86 bsdi cowgirl dgsvr4 encore hp9000d lynx mips moto motosvr4 newport ncr nec oly rolm redhat rs6000 stairway sony sco sunpc tandem verify1)
+#
+set port = (agent86 bsdi cowgirl lynx mips nec oly rolm rs6000 rs64 sco stairway sony sunpc unixware7 )
+#
+set downlist = ""
+# Send once a day @ 4:30PM
+#while (1)
+	foreach i ($port)
+		echo $downlist | grep $i >& /dev/null
+		if ($status != 0) then
+		    /usr/etc/ping $i >& /dev/null
+		    if ($status == 0) then
+			/usr/ucb/mail -s "MONITORUP: System $i is up" $adminlist << EOF
+EOF
+			set downlist = ($downlist $i)
+		    endif
+		 endif
+	end

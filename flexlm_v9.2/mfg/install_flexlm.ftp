@@ -1,0 +1,301 @@
+#!/bin/sh -
+#Script to install FLEXlm after downloading it from FTP site.
+#
+#	Copyright (c) 1996-2003 by Macrovision Corporation. All Rights Reserved.
+#	This software has been provided pursuant to a License Agreement
+#	containing restrictions on its use.  This software contains
+#	valuable trade secrets and proprietary information of 
+#	Globetrotter Software Inc and is protected by law.  It may 
+#	not be copied or distributed in any form or medium, disclosed 
+#	to third parties, reverse engineered or used in any manner not 
+#	provided for in said License Agreement except with the prior 
+#	written authorization from Globetrotter Software Inc.
+#
+# 	Module:	install_flexlm.ftp v1.25.0.0
+#
+#You will need a FLEXcrypt key as well as FLEXlm vendor keys
+# 	from Globetrotter in order to use this script, and successfully
+#	install FLEXlm.
+#
+#-------------------------- Directions: --------------------------------
+# Download machind-independent tar file
+# Download platform-specific tar files
+# Download this script (all into the same directory)
+# Run this script.
+STARTDIR=`pwd`
+USAGE_TAG="You can restart this script, and it will pick up from 
+where it left off.  You usually do not need to re-download the files from
+our Web site."
+
+TARENDFILE="Tarfile.End"
+
+
+if [ "`echo -n`" = "-n" ]; then
+	E_N=""
+	E_C="\c"
+else
+	E_N="-n"
+	E_C=""
+fi
+
+#
+# 	Determine if decrypt is needed -- that part may have already
+#		been done.
+#
+NEED_DECRYPT=false
+#for i in *.tar *.fc
+#do
+#	if [ -f $i ] 
+#	then
+#		NEED_DECRYPT=true
+#	fi
+#done
+#
+echo $E_N "Installation for FTP FLEXlm
+Copyright (c) 1996-2003 Macrovision Corporation. All rights reserved.
+
+Make sure this directory has *.tar files 
+for FLEXlm v9.x only.  Do not use this directory for
+other Macrovision products.  Continue [y/n]? $E_C"
+read x
+case "$x" in
+y*|Y*) ;;
+*)  echo  "exiting..." ; exit 1;;
+esac
+
+#if [ $NEED_DECRYPT = true ]
+#then
+#	if [ $# -eq 1 ]; then
+#		key="$1"
+#	else
+#		echo "To obtain a key, contact Macrovision Corp."
+#		echo $E_N "Enter your decryption key: $E_C"
+#		read key
+#	fi
+#
+#
+#	#
+#	#Check to make sure key includes only numbers and dashes
+#	#
+#	k=`echo $key | sed 's/[0-9-]//g'` 
+#	if [ X"$k" != X ] 
+#	then
+#		echo ="Bad key format
+#	key must be a serial number of the form:
+#	    xxxx-xxxx-xxxx-xxxx-xx
+#	    or  xxxx-xxxx-xxxx-xxxx-xxx
+#	    or  nnnn-xxxx-xxxx-xxxx-xxxx-xx"
+#		echo $USAGE_TAG
+#		exit 1
+#	fi
+#fi
+
+
+#Extract all the tar files
+for f in *.tar; do
+	if [ -f $f ] 
+	then
+		echo Extracting from $f
+		[ $f = machine_ind.tar ] && rm -f gplatform
+		tar xf $f  
+		[ -f $TARENDFILE ] || {
+
+			echo "Tar failed on $f"
+			echo $USAGE_TAG
+			exit 1
+		}
+		rm -f $f $TARENDFILE
+	fi
+done
+echo ""
+
+VERSION=`echo v[0-9].*`
+rm -f $VERSION
+
+if [ "$NEED_DECRYPT" = true ]
+then
+	if [ ! -f gplatform ]
+	then
+		echo "Can't find platform program 'gplatform', exiting"
+		echo "(Did you download the machine-independent tar file?)"
+		exit 1
+	fi
+	GPLATFORM=`./gplatform`
+	decrypt=decrypt.$GPLATFORM
+	primaryPlatform=$GPLATFORM
+	case $GPLATFORM in
+	hp700_u*) ln -s decrypt.hp700_u8 $decrypt;;
+	sgi_u5|sgi32_u*) [ -f decrypt.sgir8_u6 ] && ln -s decrypt.sgir8_u6 $decrypt
+		[ -f decrypt.sgi32_u5 ] && ln -s decrypt.sgi32_u5 $decrypt
+		[ -f decrypt.sgi32_u6 ] && ln -s decrypt.sgi32_u6 $decrypt
+		[ -f decrypt.sgi_u5 ] && ln -s decrypt.sgi_u5 $decrypt
+		;;
+	esac
+fi
+
+#
+#	Give a reasonable error message if we can't find decrypt,
+#	and exit
+#
+if [ "$NEED_DECRYPT" = true ] && [ ! -f $decrypt ]
+then
+	decrypt=decrypt.`./gplatform -alt $primaryPlatform`
+	if [ ! -f $decrypt ]; then
+		echo \
+"Can't find decryption program for `./gplatform`
+This could be because we don't support decrypt on this platform.
+The available decrypt platform(s) we support are: "
+		for d in decrypt.*
+		do
+			if [  -f $d ] 
+			then
+				echo $d | sed 's/decrypt.//'
+			else
+				echo "None"
+				d=none
+				break
+			fi
+				
+			
+		done
+		if [ $d = none ]
+		then 
+			echo \
+"You need to ftp another platform that we support
+for decrypt, such as sun, sgi, or rs6000"
+		fi
+		echo "$USAGE_TAG"
+		exit 1
+	fi
+fi
+
+if [ -d flexlm/$VERSION/machind -a -f machind.tar.Z ]
+then
+	echo "\
+flexlm/$VERSION/machind already exists.  The files in this directory
+are being moved to flexlm/$VERSION/machind.old." 
+	if [ -d flexlm/$VERSION/machind.old ] 
+	then
+		echo "\
+machind.old already exists.  The files in machind.old will be lost."
+		echo $E_N "Is this okay? [y/N] $E_C"
+		read x
+		case "$x" in
+			y*|Y*) ;;
+			*)  echo "Save the files in flexlm/$VERSION/machind.old"
+			    echo "and restart this installation script."
+			echo  "exiting..." ; exit 1;;
+		esac
+		rm -rf flexlm/$VERSION/machind.old
+	fi
+	echo "Saving machind..."
+	mkdir flexlm/$VERSION/machind.old
+	mv flexlm/$VERSION/machind/* flexlm/$VERSION/machind.old
+	rm -f flexlm/$VERSION/htmlman # so it can be updated...
+fi
+
+
+#
+#	Decrypt all the encrypted files (*.fc)
+#
+#for f in *.fc; do
+#	if [ -f $f  ] 
+#	then
+#		echo "Decrypting $f"
+#		./$decrypt $key < $f | uncompress | tar xf - 
+#		[ -f $TARENDFILE ] || {
+#			echo "Decrypt failed on $f, exiting"
+#			echo "$USAGE_TAG"
+#			exit 1
+#		}
+#		rm -f $f $TARENDFILE
+#	fi
+#done
+
+#
+#Uncompress any of the remaining compressed files (probably none)
+#
+for f in *.Z; do
+	if [ -f $f ]; then
+		echo "Uncompressing $f"
+		uncompress < $f | tar xf - || {
+			echo "Uncompress failed on $f"
+			echo "$USAGE_TAG"
+			exit 1
+		}
+ 		[ -f $TARENDFILE ] || {
+ 			echo "Decrypt failed on $f, exiting"
+ 			echo "$USAGE_TAG"
+ 			exit 1
+ 		}
+ 		rm -f $f $TARENDFILE
+	fi
+done
+
+cd flexlm/$VERSION
+
+
+
+#
+#Now clean up anything that got missed
+#
+rm -f $STARTDIR/*.tar $STARTDIR/*.Z 
+
+#
+#	Run the appropriate FLEXlm INSTALL script:
+#
+
+for lmgrd in */lmgrd
+do
+	dir=`echo $lmgrd | sed 's/.lmgrd//'`
+	
+	if test -f $dir/counted.lic
+	then
+		continue
+	fi
+	echo "\
+SERVER this_host ANY
+USE_SERVER
+VENDOR demo
+#a counted license
+FEATURE f1 demo 1.0 permanent 4 SIGN=2EFB8679E085" > $dir/counted.lic
+	echo "\
+# an uncounted license
+FEATURE f2 demo 1.000 permanent uncounted HOSTID=ANY SIGN=79FB962904D5" > $dir/uncounted.lic
+	cd $dir
+	for i in lmdown lmhostid lminstall lmremove \
+		lmreread  lmswitchr lmstat lmdiag lmver lmnewlog lmpath lmborrow lmswitch
+	do
+		ln -s lmutil $i
+	done
+	cd ..
+done
+
+
+echo "\
+===================================================================
+
+The manual in HTML browser format is in flexlm/$VERSION/htmlman/index.htm.
+If this is an evaluation, follow Chapter 2 in the Programmers Guide.
+cd flexlm/$VERSION/kit
+	where 
+	kit is the directory for this platform, e.g.,
+		sun4_u5 == solaris, i86_r6 == linux, etc.
+The kit is precompiled for evaluation.  If you want to do builds, you
+need to edit machind/lm_code.h, and change the VENDOR_KEYs 1-5 to the
+keys provided by Macrovision.
+
+If this is not an evaluation, make these edits to machind/lm_code.h, as 
+noted in the Programmers Guide.
+
+	1) Change the VENDOR_KEYs 1-5 to the production keys provided to you.
+	2) Change the LM_SEEDS 1-3 to numbers that you make up
+	   (or use lmrand1 -seed to make up the numbers).
+	   If you are upgrading, also copy the ENCRYPTION_SEEDS1-4
+	   from your existing lm_code.h file.
+	3) If applicable, set the CRO_KEYs to the values provided by 
+	   Macrovision.
+	4) Change the VENDOR_NAME to the name you have previously
+	   provide Macrovision.  This name goes with the vendor-keys
+	   and cannot be changed once chosen without new vendor-keys."
+

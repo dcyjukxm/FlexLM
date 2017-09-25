@@ -1,0 +1,18 @@
+FEATURE pathtest1 demo 1.000 01-jan-0 2 0 SIGN=0 \
+	 VENDOR_STRING=../testsuite/pathtest.dat 
+FEATURE pathtest2 demo 1.000 01-jan-0 2 0  SIGN=0
+FEATURE locked2 demo 1.000 01-jan-0 0 0  SIGN=0 HOSTID=ANY
+#the next 2 lines behave like INCREMENT
+FEATURE p6047 demo 25.0 permanent 1 0 \
+	VENDOR_STRING="VSVER=2.0 LO=( ) STARTUP" SUPERSEDE ISSUER=PTC \
+	ISSUED=09-may-2001 NOTICE="PTC Internal Use Only" \
+	SN=987,654,321  SIGN=0
+FEATURE p6047 demo 25.0 permanent 1 0 \
+	VENDOR_STRING="VSVER=2.0 LO=( ) " SUPERSEDE ISSUER=PTC \
+	ISSUED=09-may-2001 NOTICE="PTC Internal Use Only" \
+	SN=767,676,767 SIGN=0
+FEATURE p6215 demo 1.0 permanent 1 SIGN=0
+FEATURE p6215 demo 2.0 permanent 1 SIGN=0
+
+PACKAGE p6333 demo 1.0 COMPONENTS="3333 3334 3335" 0 SIGN=0
+INCREMENT p6333 demo 1.0 permanent 1 0 SIGN=0 BORROW=168

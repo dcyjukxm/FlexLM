@@ -1,0 +1,232 @@
+                   FLEXLM AND CVS
+___________________________________________________________
+
+  author:  $Author: jwong $
+  version: $Id: README,v 1.14 2003/01/23 19:07:40 jwong Exp $
+  Created by:  Daniel Birns
+  Created:  September 2000
+___________________________________________________________
+
+Current CVS names:
+
+	modules:	FLEXlm 
+			scripts/products
+
+	Branches:	v7-0-1 (FLEXlm v7.0)
+			v7-1 (FLEXlm v7.1)
+			[naming convention is like v7-1.  v7-0-1 is the
+		   	 exception.  The next one will be v8-0]
+
+	Released names:
+			v7-0a ... v7-0g
+			v7-1a ... v7-1c
+
+Naming convention
+
+	There are branches for every release that is not a patch.
+
+	The branch naming convention is:
+
+		v7-1, v8-0, etc.
+
+	with one exception:  v7.0's branch is called v7-0-1.
+
+	The released versions always have a patch letter staring with 'a':
+
+		v7-1a
+
+How to checkout
+
+	To checkout a branch:
+
+		% cvs checkout -r v7-1 flexlm
+		% cvs checkout -r v7-1 scripts/products
+
+	To checkout current development
+
+		% cvs checkout flexlm
+		% cvs checkout scripts/products
+
+	For windows, you need a copy of the certicom libraries.  These are
+	in /u/gsi/certicom/sb24ssr.  And you'll need to set %CERTICOM% to
+	where you put these.
+
+How to join/merge
+
+	If you want to merge changes from a branch into a mainline:
+
+		% cd flexlm #to the directory that you want to merge into.
+		% cvs update -j v7-1
+
+	In this example, all the changes in v7-1 will get merged into 
+	the current directory.
+
+	If you want to merge into a single file:
+
+		% cvs update -j v7-1 filename
+
+	When merging, you have to check all marked conflicts.
+	Naturally, this should be done very carefully, but in general
+	I find it *is* the safest way to proceed.
+
+	
+
+How to freeze a version for release
+
+	Assuming I want to freeze v7.1c:
+
+		% cvs tag -F v7-1c
+
+	If I make a change, I can re-do this command.  We do this as many
+	times as necessary until the product is actually released.
+
+How to checkout/update a released version:
+
+	To check it out:
+
+		% cvs -r checkout -r v7-1c -d v7.1c flexlm
+
+	The -d business puts the files in a directory called v7.1c.
+
+	The first -r makes it readonly. If you have something to fix, fix
+	it in the editable workarea, commit and re-tag it, and then update
+	the release area:
+
+		% cd v7.1c
+		% cvs -r update -r v7-1c
+
+
+How to make a branch:
+
+	I used tag -b following the standard cvs conventions:
+
+	For example, before starting v8 development, I did the following:
+
+	% cd /u/gsi/flexlm 			# go to the mainline workarea
+	% cvs tag -b v7-1			# create a branch
+	% cd /u/gsi/				# make a branch workarea here
+	% cvs checkout -r v7-1 -d flexlm7.1 flexlm 
+
+	This makes a branch workarea in /u/gsi/flexlm7.1.
+
+	The locations will change based on your needs, naturally.
+
+
+The ftpsite tar files
+_____________________
+
+	1) mkdir /ftpsite/flexlm/<version><patch>
+	2) ln -s /ftpsite/flexlm/<version><patch> /ftpsite/flexlm/<version>
+	   Note that you may first need to rm /ftpsite/flexlm/<version>
+	3) mkdir /ftpsite/flexlm/<version>/windows
+	4) The installshield flexlm.exe is put in the windows directory
+	5) on unix (as /bin/ksh only!):
+
+
+		ksh
+		cd /u/releases/flexlm
+		rm <version>
+		ln -s <version><patch> <version>
+		cd /u/releases/flexlm/<version>/mfg
+		sh makeftp <version> 
+
+	   This puts all the files in /ftpsite/flexlm/<version>/unix
+
+	You can redo this for one platform with
+
+	sh makeftp <version> <platform>
+
+	6) Copy install_flexlm.ftp from /u/releases/flexlm/<version>/mfg
+	   to /ftpsite/flexlm/<version>/unix
+
+The lmgrd/lmutil downloads for unix
+___________________________________
+
+	mkdir /ftpsite/flexlm/unix_lmgrds/<version><patch>
+
+	For every lmgrd, 
+	mkdir /ftpsite/flexlm/unix_lmgrds/<version><patch>/<platform>
+	And put a compress lmgrd and lmutil in that directory, using
+	unix compress.
+
+
+Testsuite procedures
+____________________
+
+The testsuite directory is built as part of the BINARY_KIT build.
+
+	1) Run utiltest.  The output goes to stdout.  Make sure there's
+	   no errors.  Unfortunately, most errors are serious and some
+	   don't matter.  Err on the side of caution.
+	2) After utiltest is run, examine 1.st.out.  This should
+	   be error free.  The only exception is that on 
+	   linux ports, udp has been failing, but we've been shipping
+	   anyway.
+
+	The testsuite must be clean with each release, major or
+	patch.
+
+Quality control
+_______________
+
+Each major release should be purify bounds-checker clean.  If any mods 
+are made in patches that might have memory implications, run 
+servtest make sure this is clean.
+
+How to build a release on Unix:
+_______________________________
+
+1) to make the /u/releases/flexlm/vxxx directory, do
+
+	% cvs -r checkout -r v7-1c -d v7.1c flexlm
+
+2) To make a binary kit for a platform:
+
+	% cd /u/releases/flexlm/vxxxx
+	% sh BINARY_KIT
+
+How to build a release on Windows for kits >= v8.3:
+__________________________________________________
+
+1) checkout the proper kit from cvs.
+
+2) To make a binary kit for a platform:
+	a) compile: makesetup.c
+	b) run command-line: makesetup RELEASE NONDEBUG i86_n3 MT
+	c) run the setup.bat file
+	d) run command-line: nmake /fpc.mak release
+
+
+How to build a release on Windows for kits < v8.3:
+__________________________________________________
+
+1) checkout the proper kit from cvs.
+
+2) To make a binary kit for a platform:
+	a) compile: makesetup.c
+	b) run the following command-line: makesetup RELEASE NONDEBUG i86_n3 MT
+	c) run the setup.bat file
+	d) Building MT: nmake /fpc.mak
+	e) Building MD: nmake /fpc.mak MD
+	f) Building target platform: copy .\h\lm_code.h to .\machind
+	g) run command-line: nmake
+	h) run command-line: nmake kitclean
+
+
+How to make the ftpsite kit:
+____________________________
+
+1) make sure you have /ftpsite mounted from ss2
+2) mkdir /ftpsite/flexlm/vxx/unix and windows
+3) cd /u/releases/flexlm/vxxxx/mfg
+4) sh makeftp vxxx
+
+
+
+People working on FLEXlm
+________________________
+
+Nupur Prakash
+John Wong
+Sonny Luu
+Kirk Maclean

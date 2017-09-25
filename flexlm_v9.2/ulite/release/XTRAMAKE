@@ -1,0 +1,17 @@
+#!/bin/csh -f
+#
+#	FLEXlm-specific kit building
+#
+#	Runs @ end of KITMAKE, from kit directory
+#
+#	Parameters: $0 sccs_dir major-version minor-version full-version
+#
+#	Module:	XTRAMAKE v1.48.0.0
+#	Last changed:  8/8/97
+
+set major = $2
+set minor = $3
+set numversion = $major.$minor
+set version = $4
+echo dir is `pwd`
+chmod +x utils/ul_platargs

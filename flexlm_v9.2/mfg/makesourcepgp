@@ -1,0 +1,47 @@
+#!/bin/sh
+case `uname -n` in
+wheel*) ;;
+ultra5*) ;;
+*) echo "only works on wheel or ultra5"; exit ;;
+esac
+
+rel=/u/releases/flexlm
+
+if [ $# != 2 ]
+then
+	echo "usage $0 version passwd "; exit
+fi
+version=$1
+passwd=$2
+dir=$HOME/tmp
+
+cd $rel/src_master
+output=$version.gz.pgp
+
+echo type $passwd at the prompt.
+
+rm -f $dir/stdin.pgp
+tar chf - flexlm | gzip | (cd $dir; pgp -c )
+cd $dir
+mv stdin.pgp $output
+echo testing
+cat $dir/$output | pgp | gunzip | tar tf - | sed 5q
+echo "output in $dir/$output
+
+Rename it and put it on marley:/ftpsite/outgoing/yourname
+where yourname should be the customers first name.
+Be sure to use ftp in binary format.
+
+Here is a sample of the email you should send the customer,
+replacing yourname with the customers name.
+
+------------------------------------------------
+The source is at ftp.globes.com/outgoing/yourname
+
+To download you will need pgp and gzip.
+
+Use the following command to read it:
+
+cat yourname | pgp | gunzip | tar xvf -
+
+Use the pass phrase we discussed."

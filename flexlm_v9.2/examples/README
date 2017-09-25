@@ -1,0 +1,55 @@
+		FLEXlm Examples			
+
+This directory contains several sub-directories with example 
+license files and code.  
+
+ 
+    advanced      - Advanced examples, including:
+                    exinstal.c  -- example license installer 
+                                   program
+                    get_dir.c   -- gets directory in $PATH 
+                                   command is in; useful for default 
+                                   license file location
+                    licstring.c -- sample licensed application that
+                                   incorporates a "license in a buffer"
+                    ls_co_ex.c  -- vendor-daemon checkout
+
+    c#            - C sharp example interfacing to FLEXlm.
+ 
+    child         - Child process which checks out a license and 
+                    communicates status with parent.  Optional 
+                    encryption of traffic with parent.  A possible 
+                    solution for Unix programs that cannot use SIGALRM, 
+                    but need regular heartbeats.
+    composite     - Composite Hostid source examples.
+
+    licenses      - Example licenses, useful for lmcrypt
+
+    vb            - FLEXlm API implemented as wrapper functions
+                    for use by Visual Basic licenses applications.
+                    Examples are  provided for VB v3.0, v4.0, v6.0, and
+                    vb.NET.
+
+    vendor_hostid - Example of vendor-defined hostid code.
+
+    vendor_info   - Example of accessing vendor specific information
+                    via the lc_get_attr(job, LM_A_VD_FEATINFO...)
+                    FLEXible API function.
+        
+These examples are intended to provide instruction in the 
+use of various FLEXlm features. They are unsupported and
+may not exist in future FLEXlm Software Development Kits.
+While we have made every effort to insure that these examples are 
+correct, they are not intended to be release-quality debugged 
+products. 
+
+For developers new to FLEXlm, please read Chapters 1-6 of the 
+Programmers Guide.  
+
+In addition to the files in this directory,
+FLEXlm-licensed application examples are provided in the machind
+directory of the Software Development Kit:
+
+
+     <install_dir>/flexlm/v9.0/machind (UNIX)
+     C:/Program Files/flexlm/v9.0/machind (Windows)

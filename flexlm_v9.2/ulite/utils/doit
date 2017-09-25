@@ -1,0 +1,8 @@
+#/bin/csh -f
+lmkey f1 abcd
+lmkey f2 abcd
+lmkey f3 abcd
+lmkey f1 aaa
+lmkey f1 bbb
+lmkey f1 aab
+lmkey f1 abb

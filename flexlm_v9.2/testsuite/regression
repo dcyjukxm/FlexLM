@@ -1,0 +1,330 @@
+#!/bin/csh
+#******************************************************************************
+#
+#	    COPYRIGHT (c) 1988, 1995 by Globetrotter Software Inc.
+#	This software has been provided pursuant to a License Agreement
+#	containing restrictions on its use.  This software contains
+#	valuable trade secrets and proprietary information of 
+#	Globetrotter Software Inc. and is protected by law.  It may 
+#	not be copied or distributed in any form or medium, disclosed 
+#	to third parties, reverse engineered or used in any manner not 
+#	provided for in said License Agreement except with the prior 
+#	written authorization from Globetrotter Software Inc.
+#
+#******************************************************************************
+#
+# 	Module:	regression v2.74.0.0
+#
+#	Regression test suite for the license manager system.
+#
+#	These tests consist of the following:
+#
+#	1.  Basic tests - these tests cover the basic routines in the
+#		client library, plus other misc routines.
+#	2.  Crypt tests - These tests verify the uniqueness of the
+#		encryption algorithm, and compatibility with previous
+#		releases.
+#	3.  No server tests - these tests cover applications bound to
+#		a single host, where no server runs (N copies/1 host)
+#	4.  One server tests - these tests cover applications that use
+#		a single server for checkout of features.
+#	5.  License file path tests - these tests verify clients using
+#		a license file path
+#	6.  Lock tests - tests daemon lockfiles
+#
+#	7.  Spawn tests - this test starts 30 clients thus spawning
+#		6 copies of the vendor daemons.
+#	8.  Multiple server tests - these tests cover startup of
+#		multiple servers,  failure of server nodes, etc.
+#	9.  Redundant server tests
+#	10. Timers test
+# 
+#	M. Christiano
+#	3/21/88
+#	
+# 	Last changed:  8/20/97
+#	
+
+
+rm -f core
+
+unsetenv LM_LICENSE_FILE
+unsetenv DEMO_LICENSE_FILE
+set quick = ""
+set slow = ""
+set outfile = regress.out
+set i = 1
+while ($i <= $#argv)
+	if ("$argv[$i]" == "-o") then
+		@ i++
+		set outfile = $argv[$i]
+	else if ($argv[$i] == "-quick") then
+		set quick = -quick
+	else if ($argv[$i] == "-slow") then
+		set slow = -slow
+	else
+		set outfile = $argv[$i]
+	endif
+	@ i++
+end
+set host = `hostname`
+if ("$host" == "") then
+	set host = `uname -n`
+endif
+setenv FLEXLM_INTERVAL_OK 1
+
+set delim = "++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++"
+
+	echo "" > $outfile
+	echo $delim >> $outfile
+	echo "Flexible License Manager regression tests started on `hostname`:">> $outfile
+	if ($quick != "") then
+		echo "	Running QUICK version" >> $outfile
+	endif
+	echo "	Log file is $outfile" 
+	echo "`date`" >> $outfile
+	echo $delim >> $outfile
+	echo "" >> $outfile
+
+	echo "" >> $outfile
+	echo $delim >> $outfile
+	echo "	B A S I C    T E S T S" >> $outfile
+	echo "`date`" >> $outfile
+	echo $delim >> $outfile
+	echo "" >> $outfile
+	basic_tests >>& $outfile
+	if ( -e core ) then
+		rm -f core
+		echo "core file generated\!" >> $outfile
+	endif
+
+	if ( -e core ) then
+		rm -f core
+		echo "core file\!" >> $outfile
+	endif
+
+
+	if ($quick == "") then
+		echo "" >> $outfile
+		echo $delim >> $outfile
+		echo "	T I M E R S   T E S T" >> $outfile
+		echo "`date`" >> $outfile
+		echo $delim >> $outfile
+		echo "" >> $outfile
+		timers_test >> $outfile
+		if ( -e core ) then
+			rm -f core
+			echo "core file\!" >> $outfile
+		endif
+	endif
+
+	echo "" >> $outfile
+	echo $delim >> $outfile
+	echo "	N O    S E R V E R    T E S T S" >> $outfile
+	echo "`date`" >> $outfile
+	echo $delim >> $outfile
+	echo "" >> $outfile
+	no_s_tests >>& $outfile
+	no_s_tests -liconly >>& $outfile
+	echo "starting lmgrd for +port@host ..." >> $outfile
+	lmdown -c license.dat -q >& /dev/null
+	lmgrd -c license.dat -l _log >>& $outfile
+	sleep 3
+	no_s_tests -php >>& $outfile
+	lmdown -c license.dat -q >>& $outfile
+	rm license.dat
+	if ( -e core ) then
+		rm -f core
+		echo "core file\!" >> $outfile
+	endif
+
+#	if ($quick == "") then
+#		sleep 3
+#		echo "" >> $outfile
+#		echo $delim >> $outfile
+#		echo "	O N E    S E R V E R    T E S T S   (non-additive daemon)" >> $outfile
+#		echo "`date`" >> $outfile
+#		echo $delim >> $outfile
+#		echo "" >> $outfile
+#		set i = 0 
+#		while (1)
+#			one_s_tests $i >>& $outfile
+#			if ($status != 0) break
+#			#sleep 2
+#@ i++
+#		end
+#		mv _log _log.noadd
+#		if ( -e core ) then
+#			rm -f core
+#			echo "core file\!" >> $outfile
+#		endif
+#
+#	endif
+
+	echo $delim >> $outfile
+	echo "" >> $outfile
+	echo $delim >> $outfile
+	echo "	U T I L T E S T" >> $outfile
+	echo "`date`" >> $outfile
+	echo $delim >> $outfile
+	servtest 0 >> $outfile
+	lmdown -c . -q >& /dev/null
+	sleep 5
+	lmgrd -c . -l utiltest.log
+	sleep 5
+	utiltest >> $outfile
+	lmdown -c . -q >& /dev/null
+	sleep 5
+
+	echo $delim >> $outfile
+	echo "" >> $outfile
+	echo $delim >> $outfile
+	echo "	S E R V T E S T" >> $outfile
+	echo "`date`" >> $outfile
+	echo $delim >> $outfile
+	echo "" >> $outfile
+	servtest 0
+	setenv LM_LICENSE_FILE .
+	setenv TEST_UDP_SERNUM 3
+	lmgrd -c nosuch.dat -l _log1
+	lmgrd -c pathtest.dat -l _log2
+	lmgrd -c . -l _log3
+	servtest $quick >> $outfile
+#	if ( $quick != -quick ) then
+#		servtest -server -quick >> $outfile
+#	endif
+	unsetenv TEST_UDP_SERNUM
+	mv _log _log.noadd
+	if ( -e core ) then
+		rm -f core
+		echo "core file\!" >> $outfile
+	endif
+
+	if ($quick == "") then
+		echo "" >> $outfile
+		echo $delim >> $outfile
+		echo "	+ P O R T @  H O S T    T E S T S" >> $outfile
+		echo "`date`" >> $outfile
+		echo $delim >> $outfile
+		echo "" >> $outfile
+		lmgrd -c nosuch.dat -l _log1
+		lmgrd -c pathtest.dat -l _log2
+		lmgrd -c . -l _log3
+		sleep 3
+		setenv LM_LICENSE_FILE "@localhost"
+		foreach i (7 8 9 10 11 12 13 15 16 18 21 23 24 25 26 27 \
+					28 29 34 36 37 39 99)
+			servtest $i >> $outfile
+		end
+		if ( -e core ) then
+			rm -f core
+			echo "core file\!" >> $outfile
+		endif
+
+	endif
+
+	echo "" >> $outfile
+	echo $delim >> $outfile
+	echo "	L O C K   T E S T S" >> $outfile
+	echo "`date`" >> $outfile
+	echo $delim >> $outfile
+	echo "" >> $outfile
+	lock_tests -r >& _lock_log
+	if ($status != 0) then
+		echo "ERROR: ls_checkroot() detects changed root\!"
+	endif
+	lock_tests >>& _lock_log
+
+	if ($status) then
+		echo "LOCK FILE TESTS OK" >> $outfile
+	else  
+		echo "LOCK FILE TESTS FAILED" >> $outfile
+	endif
+	if ( -e core ) then
+		rm -f core
+		echo "core file\!" >> $outfile
+	endif
+	sleep 15
+
+	if ( "$slow" == "-slow" ) then
+		echo "" >> $outfile
+		echo $delim >> $outfile
+		echo "	B I G F I L E   T E S T S" >> $outfile
+		echo "`date`" >> $outfile
+		echo $delim >> $outfile
+		echo "" >> $outfile
+		bigfile 
+		lmdown -c bigfile.dat -q >& /dev/null
+		lmgrd -c bigfile.dat -l _log
+		sleep 1000 
+		setenv LM_LICENSE_FILE bigfile.dat
+		reptest -u 1 -r 1
+		setenv LM_LICENSE_FILE .
+		lmdown -c bigfile.dat -q
+	endif
+
+
+
+	if ( "$quick" == "" ) then
+		echo "" >> $outfile
+		echo $delim >> $outfile
+		echo "	R E P T E S T" >> $outfile
+		echo "`date`" >> $outfile
+		echo $delim >> $outfile
+		echo "" >> $outfile
+		servtest 0
+		setenv LM_LICENSE_FILE .
+		lmdown -c . -q >& /dev/null
+		lmgrd -c . -l _log
+		echo "Expect error messages to stderr about supersede"
+		reptest -u 1 -r 2
+		lmdown -c . -q
+	endif
+
+	echo "" >> $outfile
+	echo $delim >> $outfile
+
+	echo "" >> $outfile
+	echo $delim >> $outfile
+	echo "	R E D U N D A N T   S E R V E R   T E S T S" >> $outfile
+	echo "`date`" >> $outfile
+	echo $delim >> $outfile
+	echo "" >> $outfile
+	red_s_tests 0
+	red_s_tests 1 >>& $outfile
+	if ($quick == "") then
+		red_s_tests 3 >>& $outfile
+		#red_s_tests 5 >>& $outfile
+		red_s_tests 8 >>& $outfile
+	endif
+	if ( -e core ) then
+		rm -f core
+		echo "core file\!" >> $outfile
+	endif
+
+
+	if ($quick == "") then
+
+		echo "" >> $outfile
+		echo $delim >> $outfile
+		echo "	L S A P I     T E S T S" >> $outfile
+		echo "`date`" >> $outfile
+		echo $delim >> $outfile
+		# make license file
+		servtest 0 
+		setenv LM_LICENSE_FILE .
+		lmgrd -l _log.lsapi
+		sleep 90
+		lsapi_tests  >> $outfile
+		if ( -e core ) then
+			rm -f core
+			echo "core file\!" >> $outfile
+		endif
+		lmdown -q -c .
+	endif
+	echo "" >> $outfile
+	echo $delim >> $outfile
+	echo "Flexible License Manager regression tests done:" >> $outfile
+	echo "`date`" >> $outfile
+	echo $delim >> $outfile
+	echo "" >> $outfile

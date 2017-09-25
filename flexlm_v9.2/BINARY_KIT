@@ -1,0 +1,93 @@
+#!/bin/sh
+
+export PATH AR STRIP MAKE PLAT
+AR=ar
+STRIP=strip
+MAKE=make
+
+#look in utils first for gplat*
+PATH=`pwd`/utils:$PATH
+
+PLAT=`gplatform -n`
+case $PLAT in
+	rs64_u)
+		PATH=$PATH:/usr/ibmcxx/bin 
+		AR='ar -X64'
+		STRIP='strip -X64' ;;
+	hp64_u)
+		PATH=/opt/langtools/bin:$PATH;;
+	sun4_u)
+		MAKE=/bin/make;;
+esac
+
+make clean
+
+mkdir `gplatform`
+
+[ -f server/lsreplog.c ] || sh utils/BINARY_KIT.2 || exit 1
+
+if [ $PLAT = sun4_u \
+	-o $PLAT = i86_x \
+	-o $PLAT = hp700_u \
+	-o $PLAT = sun64_u \
+	-o $PLAT = i86_r \
+	-o $PLAT = it64_lr \
+	-o $PLAT = it32_lr \
+	]
+then
+	if [ $PLAT = i86_r \
+		-o $PLAT = it64_lr \
+		-o $PLAT = it32_lr \
+		]
+	then
+		PIC="`gplatargs` -fpic"
+	else
+		PIC=`gplatargs -pic`
+	fi
+		cd src; 
+		make clean; 
+		make DEBUGFLAG="" XTRACFLAG="-DRELEASE_VERSION \
+			$PIC -DLM_INTERNAL" \
+			XTRALIB="`gplatargs -l`" \
+			PLATFORM=`gplatform` AR="$AR" STRIP="$STRIP"
+		mv liblmgr.a ../`gplatform`/liblmgr_pic.a
+		make clean; 
+		cd ..
+fi
+# Do special client libraries here
+if [ $PLAT = sgi64_u ]
+then
+		cd src; 
+		make clean; 
+		make DEBUGFLAG="" XTRACFLAG="-DRELEASE_VERSION \
+			-DSGI6 -DSGI -DSGI64 -64 -mips4 -G O -DLM_INTERNAL" \
+			XTRALIB="`gplatargs -l`" \
+			PLATFORM=`gplatform` AR="$AR" STRIP="$STRIP"
+		mv liblmgr.a ../`gplatform`/liblmgr_64mips4.a
+		make clean; 
+		cd ..
+fi
+if [ $PLAT = sgi32_u ]
+then
+		cd src; 
+		make clean; 
+		make CC=cc DEBUGFLAG="" XTRACFLAG="-DRELEASE_VERSION -DSGI6 -DSGI -DSGI -o32 -DLM_INTERNAL" PLATFORM=`gplatform` AR="$AR" STRIP="$STRIP"
+		mv liblmgr.a ../`gplatform`/liblmgr_o32.a
+		make clean; 
+		cd ..
+fi
+
+# GENERAL BUILD HERE
+
+make DEBUGFLAG="" XTRACFLAG="-DRELEASE_VERSION `gplatargs` -DLM_INTERNAL" \
+	XTRALIB="`gplatargs -l`" PLATFORM=`gplatform` AR="$AR" STRIP="$STRIP" \
+	THREADLIB="`gplatargs -lthreads`" || exit 1
+
+# cleanup
+PLAT=`gplatform`
+$STRIP $PLAT/lmgrd
+$STRIP $PLAT/lmutil
+$STRIP $PLAT/lmrand1
+$PLAT/lmgrd -v
+$PLAT/lmutil lmver $PLAT/lmutil
+cat VERSION

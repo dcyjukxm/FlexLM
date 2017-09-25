@@ -1,0 +1,878 @@
+EXPECT_KEYWORD stat1 _______________________________________
+lmutil - Copyright (C) 1989-2003 Macrovision Corporation
+Flexible License Manager status on Wed 1/9/2003 19:01
+
+License server status: 27000@aix4gsi
+    License file(s) on aix4gsi: /u15/flexlm/current/testsuite/alt.2.lic:/u15/flexlm/current/testsuite/alt3.lic:/u15/flexlm/current/testsuite/package.lic:/u15/flexlm/current/testsuite/servtest.lic:/u15/flexlm/current/testsuite/z_alt1.lic:/u15/flexlm/current/testsuite/z_alt2.lic:
+
+   aix4gsi: license server UP (MASTER) v8.4
+
+Vendor daemon status (on aix4gsi):
+
+      demo: UP v8.4
+     demof: UP v8.4
+    demof2: The desired vendor daemon is down (-97,29)
+
+EXPECT_KEYWORD stat2 _______________________________________
+lmutil - Copyright (C) 1989-2003 Macrovision Corporation
+Flexible License Manager status on Wed 1/9/2003 19:01
+
+License server status: 27000@aix4gsi
+    License file(s) on aix4gsi: /u15/flexlm/current/testsuite/alt.2.lic:/u15/flexlm/current/testsuite/alt3.lic:/u15/flexlm/current/testsuite/package.lic:/u15/flexlm/current/testsuite/servtest.lic:/u15/flexlm/current/testsuite/z_alt1.lic:/u15/flexlm/current/testsuite/z_alt2.lic:
+
+   aix4gsi: license server UP (MASTER) v8.4
+
+Vendor daemon status (on aix4gsi):
+
+      demo: UP v8.4
+     demof: UP v8.4
+    demof2: The desired vendor daemon is down (-97,29)
+
+Feature usage info:
+
+Users of alt:  (Total of 9 licenses available)
+
+Users of g1:  (Error: 9 licenses, unsupported by licensed server)
+
+Users of g2:  (Error: 9 licenses, unsupported by licensed server)
+
+Users of node-locked-counted:  (Total of 1 license available)
+
+Users of internet-hostid:  (Total of 1 license available)
+
+Users of good_plat:  (Total of 1 license available)
+
+Users of dongle1:  (Total of 1 license available)
+
+Users of f0:  (Uncounted, node-locked)
+
+Users of f1:  (Total of 9 licenses available)
+
+  "f1" v1.05, vendor: demo
+  nodelocked license, locked to hostid "12345678", or NOTHING (hostid=ANY)
+
+    daniel aix4gsi /dev/pts/0 (v1.0) (aix4gsi/27000 101), start Wed 1/9 19:01
+
+Users of f2:  (Total of 9 licenses available)
+
+Users of f3:  (Total of 9 licenses available)
+
+Users of f4:  (Total of 9 licenses available)
+
+Users of f5:  (Total of 4 licenses available)
+
+Users of f7:  (Error: 9 licenses, unsupported by licensed server)
+
+Users of f8:  (Error: 9 licenses, unsupported by licensed server)
+
+Users of f9:  (Total of 9 licenses available)
+
+Users of f15-1a:  (Total of 9 licenses available)
+
+Users of f15-1b:  (Uncounted, node-locked)
+
+Users of f15-2a:  (Uncounted, node-locked)
+
+Users of f15-2b:  (Total of 9 licenses available)
+
+Users of f16-1: Cannot get users of f16-1: No such feature exists (-5,222)
+Users of f18-1:  (Total of 3 licenses available)
+
+Users of f18-2:  (Total of 3 licenses available)
+
+Users of f18-3:  (Total of 3 licenses available)
+
+Users of f18-4:  (Total of 3 licenses available)
+
+Users of f18-5:  (Total of 3 licenses available)
+
+Users of f18-6:  (Total of 3 licenses available)
+
+Users of f18-7:  (Total of 3 licenses available)
+
+  "f18-7" v1.05, vendor: demo
+  floating license
+
+	3 RESERVATIONs for INTERNET 10.10.40.48 (aix4gsi/27000)
+
+Users of f18-8:  (Total of 3 licenses available)
+
+  "f18-8" v1.05, vendor: demo
+  floating license
+
+	3 RESERVATIONs for INTERNET 192.156.100.100 (aix4gsi/27000)
+
+Users of f21:  (Total of 9 licenses available)
+
+Users of f22:  (Total of 2 licenses available)
+
+Users of f28:  (Total of 1 license available)
+
+Users of f40:  (Total of 4 licenses available)
+
+Users of user_based:  (Total of 1 license available)
+
+Users of f40-a:  (Total of 2 licenses available)
+
+Users of f97:  (Total of 3000 licenses available)
+
+Users of suite:  (Total of 1 license available)
+
+Users of pkg2:  (Total of 1 license available)
+
+Users of pkg5:  (Total of 5 licenses available)
+
+Users of pkg6comp1:  (Total of 6 licenses available)
+
+Users of pkg6comp2:  (Total of 8 licenses available)
+
+Users of pkg7comp1:  (Total of 4 licenses available)
+
+Users of pkg7:  (Total of 2 licenses available)
+
+Users of pkg7comp2:  (Total of 4 licenses available)
+
+Users of pkg8comp1:  (Total of 6 licenses available)
+
+Users of pkg8comp2:  (Total of 6 licenses available)
+
+Users of pkg9comp1:  (Total of 4 licenses available)
+
+Users of pkg9:  (Total of 2 licenses available)
+
+Users of pkg9comp2:  (Total of 4 licenses available)
+
+Users of pkg10comp1:  (Total of 4 licenses available)
+
+Users of pkg15:  (Total of 2 licenses available)
+
+Users of pkg16:  (Total of 1 license available)
+
+Users of pkg16comp1:  (Total of 1 license available)
+
+Users of overdraft_22:  (Total of 5 licenses available)
+
+Users of dup_19_1:  (Total of 1 license available)
+
+Users of dup_19_2:  (Total of 1 license available)
+
+Users of dup_19_3:  (Total of 1 license available)
+
+Users of dup_19_4:  (Total of 1 license available)
+
+Users of dup_19_5:  (Total of 1 license available)
+
+Users of f36:  (Total of 3 licenses available)
+
+Users of f36-1:  (Total of 2 licenses available)
+
+Users of f6:  (Total of 4 licenses available)
+
+Users of f29:  (Total of 1 license available)
+
+Users of bug1304_1:  (Total of 1 license available)
+
+Users of bug1304_2:  (Total of 1 license available)
+
+Users of vdhostid:  (Total of 1 license available)
+
+Users of vdhostid2:  (Total of 1 license available)
+
+Users of vdhostid3:  (Total of 1 license available)
+
+Users of vdhostid3_1:  (Total of 1 license available)
+
+Users of vdhostid4:  (Total of 1 license available)
+
+Users of vdhostid5:  (Uncounted, node-locked)
+
+Users of idsernum1-1:  (Uncounted, node-locked)
+
+Users of idsernum1-2:  (Uncounted, node-locked)
+
+Users of idsernum2-1:  (Uncounted, node-locked)
+
+Users of idsernum2-2:  (Total of 1 license available)
+
+Users of policy_restrictive:  (Total of 1 license available)
+
+Users of policy_lenient:  (Total of 1 license available)
+
+Users of policy_failsafe:  (Total of 1 license available)
+
+Users of badvdhostid:  (Total of 1 license available)
+
+Users of supersede3:  (Total of 1 license available)
+
+Users of supersede:  (Total of 1 license available)
+
+Users of bug1652:  (Total of 2 licenses available)
+
+  "bug1652" v0.5, vendor: demo
+  floating license
+
+	1 RESERVATION for USER nouser (aix4gsi/27000)
+
+  "bug1652" v1.0, vendor: demo
+  floating license
+
+	1 RESERVATION for USER daniel (aix4gsi/27000)
+
+Users of platform:  (Total of 1 license available)
+
+Users of max:  (Total of 3 licenses available)
+
+Users of ser_num:  (Total of 1 license available)
+
+Users of euop3:  (Total of 1 license available)
+
+  "euop3" v1.0, vendor: demo
+  floating license
+
+	1 RESERVATION for USER daniel (aix4gsi/27000)
+
+Users of euop4:  (Total of 1 license available)
+
+  "euop4" v1.0, vendor: demo
+  floating license
+
+	1 RESERVATION for USER notme (aix4gsi/27000)
+
+Users of pathtest1:  (Total of 2 licenses available)
+
+Users of p1981:  (Total of 2 licenses available)
+
+Users of p1981_2:  (Total of 1 license available)
+
+Users of p2493:  (Total of 1 license available)
+
+  "p2493" v1.0, vendor: demo
+  floating license
+
+	1 RESERVATION for USER daniel (aix4gsi/27000)
+
+Users of noprevfeat:  (Uncounted, node-locked)
+
+Users of p2781:  (Uncounted, node-locked)
+
+Users of bad_domain:  (Uncounted, node-locked)
+
+Users of bug9999:  (Total of 2 licenses available)
+
+Users of bug3188:  (Total of 2 licenses available)
+
+Users of opt_s1:  (Total of 1 license available)
+
+Users of opt_c1:  (Total of 2 licenses available)
+
+Users of opt_c1_1:  (Total of 2 licenses available)
+
+Users of opt_s1_1:  (Total of 1 license available)
+
+Users of opt_s2:  (Total of 2 licenses available)
+
+Users of opt_s3:  (Total of 2 licenses available)
+
+Users of sort1:  (Total of 1 license available)
+
+Users of sort2:  (Total of 1 license available)
+
+Users of sort4:  (Total of 1 license available)
+
+Users of sort5:  (Total of 1 license available)
+
+Users of y2k1:  (Error: 1 licenses, unsupported by licensed server)
+
+Users of y2k2:  (Error: 1 licenses, unsupported by licensed server)
+
+Users of y2k3:  (Error: 1 licenses, unsupported by licensed server)
+
+Users of y2k4:  (Error: 1 licenses, unsupported by licensed server)
+
+Users of y2k5:  (Total of 1 license available)
+
+Users of outfilter:  (Total of 1 license available)
+
+Users of key2:  (Total of 1 license available)
+
+Users of key3:  (Total of 1 license available)
+
+Users of intelid:  (Total of 1 license available)
+
+Users of oldkey:  (Total of 1 license available)
+
+Users of sign:  (Total of 1 license available)
+
+Users of p4807:  (Total of 1 license available)
+
+Users of p4257:  (Total of 3 licenses available)
+
+Users of bad_user_based:  (Total of 1 license available)
+
+Users of p4888:  (Total of 1 license available)
+
+Users of àßçÐfghijklmñ:  (Total of 1 license available)
+
+Users of 8bit:  (Total of 1 license available)
+
+Users of P5423:  (Total of 1 license available)
+
+Users of colon:test:  (Total of 1 license available)
+
+  "colon:test" v1.0, vendor: demo
+  floating license
+
+	1 RESERVATION for USER daniel (aix4gsi/27000)
+
+Users of borrowfail:  (Total of 1 license available)
+
+Users of borrowok:  (Total of 1 license available)
+
+Users of lowwater:  (Total of 3 licenses available)
+
+Users of borrow2:  (Total of 2 licenses available)
+
+Users of bundle:  (Total of 2 licenses available)
+
+Users of RationalSuiteEnterprise12345:  (Total of 1 license available)
+
+Users of ZYBIS12345678:  (Total of 5 licenses available)
+
+Users of p5866:  (Total of 900 licenses available)
+
+Users of p5923:  (Total of 1 license available)
+
+Users of p5910:  (Total of 1 license available)
+
+Users of v8dup:  (Total of 2 licenses available)
+
+Users of e1:  (Error: 9 licenses, unsupported by licensed server)
+
+Users of badcodefeat:  (Error: 1 licenses, unsupported by licensed server)
+
+Users of P5552:  (Uncounted, node-locked)
+
+Users of P5552_sign:  (Uncounted, node-locked)
+
+Users of pkg12comp1:  (Uncounted, node-locked)
+
+Users of p5203c1:  (Total of 10 licenses available)
+
+Users of p5203c2:  (Total of 10 licenses available)
+
+Users of p5203c3:  (Total of 10 licenses available)
+
+Users of VDOC_GUI:  (Total of 1 license available)
+
+Users of VDOC_PROG:  (Total of 1 license available)
+
+Users of VSCRIPT:  (Total of 1 license available)
+
+Users of b1:  (Total of 2 licenses available)
+
+Users of b2:  (Total of 2 licenses available)
+
+Users of opt_c2_1:  (Total of 4 licenses available)
+
+Users of opt_c2_3:  (Total of 2 licenses available)
+
+Users of opt_c2_2:  (Total of 2 licenses available)
+
+Users of opt_c1_2:  (Total of 1 license available)
+
+Users of opt_c2:  (Total of 1 license available)
+
+Users of euop4c1:  (Total of 1 license available)
+
+  "euop4c1" v1.0, vendor: demo
+  floating license
+
+	1 RESERVATION for USER notme (aix4gsi/27000)
+
+Users of euop4c2:  (Total of 1 license available)
+
+  "euop4c2" v1.0, vendor: demo
+  floating license
+
+	1 RESERVATION for USER notme (aix4gsi/27000)
+
+Users of euop3c1:  (Total of 1 license available)
+
+  "euop3c1" v1.0, vendor: demo
+  floating license
+
+	1 RESERVATION for USER daniel (aix4gsi/27000)
+
+Users of euop3c2:  (Total of 1 license available)
+
+  "euop3c2" v1.0, vendor: demo
+  floating license
+
+	1 RESERVATION for USER daniel (aix4gsi/27000)
+
+Users of euop2c1:  (Total of 1 license available)
+
+  "euop2c1" v1.0, vendor: demo
+  floating license
+
+	1 RESERVATION for USER notme (aix4gsi/27000)
+
+Users of euop2c2:  (Total of 1 license available)
+
+  "euop2c2" v1.0, vendor: demo
+  floating license
+
+	1 RESERVATION for USER notme (aix4gsi/27000)
+
+Users of euop1c1:  (Total of 1 license available)
+
+  "euop1c1" v1.0, vendor: demo
+  floating license
+
+	1 RESERVATION for USER daniel (aix4gsi/27000)
+
+Users of euop1c2:  (Total of 1 license available)
+
+  "euop1c2" v1.0, vendor: demo
+  floating license
+
+	1 RESERVATION for USER daniel (aix4gsi/27000)
+
+Users of pkg19comp1:  (Total of 2 licenses available)
+
+Users of pkg18comp1:  (Total of 1 license available)
+
+Users of pkg17comp1:  (Total of 1 license available)
+
+Users of pkg16comp2:  (Total of 1 license available)
+
+Users of pkg15comp1:  (Total of 2 licenses available)
+
+Users of pkg15comp2:  (Total of 2 licenses available)
+
+Users of pkg14comp1:  (Total of 2 licenses available)
+
+Users of pkg14comp2:  (Total of 2 licenses available)
+
+Users of pkg13comp1:  (Total of 2 licenses available)
+
+Users of pkg11comp1:  (Error: 2 licenses, unsupported by licensed server)
+
+Users of pkg10comp2:  (Total of 4 licenses available)
+
+Users of pkg5comp1:  (Total of 5 licenses available)
+
+Users of pkg5comp2:  (Total of 5 licenses available)
+
+Users of pkg4comp1:  (Total of 4 licenses available)
+
+Users of pkg4comp2:  (Total of 4 licenses available)
+
+Users of pkg3comp1:  (Total of 10 licenses available)
+
+Users of pkg3comp2:  (Total of 10 licenses available)
+
+Users of pkg2comp1:  (Total of 1 license available)
+
+Users of pkg2comp2:  (Total of 1 license available)
+
+Users of pkg1comp1:  (Total of 4 licenses available)
+
+Users of pkg1comp2:  (Total of 4 licenses available)
+
+Users of comp3:  (Total of 2 licenses available)
+
+Users of comp1:  (Total of 1 license available)
+
+Users of comp2:  (Total of 1 license available)
+
+EXPECT_KEYWORD stat3 _______________________________________
+lmutil - Copyright (C) 1989-2003 Macrovision Corporation
+Flexible License Manager status on Wed 1/9/2003 19:01
+
+Users of f1:  (Total of 9 licenses available)
+
+  "f1" v1.05, vendor: demo
+  nodelocked license, locked to hostid "12345678", or NOTHING (hostid=ANY)
+
+    daniel aix4gsi /dev/pts/0 (v1.0) (aix4gsi/27000 101), start Wed 1/9 19:01
+
+EXPECT_KEYWORD stat4 _______________________________________
+lmutil - Copyright (C) 1989-2003 Macrovision Corporation
+Flexible License Manager status on Wed 1/9/2003 19:01
+
+Error getting feature, No such feature exists (-5,357)
+EXPECT_KEYWORD lmremove1 _______________________________________
+lmremove - Copyright (C) 1989-2003 Macrovision Corporation
+EXPECT_KEYWORD stat5 _______________________________________
+lmutil - Copyright (C) 1989-2003 Macrovision Corporation
+Flexible License Manager status on Wed 1/9/2003 19:01
+
+Users of f1:  (Total of 9 licenses available)
+
+EXPECT_KEYWORD lmremove2 _______________________________________
+lmremove - Copyright (C) 1989-2003 Macrovision Corporation
+EXPECT_KEYWORD lmremove3 _______________________________________
+lmremove - Copyright (C) 1989-2003 Macrovision Corporation
+lmremove: lmremove request before the minimum lmremove interval (-64,200)
+EXPECT_KEYWORD lmremove4 _______________________________________
+lmremove - Copyright (C) 1989-2003 Macrovision Corporation
+lmremove: user/host/display not found
+EXPECT_KEYWORD stat6 _______________________________________
+lmutil - Copyright (C) 1989-2003 Macrovision Corporation
+Flexible License Manager status on Wed 1/9/2003 19:02
+
+Users of f1:  (Total of 9 licenses available)
+
+EXPECT_KEYWORD diag _______________________________________
+lmdiag - Copyright (C) 1989-2003 Macrovision Corporation
+FLEXlm diagnostics on Wed 1/9/2003 19:02
+
+-----------------------------------------------------
+License file: ./alt.2.lic
+-----------------------------------------------------
+No licenses for f3 in this license file
+-----------------------------------------------------
+License file: ./alt3.lic
+-----------------------------------------------------
+No licenses for f3 in this license file
+-----------------------------------------------------
+License file: ./package.lic
+-----------------------------------------------------
+No licenses for f3 in this license file
+-----------------------------------------------------
+License file: ./servtest.lic
+-----------------------------------------------------
+ERRORS: ./servtest.lic:line 75:Feature has expired
+License path:  ./alt.2.lic:./alt3.lic:./package.lic:./servtest.lic:
+   ./z_alt1.lic:./z_alt2.lic
+FLEXlm error:  -10,227
+For further information, refer to the FLEXlm End User Manual,
+available at "www.globetrotter.com".
+./servtest.lic:line 560:Feature has expired
+License path:  ./alt.2.lic:./alt3.lic:./package.lic:./servtest.lic:
+   ./z_alt1.lic:./z_alt2.lic
+FLEXlm error:  -10,227
+For further information, refer to the FLEXlm End User Manual,
+available at "www.globetrotter.com".
+./servtest.lic:line 562:Feature has expired
+License path:  ./alt.2.lic:./alt3.lic:./package.lic:./servtest.lic:
+   ./z_alt1.lic:./z_alt2.lic
+FLEXlm error:  -10,227
+For further information, refer to the FLEXlm End User Manual,
+available at "www.globetrotter.com".
+./servtest.lic:line 564:Feature has expired
+License path:  ./alt.2.lic:./alt3.lic:./package.lic:./servtest.lic:
+   ./z_alt1.lic:./z_alt2.lic
+FLEXlm error:  -10,227
+For further information, refer to the FLEXlm End User Manual,
+available at "www.globetrotter.com".
+./servtest.lic:line 566:Feature has expired
+License path:  ./alt.2.lic:./alt3.lic:./package.lic:./servtest.lic:
+   ./z_alt1.lic:./z_alt2.lic
+FLEXlm error:  -10,227
+For further information, refer to the FLEXlm End User Manual,
+available at "www.globetrotter.com".
+"f3" v1.05, vendor: demo
+  License server: aix4gsi
+  floating license  expires: 1-jan-2020
+
+This license can be checked out
+-----------------------------------------------------
+-----------------------------------------------------
+License file: ./z_alt1.lic
+-----------------------------------------------------
+"f3" v1.06, vendor: demo
+  License server: aix4gsi
+  floating license  expires: 1-jan-2020
+
+This license can be checked out
+-----------------------------------------------------
+"f3" v1.05, vendor: demo
+  License server: aix4gsi
+  floating license  expires: 2-jan-2020
+
+This license can be checked out
+-----------------------------------------------------
+-----------------------------------------------------
+License file: ./z_alt2.lic
+-----------------------------------------------------
+No licenses for f3 in this license file
+EXPECT_KEYWORD uts100 _______________________________________
+lmdiag - Copyright (C) 1989-2003 Macrovision Corporation
+FLEXlm diagnostics on Wed 1/9/2003 19:02
+
+EXPECT_KEYWORD uts101 _______________________________________
+lmreread - Copyright (C) 1989-2003 Macrovision Corporation
+lmreread successful
+EXPECT_KEYWORD uts102 _______________________________________
+lmutil - Copyright (C) 1989-2003 Macrovision Corporation
+Flexible License Manager status on Wed 1/9/2003 19:02
+
+NOTE: lmstat -i does not give information from the server,
+      but only reads the license file.  For this reason, 
+      lmstat -a is recommended instead.
+
+Feature			Version	  # licenses    Expires		Vendor
+_______			_______	  __________    _______		______
+f1                     	1.05	      9   	1-jan-2020	demo
+EXPECT_KEYWORD uts103 _______________________________________
+lmutil - Copyright (C) 1989-2003 Macrovision Corporation
+Flexible License Manager status on Wed 1/9/2003 19:02
+
+License server status: 27000@aix4gsi
+    License file(s) on aix4gsi: /u15/flexlm/current/testsuite/alt.2.lic:/u15/flexlm/current/testsuite/alt3.lic:/u15/flexlm/current/testsuite/package.lic:/u15/flexlm/current/testsuite/servtest.lic:/u15/flexlm/current/testsuite/z_alt1.lic:/u15/flexlm/current/testsuite/z_alt2.lic:
+
+   aix4gsi: license server UP (MASTER) v8.4
+
+Vendor daemon status (on aix4gsi):
+
+      demo: UP v8.4
+     demof: UP v8.4
+    demof2: The desired vendor daemon is down (-97,29)
+
+Feature usage info:
+
+Users of f3:  (Total of 9 licenses available)
+
+  "f3" v1.05, vendor: demo
+  floating license
+
+    daniel aix4gsi /dev/pts/0 (v1.0) (aix4gsi/27000 103), start Wed 1/9 19:02
+
+Users of f16-1: Cannot get users of f16-1: No such feature exists (-5,222)
+Users of f18-7:  (Total of 3 licenses available)
+
+  "f18-7" v1.05, vendor: demo
+  floating license
+
+	3 RESERVATIONs for INTERNET 10.10.40.48 (aix4gsi/27000)
+
+Users of f18-8:  (Total of 3 licenses available)
+
+  "f18-8" v1.05, vendor: demo
+  floating license
+
+	3 RESERVATIONs for INTERNET 192.156.100.100 (aix4gsi/27000)
+
+Users of bug1652:  (Total of 2 licenses available)
+
+  "bug1652" v0.5, vendor: demo
+  floating license
+
+	1 RESERVATION for USER nouser (aix4gsi/27000)
+
+  "bug1652" v1.0, vendor: demo
+  floating license
+
+	1 RESERVATION for USER daniel (aix4gsi/27000)
+
+Users of euop3:  (Total of 1 license available)
+
+  "euop3" v1.0, vendor: demo
+  floating license
+
+	1 RESERVATION for USER daniel (aix4gsi/27000)
+
+Users of euop4:  (Total of 1 license available)
+
+  "euop4" v1.0, vendor: demo
+  floating license
+
+	1 RESERVATION for USER notme (aix4gsi/27000)
+
+Users of p2493:  (Total of 1 license available)
+
+  "p2493" v1.0, vendor: demo
+  floating license
+
+	1 RESERVATION for USER daniel (aix4gsi/27000)
+
+Users of colon:test:  (Total of 1 license available)
+
+  "colon:test" v1.0, vendor: demo
+  floating license
+
+	1 RESERVATION for USER daniel (aix4gsi/27000)
+
+Users of euop4c1:  (Total of 1 license available)
+
+  "euop4c1" v1.0, vendor: demo
+  floating license
+
+	1 RESERVATION for USER notme (aix4gsi/27000)
+
+Users of euop4c2:  (Total of 1 license available)
+
+  "euop4c2" v1.0, vendor: demo
+  floating license
+
+	1 RESERVATION for USER notme (aix4gsi/27000)
+
+Users of euop3c1:  (Total of 1 license available)
+
+  "euop3c1" v1.0, vendor: demo
+  floating license
+
+	1 RESERVATION for USER daniel (aix4gsi/27000)
+
+Users of euop3c2:  (Total of 1 license available)
+
+  "euop3c2" v1.0, vendor: demo
+  floating license
+
+	1 RESERVATION for USER daniel (aix4gsi/27000)
+
+Users of euop2c1:  (Total of 1 license available)
+
+  "euop2c1" v1.0, vendor: demo
+  floating license
+
+	1 RESERVATION for USER notme (aix4gsi/27000)
+
+Users of euop2c2:  (Total of 1 license available)
+
+  "euop2c2" v1.0, vendor: demo
+  floating license
+
+	1 RESERVATION for USER notme (aix4gsi/27000)
+
+Users of euop1c1:  (Total of 1 license available)
+
+  "euop1c1" v1.0, vendor: demo
+  floating license
+
+	1 RESERVATION for USER daniel (aix4gsi/27000)
+
+Users of euop1c2:  (Total of 1 license available)
+
+  "euop1c2" v1.0, vendor: demo
+  floating license
+
+	1 RESERVATION for USER daniel (aix4gsi/27000)
+
+EXPECT_KEYWORD uts104 _______________________________________
+lmutil - Copyright (C) 1989-2003 Macrovision Corporation
+Flexible License Manager status on Wed 1/9/2003 19:02
+
+DAEMONs in configuration file: demo demof demof2 
+Users of features served by demof:
+Users of f8:  (Error: 9 licenses, unsupported by licensed server)
+
+Users of f6:  (Total of 4 licenses available)
+
+EXPECT_KEYWORD uts105 _______________________________________
+lmutil - Copyright (C) 1989-2003 Macrovision Corporation
+Flexible License Manager status on Wed 1/9/2003 19:02
+
+License server status: 27000@aix4gsi
+    License file(s) on aix4gsi: /u15/flexlm/current/testsuite/alt.2.lic:/u15/flexlm/current/testsuite/alt3.lic:/u15/flexlm/current/testsuite/package.lic:/u15/flexlm/current/testsuite/servtest.lic:/u15/flexlm/current/testsuite/z_alt1.lic:/u15/flexlm/current/testsuite/z_alt2.lic:
+
+   aix4gsi: license server UP (MASTER) v8.4
+
+Vendor daemon status (on aix4gsi):
+
+      demo: UP v8.4
+     demof: UP v8.4
+    demof2: The desired vendor daemon is down (-97,29)
+
+EXPECT_KEYWORD uts106 _______________________________________
+lmutil - Copyright (C) 1989-2003 Macrovision Corporation
+Flexible License Manager status on Wed 1/9/2003 19:02
+
+License server status: 27000@aix4gsi
+    License file(s) on aix4gsi: /u15/flexlm/current/testsuite/alt.2.lic:/u15/flexlm/current/testsuite/alt3.lic:/u15/flexlm/current/testsuite/package.lic:/u15/flexlm/current/testsuite/servtest.lic:/u15/flexlm/current/testsuite/z_alt1.lic:/u15/flexlm/current/testsuite/z_alt2.lic:
+
+   aix4gsi: license server UP (MASTER) v8.4
+
+Vendor daemon status (on aix4gsi):
+
+      demo: UP v8.4
+     demof: UP v8.4
+    demof2: The desired vendor daemon is down (-97,29)
+
+EXPECT_KEYWORD 19.log _______________________________________
+lmborrow - Copyright (C) 1989-2003 Macrovision Corporation
+Vendor     Feature                             Expiration
+______     ________                            __________
+
+demo       f15-1a                              9-Jan-02 23:59
+EXPECT_KEYWORD 19.3.log _______________________________________
+lmutil - Copyright (C) 1989-2003 Macrovision Corporation
+Flexible License Manager status on Wed 1/9/2003 19:02
+
+Users of f15-1a:  (Total of 9 licenses available)
+
+  "f15-1a" v1.05, vendor: demo
+  floating license
+
+    daniel aix4gsi /dev/pts/0 (v1.0) (aix4gsi/27000 201), start Wed 1/9 19:02 (linger: 17820)
+
+EXPECT_KEYWORD 19.1.log _______________________________________
+lmborrow - Copyright (C) 1989-2003 Macrovision Corporation
+Setting LM_BORROW=9-jan-2003:demo:9-jan-2003
+
+Warning:  Once checked out and borrowed,
+          licenses cannot be returned early.
+          Use 'lmborrow -clear' to undo if desired.
+EXPECT_KEYWORD 20 _______________________________________
+lmswitch - Copyright (C) 1989-2003 Macrovision Corporation
+EXPECT_KEYWORD lmdown _______________________________________
+lmdown - Copyright (C) 1989-2003 Macrovision Corporation
+
+   Port@Host            Vendors
+1) 27000@aix4gsi        demo demof demof2 
+    1 FLEXlm License Server shut down
+EXPECT_KEYWORD 21 _______________________________________
+19:02:44 (lmgrd) -----------------------------------------------
+19:02:44 (lmgrd)   Please Note:
+19:02:44 (lmgrd) 
+19:02:44 (lmgrd)   This log is intended for debug purposes only.
+19:02:44 (lmgrd)   There are many details in licensing policies
+19:02:44 (lmgrd)   that are not reported in the information logged
+19:02:44 (lmgrd)   here, so if you use this log file for any kind
+19:02:44 (lmgrd)   of usage reporting you will generally produce
+19:02:44 (lmgrd)   incorrect results.
+19:02:44 (lmgrd) 
+19:02:44 (lmgrd) -----------------------------------------------
+19:02:44 (lmgrd) 
+19:02:44 (lmgrd) 
+19:02:44 (lmgrd) For Beta Test Use Only
+19:02:44 (lmgrd) FLEXlm (v8.4a) started on aix4gsi (IBM RS/6000) (1/9/2003)
+19:02:44 (lmgrd) FLEXlm Copyright 1988-2003, Macrovision Corporation
+19:02:44 (lmgrd) US Patents 5,390,297 and 5,671,412.
+19:02:44 (lmgrd) World Wide Web:  http://www.globetrotter.com
+19:02:44 (lmgrd) License file(s): p6177.dat
+19:02:44 (lmgrd) lmgrd tcp-port 27000
+19:02:44 (lmgrd) Starting vendor daemons ... 
+19:02:44 (lmgrd) Started demo (internet tcp_port 37749 pid 14874)
+19:02:44 (demo) FLEXlm version 8.1D
+19:02:44 (demo) For Beta Test Use Only
+19:02:44 (demo) 
+19:02:44 (demo) 
+19:02:44 (demo) 		FLEXIBLE LICENSE MANAGER DEMO VERSION
+19:02:44 (demo) 
+19:02:44 (demo) COPYRIGHT (C) 1988-2001 by Macrovision Corporation. 
+19:02:44 (demo) This software has been provided pursuant to a 
+19:02:44 (demo) License Agreement containing restrictions on its use. 
+19:02:44 (demo)  This software contains confidential information of 
+19:02:44 (demo) Macrovision Corporation. and is protected by copyright 
+19:02:44 (demo) and other law.  It may not be copied or distributed 
+19:02:44 (demo) in any form or medium, disclosed to third parties, 
+19:02:44 (demo) reverse engineered or used in any manner not provided 
+19:02:44 (demo) for in said License Agreement except with the prior 
+19:02:44 (demo) written authorization from Macrovision Corporation, 
+19:02:44 (demo) Inc.
+
+19:02:44 (demo) Invalid license key (inconsistent authentication code)
+19:02:44 (demo) 	==>FEATURE f2 demo 1.0 permanent 4 SIGN="0047 FA1A 9979 11CE F3 [...]
+19:02:44 (demo) Server started on aix4gsi for:	f1		
+19:02:45 (lmgrd) Forced shutdown requested
+19:02:46 (lmgrd) SHUTDOWN request from daniel at node aix4gsi
+
+19:02:46 (lmgrd) lmgrd will now shut down all the vendor daemons
+
+19:02:46 (lmgrd) Shutting down demo
+19:02:46 ((demo)) checking borrowed
+19:02:46 (lmgrd) Shut down FLEXlm demo server on node aix4gsi
+19:02:46 (demo) daemon shutdown requested - shutting down

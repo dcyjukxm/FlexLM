@@ -1,0 +1,491 @@
+<html>
+
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<meta name="GENERATOR" content="Microsoft FrontPage 5.0">
+<meta name="TEMPLATEBASE" content="Users Guide Template">
+<meta name="LASTUPDATED" content="10/01/01 08:52:21">
+<title>Chapter 2 </title>
+</head>
+
+<body link="#0066CC" vlink="#800080" text="#000000" alink="#FF0000" bgcolor="#FFFFFF"
+background="graphics/backgrnd.gif">
+
+<p><img src="graphics/flexlmScript.gif" align="left"
+alt="FLEXlm icon"> </p>
+
+<table width="331" border="0" align="right" cellpadding="0" cellspacing="0">
+  <tr>
+    <td><a href="TOC.htm#TOC"><img src="graphics/navtoc.gif" width="84" height="23"
+    border="0" alt="TOC"> </a></td>
+    <td><a href="chap1.htm"><img src="graphics/navprev.gif" width="80" height="23"
+    border="0" alt="PREV"> </a></td>
+    <td><a href="IX.htm"><img src="graphics/navnext.gif" width="83" height="23"
+    border="0" alt="NEXT"> </a></td>
+    <td><a href="IX.htm"><img src="graphics/navidx.gif" width="84" height="23"
+    border="0" alt="INDEX"> </a></td>
+  </tr>
+</table>
+
+<p><br clear="all">
+</p>
+
+<hr align="left">
+
+<blockquote>
+<h2>
+  <a name="913363"> </a>Chapter 2 
+</h2>
+
+
+<h2>
+  <a name="913367"> </a>Using FLEX<em>lm</em> Ultralite
+</h2><hr>
+
+
+<h3>
+  <a name="913371"> </a>2.1	 FLEX<em>lm</em> Ultralite Vendor Name, Vendor Keys, and Encryption Seeds
+</h3>
+
+
+<p>
+  <a name="910795"> </a>To use FLEX<em>lm</em> Ultralite you must have already been assigned a vendor name and vendor keys by GLOBEtrotter and have already chosen encryption seeds.
+</p>
+
+
+<p>
+  <a name="910797"> </a>If you already have purchased FLEX<em>lm</em> for another platform, you should use your same FLEX<em>lm</em> vendor name, vendor keys, and encryption seeds (one and two) with FLEX<em>lm</em> Ultralite.
+</p>
+
+
+<p>
+  <a name="910799"> </a>If you have not purchased FLEX<em>lm</em>, you must arrange to receive a vendor name and vendor keys from GLOBEtrotter. You must also choose two encryption seeds. These are 32-bit numbers that you make up.
+</p>
+
+
+<p>
+  <a name="910801"> </a>To install your vendor name, vendor keys and encryption seeds, edit the header file <code>lm_code.h</code> included in the FLEX<em>lm</em> Ultralite distribution. Perform the following steps after opening <code>lm_code.h</code>:
+</p>
+
+<ul>
+  <li ><a name="910803"> </a>Replace the vendor name <code>demo</code> in the <code>VENDOR_NAME</code> line with your vendor name:
+  <dl>
+     <dt> <a name="910805"> </a><CODE>#define VENDOR_NAME "demo"</CODE>
+  </dl>
+  <li ><a name="917124"> </a>Modify the five <code>VENDOR_KEY</code> lines with the values of your five vendor keys:
+  <dl>
+     <dt> <a name="917125"> </a><CODE>#define VENDOR_KEY1 0x0</CODE>
+     <dt> <a name="917126"> </a><CODE>#define VENDOR_KEY2 0x0</CODE>
+     <dt> <a name="917127"> </a><CODE>#define VENDOR_KEY3 0x0</CODE>
+     <dt> <a name="917128"> </a><CODE>#define VENDOR_KEY4 0x0</CODE>
+     <dt> <a name="917129"> </a><CODE>#define VENDOR_KEY5 0x0</CODE>
+  </dl>
+  <li ><a name="913813"> </a>Modify the first two <code>ENCRYPTION_SEED</code> lines with encryption seeds one and two that you make up:
+  <dl>
+     <dt> <a name="910809"> </a><CODE>#define ENCRYPTION_SEED1 0x87654321</CODE>
+     <dt> <a name="910810"> </a><CODE>#define ENCRYPTION_SEED2 0x12345678</CODE>
+  </dl>
+</ul>
+
+<p>
+  <a name="910812"> </a>Keep this modified <code>lm_code.h</code> file and your encryption seeds secret.
+</p>
+
+
+<h3>
+  <a name="910823"> </a>2.2	 Hostids
+</h3>
+
+
+<p>
+  <a name="916010"> </a>FLEX<em>lm</em> Ultralite does not use any predefined hostid types; therefore, you must define all hostids. While there is no limit on the type of hostids that can be created, the following list suggests some approaches and that can be used for FLEX<em>lm</em> Ultralite hostids:
+</p>
+
+
+<p>
+  <a name="916139"> </a>
+
+<table border="3">
+  <caption></caption>
+  <tr>
+    <th colspan=1 rowspan=3><a name="916371"> </a>Hostid
+</th>
+    <th colspan=1 rowspan=3><a name="916373"> </a>Considerations:
+</th>
+    <th><a name="916375"> </a>Software 
+Development
+</th>
+  </tr>
+  <tr>
+    <th><a name="916381"> </a>Administration
+</th>
+  </tr>
+  <tr>
+    <th><a name="916387"> </a>Security
+</th>
+  </tr>
+  <tr>
+    <td colspan=1 rowspan=3><a name="916486"> </a>Unique identifier for each licensed device:<br><a name="916488"> </a>You are responsible for programmatically <br>determining this unique identifier at <br>runtime, so you can pass it to <font  face="Arial" size="2">lc_checkit()</font>.<br></td>
+    <td colspan=2 rowspan=1><a name="916530"> </a>Requires that your application determine <br>the unique identifier at runtime and pass it <br>as the fourth argument to <font  face="Arial" size="2">lc_checkit()</font><font  face="Arial" size="2">. </font>Also <br>requires that you make the means to <br>determine the device's identifier available <br>to your customer.<br></td>
+  </tr>
+  <tr>
+    <td colspan=2 rowspan=1><a name="916534"> </a>Requires administration by both you and <br>your customer. Each device must have a <br>unique license key generated for it. Your <br>customer must communicate each device's <br>unique identifier to you so that you can <br>generate the license key for them.<br></td>
+  </tr>
+  <tr>
+    <td colspan=2 rowspan=1><a name="916538"> </a>Provides maximum security. Prevents <br>license keys from being copied or installed <br>multiple times onto other, unlicensed <br>devices.<br></td>
+  </tr>
+  <tr>
+    <td colspan=1 rowspan=3><a name="916495"> </a>Unique identifier for each licensed user:<br><a name="916497"> </a>You are responsible for programmatically <br>acquiring the user's identifier at runtime. <br></td>
+    <td colspan=2 rowspan=1><a name="916542"> </a>Requires that your application determine <br>the unique identifier at runtime and pass it <br>as the fourth argument to <font  face="Arial" size="2">lc_checkit()</font>. <br></td>
+  </tr>
+  <tr>
+    <td colspan=2 rowspan=1><a name="916546"> </a>Requires administration by both you and <br>your customer. Each user must have a <br>unique license key generated for it. Your <br>customer must communicate each user's <br>unique identifier to you so that you can <br>generate the license key for them.<br></td>
+  </tr>
+  <tr>
+    <td colspan=2 rowspan=1><a name="916550"> </a>Allows license keys to be copied or <br>installed multiple times onto all other <br>devices. Maximum security is possible if <br>the nature of the device makes it infeasible <br>to copy license keys, copy user identifiers, <br>or install license keys multiple times on <br>other devices.<br></td>
+  </tr>
+  <tr>
+    <td colspan=1 rowspan=3><a name="916505"> </a>An identifier for a class of devices:<br><a name="916506"> </a>For example, a model number that is <br>unique for a class of devices, but not <br>unique for each device. You are <br>responsible for programmatically <br>determining this unique identifier at <br>runtime.<br></td>
+    <td colspan=2 rowspan=1><a name="916554"> </a>Requires that your application determine <br>the unique identifier at runtime and pass it <br>as the fourth argument to <font  face="Arial" size="2">lc_checkit()</font><font  face="Arial" size="2">. </font>Also <br>requires<font  face="Arial" size="2"> </font>that you make the means to <br>determine the device's identifier available <br>to your customer<font  face="Arial" size="2">.<br></font></td>
+  </tr>
+  <tr>
+    <td colspan=2 rowspan=1><a name="916558"> </a>Minimizes administration overhead by <br>requiring few unique licenses.<br></td>
+  </tr>
+  <tr>
+    <td colspan=2 rowspan=1><a name="916562"> </a>Allows license keys to be copied or <br>installed multiple times onto other devices <br>of the same class or model. Maximum <br>security is possible if the nature of the <br>device makes it infeasible to copy license <br>keys; otherwise, multiple uses from the <br>same license key are possible.<br></td>
+  </tr>
+  <tr>
+    <td colspan=1 rowspan=3><a name="916513"> </a>An identifier for a class of users:<br><a name="916515"> </a>You are responsible for programmatically <br>acquiring the class's identifier at runtime.<br><a name="916516"> </a><br></td>
+    <td colspan=2 rowspan=1><a name="916566"> </a>Requires that your application determine <br>the unique identifier at runtime and pass it <br>as the fourth argument to <font  face="Arial" size="2">lc_checkit()</font><font  face="Arial" size="2">.<br></font></td>
+  </tr>
+  <tr>
+    <td colspan=2 rowspan=1><a name="916570"> </a>Minimizes administration overhead by <br>requiring fewer unique licenses.<br></td>
+  </tr>
+  <tr>
+    <td colspan=2 rowspan=1><a name="916574"> </a>Allows license keys to be copied or <br>installed multiple times onto all other <br>devices. Maximum security is possible if <br>the nature of the device makes it infeasible <br>to copy license keys, copy a class-of-user <br>identifier, or install license keys multiple <br>times on other devices.<br></td>
+  </tr>
+  <tr>
+    <td colspan=1 rowspan=3><a name="916522"> </a>One identifier for all models, all devices, <br>and all users:<br><a name="916523"> </a>This is the simplest approach. The <br>identifier can be a fixed string internally <br>known to the application.<br><a name="916524"> </a><br></td>
+    <td colspan=2 rowspan=1><a name="916578"> </a>Requires only that a fixed string be passed <br>to <font  face="Arial" size="2">lc_checkit()</font>.<br></td>
+  </tr>
+  <tr>
+    <td colspan=2 rowspan=1><a name="916582"> </a>Requires no hostid administration.<br></td>
+  </tr>
+  <tr>
+    <td colspan=2 rowspan=1><a name="916586"> </a>Allows license keys to be copied or <br>installed multiple times onto all other <br>devices. Maximum security is possible if <br>the nature of the device makes it infeasible <br>to copy license keys, or install license keys <br>multiple times on other devices.<br></td>
+  </tr>
+</table>
+
+
+
+
+</p>
+
+
+<h3>
+  <a name="916143"> </a>2.3	 FLEX<em>lm</em> Ultralite License Keys
+</h3>
+
+
+<p>
+  <a name="913729"> </a>FLEX<em>lm</em> Ultralite license keys are generated by any of the standard FLEX<em>lm</em> license generators. FLEX<em>lm</em> Ultralite does not provide any of these license generators. If you do not already have one of these license generators, contact your GLOBEtrotter sales representative. The list of license generators include:
+</p>
+
+<ul>
+  <li ><a name="913730"> </a>GT<em>licensing</em> license generator
+  <li ><a name="913731"> </a>FLEX<em>lm</em> license generator utilities: <code>genlic</code> (Windows only), <code>lmcrypt, and makekey,</code> 
+  <li ><a name="913734"> </a>Vendor-defined license generator based on the FLEX<em>lm</em> API function <font  face="Arial" size="2">lc_cryptstr()</font>
+</ul>
+
+<p>
+  <a name="913745"> </a>GT<em>licensing</em> is a product that, in addition to generating license keys, contains order entry and order fulfillment capabilities. The FLEX<em>lm</em> product contains low-level license generators: <code>lmcrypt</code>, <code>makekey</code>, <code>genlic</code> and the Flexible API function call, <font  face="Arial" size="2">lc_cryptstr()</font>.
+</p>
+
+
+<p>
+  <a name="913752"> </a>The license generator that you use for FLEX<em>lm</em> Ultralite license keys must have been created using the same vendor name, and encryption seeds (one and two) that are used by FLEX<em>lm</em>.
+</p>
+
+
+<p>
+  <a name="913756"> </a>The generator that you use must be able to generate license keys whose versions are compatible with FLEX<em>lm</em> Ultralite. See the release notes for further information regarding FLEX<em>lm</em> Ultralite license key constraints.
+</p>
+
+
+<h4>
+  <a name="910838"> </a>2.3.1	 License Key Generation
+</h4>
+
+
+<p>
+  <a name="910839"> </a>The types of license keys understood by FLEX<em>lm</em> Ultralite are limited. The FLEX<em>lm</em> license generators do not know about FLEX<em>lm</em> Ultralite's limitations; therefore, you need to ensure that FLEX<em>lm</em> Ultralite license keys are generated within its limits. Here is the <code>lmcrypt</code> template that is used for FLEX<em>lm</em> Ultralite:
+</p>
+
+<dl>  <dl>
+     <dt> <a name="910841"> </a><CODE>FEATURE <code><em>feature</em></code> <code><em>vendor</em></code> 1.0 permanent uncounted 0 \</CODE>
+    <dl>
+       <dt> <a name="910842"> </a><CODE>HOSTID=ID_STRING=<code><em>hostid</em></code></CODE>
+    </dl>
+  </dl>
+  </dl>
+<ul>
+  <li ><a name="910846"> </a>The license type must be "FEATURE" (not "INCREMENT" or "UPGRADE")
+  <li ><a name="910847"> </a><code><em>feature</em></code> can be any valid FLEX<em>lm</em> feature name; it must match the second argument passed to the<font  face="Arial" size="2"> lc_checkit() </font>function.
+  <li ><a name="911167"> </a><code><em>vendor</em></code> is the vendor name assigned by GLOBEtrotter; it must match the first argument of the <font  face="Arial" size="2">lc_checkit()</font> function.
+  <li ><a name="910849"> </a>The version must be <code>1.0</code>.
+  <li ><a name="910850"> </a>The expiration date must be <code>permanent</code> or <code>1-jan-0</code>.
+  <li ><a name="910851"> </a>The number of licenses must be <code>uncounted</code> or <code>0</code>.
+  <li ><a name="911726"> </a>The <code>0</code> after <code>uncounted</code> is a placeholder that <code>lmcrypt</code> replaces with a license key.
+  <li ><a name="910852"> </a><code><em>hostid</em></code> is any valid FLEX<em>lm</em> vendor-defined hostid; it must match the fourth argument passed to the<font  face="Arial" size="2"> lc_checkit() </font>function.
+  <li ><a name="910853"> </a>The license key must be generated within the FLEX<em>lm</em> Ultralite constraints for your particular platform; see the release notes for more details.
+</ul>
+
+<h3>
+  <a name="910855"> </a>2.4	 License Delivery
+</h3>
+
+
+<p>
+  <a name="914851"> </a>Each license line contains a license key that is created by a license generator. For example, the following <code>lmcrypt</code> license template contains a placeholder for the license key (the <code>0</code> after <code>uncounted</code>):
+</p>
+
+<dl>  <dl>
+     <dt> <a name="914855"> </a><CODE>FEATURE feature_xyz vendor_xyz 1.0 permanent uncounted \</CODE>
+     <dt> <a name="914856"> </a><CODE>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;0 HOSTID=ID_STRING=hostid_xyz</CODE>
+  </dl>
+</dl>
+<p>
+  <a name="914858"> </a>The license line created from this template by <font  face="Courier New" size="2">lmcrypt</font> then becomes:
+</p>
+
+<dl>  <dl>
+     <dt> <a name="914860"> </a><CODE>FEATURE feature_xyz vendor_xyz 1.0 permanent uncounted \</CODE>
+     <dt> <a name="914861"> </a><CODE>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ABCDEF012345 HOSTID=ID_STRING=hostid_xyz</CODE>
+  </dl>
+</dl>
+<p>
+  <a name="915031"> </a>Notice that the only difference between the license template and the license line is the replacement of the placeholder with a license key, <code>ABCDEF012345</code> in this example.
+</p>
+
+
+<p>
+  <a name="916789"> </a>In FLEX<em>lm</em>, the vendor must deliver the entire license line to its customers. However, in FLEX<em>lm</em> Ultralite, this is not the case. Only certain components of the license line need to be delivered, depending on the feature configuration supported by the FLEX<em>lm</em> Ultralite-enabled application.
+
+<table border="3">
+  <caption></caption>
+  <tr>
+    <th><a name="916860"> </a>If the FLEX<em>lm</em> Ultralite-
+enabled application 
+supports...
+</th>
+    <th><a name="916864"> </a>Necessary License 
+Components to be 
+Delivered
+</th>
+  </tr>
+  <tr>
+    <td><a name="916872"> </a>Exactly one feature name and <br>one hostid<br></td>
+    <td><a name="916880"> </a>License key<br></td>
+  </tr>
+  <tr>
+    <td><a name="916874"> </a>More than one feature name and <br>exactly one hostid<br></td>
+    <td><a name="916882"> </a>License key/feature name pair <br>for each feature name<br></td>
+  </tr>
+  <tr>
+    <td><a name="916876"> </a>Exactly one feature name and <br>more than one hostid<br></td>
+    <td><a name="916885"> </a>License key/hostid pair for each <br>hostid<br></td>
+  </tr>
+  <tr>
+    <td><a name="916878"> </a>More than one feature name and <br>more than one hostid<br></td>
+    <td><a name="916888"> </a>License key/feature name/hostid <br>triplet for each combination of <br>feature name and hostid<br></td>
+  </tr>
+</table>
+
+
+
+
+</p>
+
+
+<h3>
+  <a name="916832"> </a>2.5	 FLEX<em>lm</em> Ultralite API Definition
+</h3>
+
+
+<p>
+  <a name="910856"> </a>The FLEX<em>lm</em> Ultralite API library defines a single function named<font  face="Arial" size="2"> lc_checkit()</font>.
+</p>
+
+
+<h5>
+  <a name="911221"> </a>Syntax
+</h5>
+
+<dl>  <dl>
+     <dt> <a name="911222"> </a><CODE>#include "lmclient.h"</CODE>
+     <dt> <a name="911287"> </a><CODE>#include "lm_code.h"</CODE>
+     <dt> <a name="911223"> </a><CODE><code><em>status</em></code> = lc_checkit(<code><em>vendor, feature, license_key, hostid, code</em></code>)</CODE>
+  </dl>
+</dl>
+<h5>
+  <a name="911224"> </a>Description
+</h5>
+
+
+<p>
+  <a name="911228"> </a>Computes a license key from the <code><em>vendor</em></code>, <code><em>feature</em></code>, <code><em>hostid</em></code>, and <code><em>code</em></code> parameters and compares this computed license key with <code><em>license_key</em></code>. If the comparison is successful, <font  face="Arial" size="2">lc_checkit()</font> returns 0.
+</p>
+
+
+<p>
+  <a name="911319"> </a>
+</p>
+
+
+<h5>
+  <a name="911230"> </a>Parameters
+</h5>
+
+
+<p>
+  <a name="911240"> </a>
+
+<table border="3">
+  <caption></caption>
+  <tr>
+    <td><a name="911233"> </a><code>(const char *) <br><br></code><code><em>vendor<br></em></code></td>
+    <td><a name="911235"> </a>The vendor name as assigned by <br>GLOBEtrotter.<br></td>
+  </tr>
+  <tr>
+    <td><a name="911237"> </a><code>(const char *) <br><br></code><code><em>feature<br></em></code></td>
+    <td><a name="911239"> </a>The feature name.<br></td>
+  </tr>
+  <tr>
+    <td><a name="911335"> </a><code>(const char *)</code> <br><br><code><em>license_key<br></em></code></td>
+    <td><a name="911337"> </a>The license key component of a license <br>line. Used to verify <code><em>vendor</em></code>, <code><em>feature</em></code>, <br><code><em>hostid</em></code>, and <code><em>code</em></code>.<br></td>
+  </tr>
+  <tr>
+    <td><a name="911331"> </a><code>(const char *)</code><code><em> <br><br>hostid<br></em></code></td>
+    <td><a name="911333"> </a>The vendor-defined hostid.<br></td>
+  </tr>
+  <tr>
+    <td><a name="911327"> </a><code>(const <br>VENDORCODE_PTR)</code> <br><br><code><em>code<br></em></code></td>
+    <td><a name="911329"> </a>Pointer to the structure containing <br>encryption seeds and vendor keys <br>created by the<font  face="Arial" size="2"> LM_CODE() </font>macro.<br></td>
+  </tr>
+</table>
+
+
+
+
+</p>
+
+
+<p>
+  <a name="911241"> </a>
+</p>
+
+
+<h5>
+  <a name="911242"> </a>Return
+</h5>
+
+
+<p>
+  <a name="911252"> </a>
+
+<table border="3">
+  <caption></caption>
+  <tr>
+    <td><a name="911249"> </a><code>(int) </code><code><em>status<br></em></code></td>
+    <td><a name="911251"> </a>0, OK; &lt;&gt;0, error.<br></td>
+  </tr>
+</table>
+
+
+
+
+</p>
+
+
+<p>
+  <a name="911253"> </a>
+</p>
+
+
+<h5>
+  <a name="911254"> </a>Error Returns
+</h5>
+
+
+<p>
+  <a name="911273"> </a>
+
+<table border="3">
+  <caption></caption>
+  <tr>
+    <td><a name="911258"> </a>LM_BADCODE<br></td>
+    <td><a name="911260"> </a>Usage is denied, <code><em>license_key</em></code> is <br>NULL, <code><em>license_key</em></code> is an empty <br>string, or <code><em>license_key</em></code> contains more <br>than <code>MAX_64BIT_HEX_LEN</code> characters.<br></td>
+  </tr>
+  <tr>
+    <td><a name="911263"> </a>LM_BADFILE<br></td>
+    <td><a name="911266"> </a><code><em>hostid</em></code> is NULL, <code><em>hostid</em></code> is an empty <br>string, or <code><em>hostid</em></code> contains more than <br><code>MAX_HOSTID_LEN</code> characters.<br></td>
+  </tr>
+  <tr>
+    <td><a name="911270"> </a>LM_BADPARAM<br></td>
+    <td><a name="911272"> </a><code><em>code</em></code> is NULL, <code><em>feature</em></code> is NULL, <br><code><em>feature</em></code> is the empty string, or <br><code><em>feature</em></code> contains more than <br><code>MAX_FEATURE_LEN</code> characters<br></td>
+  </tr>
+</table>
+
+
+
+
+</p>
+
+
+<h4>
+  <a name="910881"> </a>2.5.1	 Calling lc_checkit() from an Application
+</h4>
+
+
+<p>
+  <a name="910883"> </a>The caller of<font  face="Arial" size="2"> lc_checkit() </font>has the following responsibilities:
+</p>
+
+<ul>
+  <li ><a name="910884"> </a>Include <code>lmclient.h</code>.
+  <li ><a name="910885"> </a>Include <code>lm_code.h</code> that contains the appropriate vendor name, vendor keys, and encryption seeds.
+  <li ><a name="910886"> </a>Create a variable of type VENDORCODE using the <font  face="Arial" size="2">LM_CODE()</font> macro. This only needs to be done once per application, the variable can be reused by multiple calls to <font  face="Arial" size="2">lc_checkit()</font>
+  <li ><a name="916944"> </a>Get the hostid from the user or from a vendor-defined location in the device's memory space.
+  <li ><a name="910887"> </a>Get the license key from the user or from some place stored on the device. If a single application calls <font  face="Arial" size="2">lc_checkit()</font> multiple times with different combinations of feature names and/or hostids, then it is possible multiple license keys will be delivered to the end user. The application must determine the correct license key to pass to <font  face="Arial" size="2">lc_checkit()</font> for a particular feature name and hostid combination. Therefore, each license key granted to the user should be stored on the device along with the unique feature name and/or hostid with which it is associated. Before the application calls <font  face="Arial" size="2">lc_checkit()</font>, it should find the license key from where it is stored on the device, using the unique feature name and/or hostid that will be passed to <font  face="Arial" size="2">lc_checkit()</font>.
+  <li ><a name="910889"> </a>Allocate a temporary buffer to be used by<font  face="Arial" size="2"> lc_checkit()</font>. Allocation is platform dependent; refer to the release notes for platform requirements.
+  <li ><a name="910890"> </a>Ensure C compiler and compiler flags usage requirements are consistent for the particular platform. Refer to the release notes for more information about the build environment.
+</ul>
+
+<p>
+  <a name="910764"> </a>For an API coding example, refer to the <em>FLEXlm Ultralite Release Notes</em>.
+</p>
+</blockquote>
+
+<hr>
+
+<table width="380" align="right" border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td align=left><em>FLEXlm Ultralite Programmers Guide</em>
+  </tr>
+    <td align=left><em>September 2001</em></td>
+</table>
+
+<table width="331" border="0" align="left" cellpadding="0" cellspacing="0">
+  <tr>
+    <td><a href="TOC.htm#TOC"><img src="graphics/navtoc.gif" width="84" height="23"
+    border="0" alt="TOC"> </a></td>
+    <td><a href="chap1.htm"><img src="graphics/navprev.gif" width="80" height="23"
+    border="0" alt="PREV"> </a></td>
+    <td><a href="IX.htm"><img src="graphics/navnext.gif" width="83" height="23"
+    border="0" alt="NEXT"> </a></td>
+    <td><a href="IX.htm"><img src="graphics/navidx.gif" width="84" height="23"
+    border="0" alt="INDEX"> </a></td>
+  </tr>
+</table>
+</body>
+</html>

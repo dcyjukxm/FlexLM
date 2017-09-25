@@ -1,0 +1,293 @@
+#!/bin/sh
+#/******************************************************************************
+#
+#	    COPYRIGHT (c) 1997,1998 by Globetrotter Software Inc.
+#	This software has been provided pursuant to a License Agreement
+#	containing restrictions on its use.  This software contains
+#	valuable trade secrets and proprietary information of 
+#	Globetrotter Software Inc and is protected by law.  It may 
+#	not be copied or distributed in any form or medium, disclosed 
+#	to third parties, reverse engineered or used in any manner not 
+#	provided for in said License Agreement except with the prior 
+#	written authorization from Globetrotter Software Inc.
+#
+# *****************************************************************************/
+#       Module: $Id: gplatargs,v 1.62 2003/05/31 03:13:10 jonl Exp $
+#	Last changed:  8/23/99
+#  
+#  	Function: 	gplatargs 
+#  
+#  	Description: 	Get machine dependent cc, ld, lint args
+#  
+#  	Parameters:	-c [default] -- cc compiler args
+#  			-O		optimizer args
+#  			-g		cc -g args
+#  			-l		linker/ld args
+#  			[-]h[elp]		help message
+#  			Note that args can be mixed, especially -O with 
+#  			-g, which is often -g3.
+#  
+#  	Return:		command args.  
+#			example --  "-O -g" returns -D\"alpha_u1\" -g3 on
+#			alpha_u1.
+#  
+#  	D. Birns
+#  	9/16/94
+#  
+#  
+#  
+RESULT=""
+USAGE="
+gplatargs v1.51.0.0\n
+gplatargs\t	[-c] default -- cc compiler args\n
+\t\t		[-O] cc optimizer args\n
+\t\t		[-g] cc debugger args\n
+\t\t		[-l] ld args (turns off -c)\n"
+
+
+cc=1
+ECHO=/bin/echo
+
+if [ "$becho" = 1 ]
+then
+	ECHO1="-n"
+	ECHO2=""
+else
+if [ "$ECHO1" = "" -a "$ECHO2" = "" ]
+then
+	ECHO1=""
+	ECHO2="\c"
+	case $GPLATFORM in
+		ppc_mv*|ppc_mac*|i86_b*|i86_f*|it64_l*|i86_rl*|alpha_l*)	
+			ECHO1="-n"
+			ECHO2="";;
+	esac
+fi
+fi
+
+while [ $# -gt 0 ]
+do
+	case $1 in 
+		-pic) 	pic=1; cc=1 ;;
+		-threads) threads=1; cc=0; link=0;;
+		-lthreads) lthreads=1; cc=0; link=0;;
+		-p*) 	gplatform ;;
+		-c) 	cc=1 ;;
+		-l) 	link=1; cc=0 ;;
+		-ld) 	link=1; cc=0 ;;
+		-ldshar)	ldshar=1; cc=0;;
+		-lint)	lint=1; cc=1;;
+		-imeter)        imeter=1;;
+                -lmeter)        cc=0; lmeter=1; link=1;;
+		-O) 	optimize=1 ;;
+		-g) 	debug=1 ;;
+		-lint) 	lint=1 ;;
+		*_??|*_???) platform=$1;;
+		*) 	$ECHO $USAGE ; exit 1 ;;
+	esac
+	shift
+done
+if [ "$link" = "" -a "$GPLATARGS" != "" ] 
+then 
+	echo $GPLATARGS
+	exit 0
+fi
+if [ "$link" = 1 -a "$GPLATARGS_L" != "" ] 
+then 
+	echo $GPLATARGS_L
+	exit 0
+fi
+if [ "$platform" = "" ]
+then
+	platform=`gplatform`
+	if [ $platform = sun4_u4 ] ; then
+		ECHO=/usr/5bin/echo
+	fi
+fi
+
+
+if [ "$cc" = 1 ] ; then
+	case $platform in
+		alpha_u[3-9])	$ECHO $ECHO1 "-std -DDEC_UNIX_3 $ECHO2" ;;
+		alpha_u*)	[ "$lint" = "" ] && $ECHO $ECHO1 "-std $ECHO2" ;;
+		apollo*)	$ECHO -n "-W0,-compress -A segsize,32 " ;;
+		i86_b*)		$ECHO -n "-DBSDI" ;;
+		i86_f3)		$ECHO -n "-DFREEBSD -DGLIBC" ;;
+		i86_ob3)	$ECHO -n "-DOBSD86 -DGLIBC -DOPENBSD" ;;
+		i86_f4)		$ECHO -n "-DFREEBSD -DGLIBC -DFREEBSD4" ;;
+		convex_*)	$ECHO $ECHO1 "-Dconvex -tm c1$ECHO2" ;;
+		crayymp*)	$ECHO $ECHO1 "-DCRAY_YMP$ECHO2" ;;
+		crayc90*)	$ECHO $ECHO1 "-DCRAY_C90$ECHO2" ;;
+		crayt90*)	$ECHO $ECHO1 "-DCRAY_T90$ECHO2" ;;
+		crayt3e*)	$ECHO $ECHO1 "-DCRAY_T3E$ECHO2" ;;
+		crayj90*)	$ECHO $ECHO1 "-DCRAY_J90$ECHO2" ;;
+		dg_u5)		$ECHO $ECHO1 "-DSVR4 $ECHO2" ;;
+		i86_d4)		$ECHO $ECHO1 "-DSVR4 -DDGX86 $ECHO2" ;;
+		encore_*)	$ECHO $ECHO1 "-DENCORE $ECHO2" ;;
+		hp64_*) 	$ECHO $ECHO1 "-DHP -DHP700  -DHP64 -Aa -D_HIUX_SOURCE -D_HPUX_SOURCE +DA2.0W +DS2.0W$ECHO2" ;;
+		it64_hp*) 	$ECHO $ECHO1 "-DHP -DHP64 -DHPINTEL_64 -D_HIUX_SOURCE -D_HPUX_SOURCE +DD64 $ECHO2" ;;
+		it32_hp*) 	$ECHO $ECHO1 "-DHP -DHPINTEL_32 -D_HIUX_SOURCE -D_HPUX_SOURCE $ECHO2" ;;
+		hp700_u10)        $ECHO $ECHO1 "-DHP -DHP700  -Aa -D_HIUX_SOURCE -D_HPUX_SOURCE +DA1.0 +DS1.0 $ECHO2" ;;
+		hp700_u11)        $ECHO $ECHO1 "-DHP -DHP700 -DHPUX11 -Aa -D_HIUX_SOURCE -D_HPUX_SOURCE +DA1.0 +DS1.0 $ECHO2" ;;
+		hp300_*) 	$ECHO $ECHO1 "-DHP -DHP300 $ECHO2" ;;
+		i86_x5)		$ECHO $ECHO1 "-DSUNOS5 -Dsun $ECHO2" ;;
+		ppc_mac10)		$ECHO -n '-framework IOKit -framework CoreFoundation -fno-common -DMAC10 ';;
+		ppc_x5)		$ECHO $ECHO1 "-DSUNOS5 -Dsun -DPPC $ECHO2" ;;
+		i86_u7)		$ECHO $ECHO1 "-Dsco -DSCO -DSCO5$ECHO2" ;;
+		i86_u*)		$ECHO $ECHO1 "-DUNIXWARE $ECHO2";;
+		i86_l*)		$ECHO $ECHO1 "-DLINUX $ECHO2";;
+		i86_g*)		$ECHO $ECHO1 "-DLINUX -DGLIBC -DREDHAT5 $ECHO2";;
+		it64_lr*)	$ECHO  -n "-DLINUX -DLINUX64 -DRHLINUX64";;
+		it64_lv*)	$ECHO  -n "-DLINUX -DLINUX64 -DVMLINUX64";;
+		it64_a*)	$ECHO $ECHO1 "-DRS64 -DRS6000 -D_BSD -D_BSD_INCLUDES -qnolm -DAIX64 -q64$ECHO2" ;;
+		it32_a*)	$ECHO $ECHO1 "-DRS6000 -D_BSD -D_BSD_INCLUDES -qnolm -q32 -DIT32_A$ECHO2" ;;
+		i86_rl*)	$ECHO -n "-DLYNX ";;
+		ppc_rl*)	$ECHO -n "-DLYNX -DLYNX_PPC ";;
+		i86_r*)		$ECHO $ECHO1 "-DLINUX -DGLIBC -DREDHAT$ECHO2";;
+		ppc_mv*)	$ECHO $ECHO1 "-DGLIBC -DLINUX -DMONTAVISTA$ECHO2";;
+		alpha_l*)	$ECHO  -n "-DLINUX -DALPHA_LINUX $ECHO2";;
+		alpha_r*)	$ECHO  -n "-DLINUX -DALPHA_LINUX ";;
+		mips_*)		$ECHO $ECHO1 "-DMIPS -DSYSTEM_BSD43$ECHO2";;
+		mipsabi*)	$ECHO $ECHO1 "-DMIPSABI$ECHO2" ;;
+		mx300_*)	$ECHO $ECHO1 "-Dsinix -DSINIX -DSINIX_SGI$ECHO2" ;;
+		moto_u2)	$ECHO $ECHO1 "-DMOTO_88K$ECHO2" ;;
+		moto_u4)	$ECHO $ECHO1 "-DMOTOSVR4 -D__BSD__$ECHO2" ;;
+		ncr_*)		$ECHO $ECHO1 "-DNCR -U __STDC__ -Xt $ECHO2" ;;
+		nec_*) 		$ECHO $ECHO1 "-DNEC$ECHO2" ;;
+		necsx4_*)	$ECHO $ECHO1 "-DNEC -DNECSX4$ECHO2" ;;
+		necsx5_*)	$ECHO $ECHO1 "-hnovector -DNEC -DNECSX4$ECHO2" ;;
+		next_*|sony_u4)		$ECHO -n "" ;;
+		rm400_*)	$ECHO $ECHO1 "-Dsinix -DSINIX -DSINIX_MIPS$ECHO2" ;;
+		rs6000_*)	$ECHO $ECHO1 "-DRS6000 -D_BSD -D_BSD_INCLUDES$ECHO2" ;;
+		rs64_u5)		$ECHO $ECHO1 "-DAIX5 -DRS64 -DRS6000 -D_BSD -D_BSD_INCLUDES -qnolm -q64$ECHO2" ;;
+		rs64_u4)		$ECHO $ECHO1 "-DRS64 -DRS6000 -D_BSD -D_BSD_INCLUDES -qnolm -q64$ECHO2" ;;
+		ppc_u4)		$ECHO $ECHO1 "-DRS6000 -D_BSD -D_BSD_INCLUDES -DAIX_PPC$ECHO2" ;;
+		sco_u3)		$ECHO $ECHO1 "-Dsco -DSCO$ECHO2" ;;
+		sgi32_u5|sgi_u5)		$ECHO $ECHO1 "-DSGI5 -DSGI32 -DSGI$ECHO2" ;;
+		sgir8_u6|sgi64_u6)	$ECHO $ECHO1 "-DSGI6 -DSGI -DSGI64 -64 -mips3$ECHO2" ;;
+		sgi32_u6)	$ECHO $ECHO1 "-DSGI6 -DSGI32 -DSGI -n32 -mips3$ECHO2" ;;
+		sgio32_u6)	$ECHO $ECHO1 "-DSGI6 -DSGI32 -DSGI -o32 -DSGIO32 $ECHO2" ;;
+		sgi_u4)		$ECHO $ECHO1 "-DSGI4 -DSGI -cckr$ECHO2" ;;
+		sun4_u5*) 	$ECHO $ECHO1 "-DSUNOS5 $ECHO2" ;;
+		sun4_u7*) 	$ECHO $ECHO1 "-DSUNOS5 -DFD_SETSIZE=65535$ECHO2" ;;
+		sun64*) 	$ECHO $ECHO1 "-DSUNOS5 -DSUN64 -xarch=v9$ECHO2" ;;
+		hal_u5) 	$ECHO $ECHO1 "-DHAL -O-$ECHO2" ;;
+		sun4_u4*) 	$ECHO $ECHO1 "-DSUNOS4$ECHO2" ;;
+		tandem*) 	$ECHO $ECHO1 "-DTANDEM$ECHO2" ;;
+
+	esac
+fi
+
+if [ "$optimize" = 1 -a "$debug" = 1 ] ; then
+	case $platform in
+		next*|decs*|apollo*|sony_u4|i86_b*)	$ECHO -n " -g" ;;
+		*)		$ECHO $ECHO1 " -g$ECHO2" ;; 	# no optim by default
+	esac
+elif [ "$optimize" = 1 ] ; then 	 		# no optim by default
+	case $platform in 
+		alpha_*|moto_*|sun*) 	$ECHO $ECHO1 " $ECHO2" ;;
+	esac
+elif [ "$debug" = 1 ] ; then
+	case $platform in 
+		next*|decs*|apollo*|sony_u4|i86_b*)	$ECHO -n " -g" ;;
+		*)		$ECHO $ECHO1 " -g$ECHO2" ;;
+	esac
+fi
+
+if [ "$link" = 1 ] ; then
+	case $platform in 
+		hp300*)			$ECHO $ECHO1 " -lBSD$ECHO2" ;;
+		hp64*)			$ECHO $ECHO1 " +DA2.0W +DS2.0W$ECHO2" ;;
+		i86_rl*)		$ECHO $ECHO1 "-DLYNX -mthreads$ECHO2";;
+		i86_x5|ppc_x5)			$ECHO $ECHO1 " -lsocket -lnsl -lintl$ECHO2" ;;
+		i86_u7)			$ECHO $ECHO1 " -lsocket $ECHO2";;
+		i86_u2|rm400*|i86_d*)			$ECHO $ECHO1 " -lsocket -lnsl $ECHO2" ;;
+		it64_a*)		$ECHO $ECHO1 "-q64 $ECHO2" ;;
+		it64_hp*) 		$ECHO $ECHO1 "+DD64 $ECHO2" ;;
+		it32_hp*) 		$ECHO $ECHO1 "$ECHO2" ;;
+		mipsabi_u1)		$ECHO $ECHO1 " -lsocket -lnsl $ECHO2" ;;
+		moto_*|ncr_*|nec_*|encore_*) 	$ECHO $ECHO1 " -lsocket -lnsl$ECHO2" ;;
+		ppc_rl*)		$ECHO $ECHO1 "-DLYNX -DLYNX_PPC -mthreads$ECHO2";;
+		sun4_u5|sun4_u7|hal_u5)		$ECHO $ECHO1 " -lsocket -lnsl -lintl$ECHO2" ;;
+		sgi32_u6)		$ECHO $ECHO1 " -n32 -mips3$ECHO2" ;;
+		sgio32_u6)		$ECHO $ECHO1 " -o32 $ECHO2" ;;
+		sgir8_u6|sgi64_u6)		$ECHO $ECHO1 " -64 -mips3$ECHO2" ;;
+		sgi_u4)			$ECHO $ECHO1 " -lsun -lbsd -lc_s$ECHO2" ;;
+		sco*)			$ECHO $ECHO1 " -lsocket$ECHO2" ;;
+		rs64*) 			$ECHO $ECHO1 " -lbsd -q64$ECHO2" ;;
+		rs6000_*|ppc_u4) 	$ECHO $ECHO1 " -lbsd$ECHO2" ;;
+		ppc_mac10)		$ECHO -n "-framework IOKit -framework CoreFoundation";;
+		sun64*)		$ECHO $ECHO1 " -lsocket -lnsl -lintl -xarch=v9 -xildoff$ECHO2" ;;
+		tandem*)		$ECHO $ECHO1 " -lsocket -lnsl$ECHO2" ;;
+	esac
+fi
+if [ "$pic" = 1 ] ; then
+	case $platform in
+		sun4_u5|sun4_u7|sun64*|hal_u5|i86_x5)	$ECHO $ECHO1 " -K PIC$ECHO2";;
+		sun4_u4) 	$ECHO $ECHO1 " -PIC$ECHO2" ;;
+		sgi*_u5)	$ECHO $ECHO1 " -KPIC$ECHO2";;
+		sgi*_u6)	;;
+		ppc_u* | i86_l*|alpha_u* |rs6*)		;;
+		hp700*)	$ECHO $ECHO1 " +Z$ECHO2";;
+		i86_r*)	$ECHO $ECHO1 " -fpic$ECHO2";;
+		*) 	$ECHO $ECHO1 " -pic$ECHO2" ;;
+	esac
+fi
+if [ "$lthreads" = 1 ] ; then
+	case $platform in
+		i86_l1|i86_g2|i86_u7|rm400_u5|i86_x5|sco_*|hp700_u10|alpha_*|rs6000_u3) ;;
+		rs64*) $ECHO $ECHO1 " -lpthreads $ECHO2";;
+		it64_lr*) $ECHO $ECHO1 " -lpthread $ECHO2";;
+		ppc_u*) $ECHO $ECHO1 " -lpthreads $ECHO2";;
+		i86_rl*) ;;
+		ppc_rl*) ;;
+		i86_ob*) $ECHO $ECHO1 " -pthread ";;
+		i86_f*) $ECHO $ECHO1 " -pthread $ECHO2";;
+		i86_b*) $ECHO $ECHO1 " $ECHO2";;
+		*) $ECHO  $ECHO1 " -lpthread  $ECHO2";;
+	esac
+fi
+#		i86_b*|i86_f*) $ECHO $ECHO1 " -pthread $ECHO2";;
+if [ "$threads" = 1 ] ; then
+	case $platform in
+		rs64*) $ECHO $ECHO1 " -D_POSIX_C_SOURCE=199506L -D_THREAD_SAFE$ECHO2";;
+		it64_lr*) $ECHO $ECHO1 " -D_POSIX_C_SOURCE=199506L -D_REENTRANT -D_THREAD_SAFE$ECHO2";;
+		*) $ECHO $ECHO1 " -D_POSIX_C_SOURCE=199506L -D_REENTRANT -D_THREAD_SAFE$ECHO2";;
+	esac
+fi
+if [ "$ldshar" = 1 ] ; then
+	case $platform in
+		sun64*|sun4_u5|sun4_u7|hal*|i86_x*)	$ECHO $ECHO1 " -G -h$ECHO2";;
+		alpha_*|i86_r*|it64_lr*) 	$ECHO $ECHO1 " -shared$ECHO2" ;;
+		sun4_u4) 	$ECHO $ECHO1 " -assert pure-text$ECHO2" ;;
+		sgi*_u5)	$ECHO $ECHO1 " -shared -check_registry /usr/lib/so_locations$ECHO2";;
+		hp700*)	$ECHO $ECHO1 " -b$ECHO2";;
+	esac
+fi
+
+if [ "$lint" = 1 ] ; then
+	case $platform in
+		sun4_u4)	$ECHO $ECHO1 " -a -b$ECHO2";;
+		alpha_u1)	$ECHO $ECHO1 " -Nn20000$ECHO2";;
+	esac
+fi
+METERDIR=/u/releases/flexmeter/v1.4a
+# /u/releases/flexmeter/v1.3
+if [ "$imeter" = 1 ] ; then
+        case $platform in
+                i86_l*|alpha_u*|sun4_u5|sun4_u7) $ECHO $ECHO1 " -I$METERDIR/machind$ECHO2";;
+        esac
+fi
+if [ "$lmeter" = 1 ] ; then
+        case $platform in
+                i86_l*|alpha_u*|sun4_u5|sun4_u7) $ECHO $ECHO1 " $METERDIR/$platform/m.a$ECHO2";;
+        esac
+fi
+
+
+if [ "$cc" = 1 ] ; then
+	XTRA=`echo $XTRAARGS`
+	$ECHO  "$XTRA"
+else
+	$ECHO ""
+fi

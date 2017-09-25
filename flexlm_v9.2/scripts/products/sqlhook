@@ -1,0 +1,228 @@
+#!/usr/bin/perl
+#This script is run as the SQLHOOK for GT.
+#
+#It opens a connection as a client to another database and forwards all
+#SQL modify (insert, update, delete) commands to that database.
+#It also logs all SQL commands, including select statements, to its own
+#log file.  For real use, this should be commented out.
+#
+#It is currently set up to run from within the GTSITE directory; look for
+#$track below to change the path to the GT slave program.
+#
+#Args for this script: logfile, slave env file, slave log file.
+#
+#A typical enabling line in the server env file looks like this:
+# JPDB_SQL_HOOK=gsi.jpdb.JpdbSqlHookStream $GTSITE/sqlhook $GTSITE/sqlhook.log slave $GTSITE/sqlhook-slave.log
+#where the slave.env file configures a client for the backup database.
+
+#Process the command line options
+sub processArgs {
+	$eof = 0;
+	if ( $#ARGV >= 0 ) {
+		$logfile = $ARGV[0];
+	} else {
+		$logfile = "-";
+	}
+	if ( $#ARGV >= 1 ) {
+		$slaveEnvName = $ARGV[1];
+	} else {
+		$slaveEnvName = "";
+	}
+	if ( $#ARGV >= 2 ) {
+		$slaveLogFile = $ARGV[2];
+	} else {
+		$slaveLogFile = "";
+	}
+	$track = "GT_PROGRAM_OPTIONS=\"\" ./track";
+}
+
+#Open our log file
+sub openLogFile {
+	local($now);
+	open(LOG,">> $logfile") or die "Can't open log file $logfile";
+	$oldfh = select(LOG); $| = 1; select($oldfh);
+	$now = `date`; chop $now;
+	print(LOG "============================================\n");
+	print(LOG "SQL Hook Started at $now\n");
+	print(LOG "Log File is $logfile\n");
+}
+
+#Close our log file
+sub closeLogFile {
+	local($now);
+	$now = `date`; chop $now;
+	print(LOG "SQL Hook done at $now\n");
+	close(LOG);
+}
+
+#Open a connection to the GT database at slaveEnvName.
+sub openSlaveConnection {
+	if ( $slaveEnvName eq "" ) {
+		return		#No slave database
+	}
+	if ( $slaveLogFile eq "" ) {
+		$redir = "";
+	} else {
+		$redir = ">> $slaveLogFile 2>&1";
+	}
+	$trackCmd = "$track -env $slaveEnvName -sqlb $redir";
+	open(SLAVE,"| $trackCmd") or
+		die "Can't open slave at env $slaveEnvName";
+	$oldfh = select(SLAVE); $| = 1; select($oldfh);
+	$haveSlave = 1;
+	print(LOG "Opened slave connection to env ",$slaveEnvName,":\n");
+	print(LOG "  $trackCmd\n");
+}
+
+#Close the connection to the slave GT database.
+sub closeSlaveConnection {
+	if ( $haveSlave == 0 ) {
+		return		#No slave database
+	}
+	print(SLAVE "quit\n");
+	close(SLAVE);
+	print(LOG "Closed slave connection to env ",$slaveEnvName,"\n");
+}
+
+#Print out the time, type, and contents of an SQL request
+sub logSqlRequest {
+	local($now,$type,$sql);
+	$now = `date`; chop $now;
+	$type = $_[0];
+	$sql = $_[1];
+	print(LOG "Process SQL request at $now\n");
+	print(LOG "SQL $type: ",$sql,"\n\n");
+}
+
+#Process one SQL Select statement.
+sub processSqlSelect {
+	local($sql);
+	$sql = $_[0];
+	logSqlRequest("Select",$sql);
+}
+
+#Process one SQL Insert, Update, or Delete statement.
+sub processSqlModify {
+	local($sql);
+	$sql = $_[0];
+	logSqlRequest("Modify",$sql);
+#print(LOG "Process SQL request at $now\n");
+#print(LOG "SQL Modify: ",$sql,"\n\n");
+	if ( $haveSlave != 0 ) {
+		#Write the SQL request to the client
+		print(SLAVE $sql,"\n") or
+			print(LOG "Error writing command to slave");
+	}
+}
+
+#Process one unknown SQL statement.
+sub processSqlUnknown {
+	local($sql);
+	$sql = $_[0];
+	logSqlRequest("unknown",$sql);
+}
+
+#Process one SQL statement.
+sub processSql {
+	local($sql,@sqlWords,$sqlCommand);
+	$sql = $_[0];
+	@sqlWords = split(/ /, $sql);
+	$sqlCommand = $sqlWords[0];
+	$sqlCommand =~ tr/A-Z/a-z/;
+	if ( $sqlCommand eq "select" ) {
+		processSqlSelect($sql);
+	}
+	elsif ( $sqlCommand eq "insert" ) {
+		processSqlModify($sql);
+	}
+	elsif ( $sqlCommand eq "update" ) {
+		processSqlModify($sql);
+	}
+	elsif ( $sqlCommand eq "delete" ) {
+		processSqlModify($sql);
+	}
+	else {
+		processSqlUnknown($sql);
+	}
+}
+
+#Process a packet (associative array) representing one SQL request.
+sub processPacket {
+	local($packet,%packet,$sql);
+	%packet = @_;
+	$sql = $packet{"SQL"};
+	if ( $sql ne "" ) {
+		processSql($sql);
+	}
+}
+
+#Read in a group of lines until a blank line, return those lines as a list,
+#not including the blank line.  If EOF at any time, returns an empty list,
+#even if some lines have been read.
+sub readLines {
+	local(@lines,$line);
+	@lines = ();
+	while ( $line = <STDIN> ) {
+		chop $line;
+		if ( "$line" eq "" ) {
+			return @lines;			#return the lines
+		} else {
+			push(@lines, $line);
+		}
+	}
+	$eof = 1;
+	return ();	#EOF, return an empty list
+}
+
+#Read a group of lines, convert it into an associative array
+sub readPacket {
+	local(@lines,%packet);
+	@lines = readLines();
+	%packet = convertLinesToPacket(@lines);
+	return %packet;
+}
+
+#Convert an array of lines of name=value text into an associative array
+sub convertLinesToPacket {
+	local(@lines,@packet,$linenum,$line,$name,$value,%packet);
+	@lines = @_;
+	%packet = ();
+	for ($linenum=0; $linenum<=$#lines; $linenum++) {
+		$line = $lines[$linenum];
+#print LOG "Line ",$linenum,": ",$line,"\n";
+		$name = $line;
+		$value = $line;
+		$name =~ s/=.*//;
+		$value =~ s/^[^=]*=//;
+#print LOG " Name=",$name,"\n";
+#print LOG " Value=",$value,"\n";
+		$packet{"$name"} = "$value";
+	}
+	return %packet;
+}
+
+#The main loop: read a packet (terminated by a blank line),
+#process that packet, repeat until EOF.
+sub readLoop {
+	local(%packet);
+	while ( $eof == 0 ) {
+		%packet = readPacket();
+		if ( $eof == 0 ) {
+			processPacket(%packet);
+		}
+	}
+}
+
+#The whole program
+sub main {
+	processArgs;
+	openLogFile;
+	openSlaveConnection;
+	print(LOG "\n");
+	readLoop;
+	closeSlaveConnection;
+	closeLogFile;
+}
+
+#Do it all
+main

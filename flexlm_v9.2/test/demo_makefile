@@ -1,0 +1,26 @@
+INCFLAGS = 
+
+CFLAGS = $(INCFLAGS) -g
+
+OBJS =  client.o isvaliddate.o list.o makeconfig.o
+
+EXECS = client isvaliddate makeconfig list
+
+LIBRARY	= lmgr.a
+LINTLIB = llib-llmgr.a.ln
+
+all: $(EXECS)
+
+client:	client.o $(LIBRARY)
+	cc -o client client.o $(LIBRARY)
+
+list:	list.o $(LIBRARY)
+	cc -o list list.o $(LIBRARY)
+
+isvaliddate: isvaliddate.o $(LIBRARY)
+	cc -o isvaliddate isvaliddate.o $(LIBRARY)
+
+makeconfig: makeconfig.o $(LIBRARY)
+	cc -o makeconfig makeconfig.o $(LIBRARY)
+
+clean:	rm -f $(OBJS) $(EXECS)

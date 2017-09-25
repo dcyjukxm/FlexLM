@@ -1,0 +1,122 @@
+                            FLEXlm Ultralite
+                              Version 7.0
+                             RELEASE NOTES
+
+1.	Platform Specifics 
+
+This version of FLEXlm Ultralite supports the HP700 Heart Monitor 
+(hp700_ug1) platform. The license keys generated for this version of 
+FLEXlm Ultralite must be compatible with versions "6", "6_1" or "7"
+
+
+2.	Build Environment
+
+The following lists the build environment characteristics for this 
+version of FLEXlm Ultralite for the HP700 Heart Monitor platform.
+
+	System version			HP-UX hpc180 B.11.00 A 9000/780
+	CC Compiler			/opt/ansic/bin/cc
+	CC Flags			-DHP -DHP64 -DHP700 -D_HPUX_SOURCE 
+					+b0 +DA2.0W +X64 +Eslit +ESrel 
+					+DCemb -Wp,-H32768 +O1 -Ae -c
+
+
+3.	Contents of the Kit
+
+The following files are included in the FLEXlm Ultralite Software 
+Development Kit. They are bundled into a single tar archive, 
+flmulite.tar.
+
+	Name			Description			Size
+      =====================================================================
+	liblmgr.a		FLEXlm Ultralite library,	20,518 bytes
+				contains lc_checkit()
+	lmclient.h		Header file				N/A
+	lm_code.h		Header file				N/A
+	ulprog.pdf		FLEXlm Ultralite Programmers Guide	N/A
+	RELEASE_NOTES	Platform-specific information		N/A
+
+The files are distributed in the fmulite subdirectory. They are to be 
+installed into in a work area as appropriate to the application’s build 
+environment. It is the vendor’s responsibility to modify the application 
+build environment to integrate the FLEXlm Ultralite library and header 
+files.
+
+
+4.	Memory Usage
+
+The lc_checkit() function expects the application to allocate a 
+1050-byte buffer pointed to by character pointer flexlm_data. The 
+lc_checkit() function does not expect the data in this buffer to be 
+preserved; the application can free or reuse this buffer 
+between calls to lc_checkit().
+
+
+5.	API Coding Example
+
+#include "lmclient.h" 
+#include "lm_code.h"
+
+/* Prototype for lc_checkit() */
+extern int lc_checkit(const char *, 
+                      const char *, 
+                      const char *,
+                      const char *,
+                      const VENDORCODE_PTR);
+
+/* LM_CODE() is called once per application */
+
+LM_CODE(code, ENCRYPTION_SEED1, ENCRYPTION_SEED2, 
+        VENDOR_KEY1, VENDOR_KEY2, VENDOR_KEY3, 
+        VENDOR_KEY4, VENDOR_KEY5);
+
+char *hostid;    /* Get hostid from the user or the device. 
+                    This is usually assigned just once per 
+                    instance of the application, depending
+                    on the nature of the hostid that the
+                    vendor chooses.*/
+char *feature;   /* Usually a literal string. Can be assigned
+                    as much as once per call to lc_checkit()
+                    */
+char *license_key; /* Get license_key from the user or the 
+                    device that is intended to match the 
+                    feature name, vendor name, hostid,  
+                    encryption seeds, and vendor keys to 
+                    lc_checkit()*/
+
+hostid =      /* Assign with the vendor-defined hostid */
+feature =     /* Assign with a vendor-defined literal 
+                 string */
+license_key = /* Assign with the license_key obtained from 
+                 the user or the device. */
+
+/* Temporary buffer, must be pointed to by 'flexlm_data'. */
+
+#define LM_ULITE_DATA_SIZE 1050
+char buffer [LM_ULITE_DATA_SIZE];
+char *flexlm_data = & buffer[0];
+int err;
+
+/* validate the license_key */
+err = lc_checkit(VENDOR_NAME, feature, license_key, hostid, 
+                 &code);
+
+switch ( err ) 
+{
+   LM_BADCODE: /* -8 */
+     /* Process error */
+   break;
+
+   LM_BADPARAM: /* -42 */
+     /* Process error */
+   break;
+
+   LM_BADFILE: /* -2 */
+     /* Process error */
+   break;
+
+   default:
+     /* Access granted */
+   break;
+}
+

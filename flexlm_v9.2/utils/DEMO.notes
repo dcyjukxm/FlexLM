@@ -1,0 +1,240 @@
+
+		           Flexible License Manager
+
+			         DEMO Version 
+
+			      INSTALLATION NOTES
+			       2 February, 1996
+			         FLEXlm v4.1b
+
+
+	For a complete description of how to install and configure
+	the Flexible License Manager, see the users's manual, which
+	is contained on the kit.  These notes briefly describe all
+	the steps you need to take to get your software up and
+	running with FLEXlm.
+
+	To install and test the Flexible License manager, mount the
+	Globetrotter CD, cd to the CD directory, and use the 
+	'install.cd' command.
+
+        The CD install can be easily performed manually, which is 
+        required on SCO systems (where csh has limited functionality).  
+
+		1. cd (directory where you want to install FLEXlm)
+		2. tar xf (cd mounted directory)/flexlm/v4_1/sco.u3
+		3. tar xf (cd mounted directory)/flexlm/v4_1/machine.ind
+		4. vi machind/lm_code.h and change VENDOR_KEY1 -
+		   VENDOR_KEY5 to the demo keys supplied by Globetrotter.
+		5. cd sco.u3; make
+
+	(You can replace "sco.u3" with the platform of your choice.)
+	These 5 steps replaces all of the *INSTALL* csh scripts.
+
+	This version of the Flexible license manager has pre-configured 
+	source files to build a vendor daemon (demo), sample client 
+	program (lmclient), and license generation utility (lmcrypter).  
+	If your demo kit has expired, you will have to enter the new
+	FLEXlm vendor keys provided by Globetrotter Software before you
+	re-build these components.  To do this, follow these steps:
+
+	Run the installation script "DEMO_INSTALL":
+
+		% cd flexlm/v4.1/machind
+		% DEMO_INSTALL
+
+	   The DEMO_INSTALL script will ranlib your libraries and ask you
+	   if you want to re-configure the daemons.  
+	   
+		If your kit has not expired:
+			answer "no"; DEMO_INSTALL will skip the daemon 
+	   		configuration step and just re-build the programs.  
+
+		If your kit has expired, answer "yes"; DEMO_INSTALL 
+			will run the vendor daemon configuration script 
+			"CONFIG_DAEMON".  Enter daemon name "demo", the 
+			two encryption codes "87654321" and "12345678"  
+			and the five vendor keys provided.  Take the 
+			default answer to all other questions.  At the 
+			end, answer "yes" when it asks if you want 
+	   		to continue and build the daemon.
+
+		FLEXlm DEMO Installation Notes - p. 2.
+
+	   After re-building the programs, DEMO_INSTALL will create a license 
+	   file and ask you if you want to start the license daemon (lmgrd).  
+	   If you answer "yes", then you will be able to run the sample 
+	   FLEXlm client program immediately:
+
+		% cd [kitdir]	# kitdir is the binary diretory for your
+				# kit, e.g., sun4_u4.  
+				# DEMO_INSTALL will tell you this
+		% setenv LM_LICENSE_FILE `pwd`/license.dat
+		% lmclient
+
+	The DEMO_INSTALL program has set you up with a license file that
+	contains 4 licenses for a feature named "f1".  You can run
+	4 copies of the lmclient program simultaneously; the fifth copy
+	will not be able to get a license.
+
+	That's all there is to it.  To see in more detail what the
+	DEMO_INSTALL script has done, consult the remainder of this 
+	document.
+
+	If you prefer to do a more "manual" installation and configuration,
+	you can perform some of the steps that DEMO_INSTALL does by hand,
+	as described here:
+
+	1. Install from the cd (if you haven't already).
+
+	2. Run the installation script "INSTALL":
+
+		% cd flexlm/v4.1/machind
+		% INSTALL
+
+	   The INSTALL script will ranlib your libraries and run the
+	   vendor daemon configuration script "CONFIG_DAEMON".  Enter
+	   daemon name "demo", the two encryption codes "87654321" and
+	   "12345678" and the five vendor keys provided.  Take the 
+	   default answer to all other questions.  At the end, answer
+	   "yes" when it asks if you want to continue and build the daemon.
+
+	3. Create a license file ("license.dat") by running 
+	   "lmcrypter" on a sample license file:
+
+		% cp ../examples/licenses/floating license.dat
+
+	   Edit license.dat.  On the SERVER line, change the hostname 
+	   from "node_a" to your hostname.
+
+	   	% lmcrypter -f license.dat
+
+	   If you do not know the hostid of the machine that you want
+	   to run the daemon on, use the "lmhostid" program - it will
+	   print out the machine's host id in the format that FLEXlm
+	   requires.
+
+
+		FLEXlm DEMO Installation Notes - p. 3.
+
+	4. Install the license file in /usr/local/flexlm/licenses/license.dat,
+	   OR set the environment variable LM_LICENSE_FILE to
+	   point to it.  This environment variable MUST be set
+	   by anyone starting the daemon or running your
+	   application software if you do not put the license file
+	   in /usr/local/flexlm/licenses/license.dat.
+
+	   For example, if you use the csh and your file is 
+	   /usr/flexlm/v4.1/license.dat:
+
+		% setenv LM_LICENSE_FILE /usr/flexlm/v4.1/license.dat
+
+	5. Run lmgrd (csh example):
+
+		% lmgrd >& LOG 
+
+	6. Run lmclient.  lmclient will ask what feature you want
+	   to checkout ("f1" is the default).  Checkouts and checkins 
+	   will be logged in "LOG".  Using this test program is a 
+	   good way to get familiar with the operation of the 
+	   Flexible License Manager.  The source to lmclient is
+	   on the kit (in the flexlm/v4.1/machind directory).
+
+	After you have become familiar with lmgrd, the vendor daemon
+	(demo), lmcrypter and the sample client program, you
+	might want to incorporate the FLEXlm client calls into
+	your own software and/or configure a new copy of the vendor
+	daemon.  If you wish to do these things, follow these steps:
+
+	1. Build your vendor daemon:
+
+		% cd ../machind
+		% INSTALL
+		% CONFIG_DAEMON (if you did not do so as part of "INSTALL")
+
+		NOTE:	When you re-run CONFIG_DAEMON, you do NOT need to
+			modify the FLEXlm vendor keys, since you entered
+			them when you ran INSTALL in step 1, above.  When 
+			you purchase FLEXlm, you will receive your permanent 
+			vendor keys, which can be installed at that time.
+
+	2. Modify your application code to call the license manager
+	   client routines:
+
+		- Add calls like the following to your application
+		  code:
+
+		    rc = lc_init((LM_HANDLE *)0, name, &code, &lm_job);
+
+			where:
+
+			(char *) name - Is your vendor name ("demo")
+			(VENDORCODE2) code - Is you vendor code variable,
+				as initialized by the LM_CODE macro:
+
+				LM_CODE(code, ENCYYPTION_CODE_1, 
+					ENCRYPTION_CODE_2, VENDOR_KEY1,
+					VENDOR_KEY2, VENDOR_KEY3);
+			lm_job - LM_HANDLE *
+
+
+		FLEXlm DEMO Installation Notes - p. 4.
+
+		    rc = lc_checkout(lm_job, feature, version, nlic, wait, 
+						&code, dup_group);
+
+			where:
+
+			(char *) feature - the feature name
+			(double) version - The version of this feature.
+			(int) nlic - Number of licenses to checkout
+			(int) wait - 0 - no wait, 1 - wait for licenses
+			(VENDORCODE2) code - your vendor code (same as the
+					one used in lc_init(), above).
+			(int) dup_group - "Duplicate grouping mask" - see
+					lm_client.h - "LM_DUP_NONE" is a
+					good value to usee to start.
+		
+			The return codes (rc) are defined in "lm_client.h"
+
+		(see "lmclient.c" or the user's manual for a full
+		 description of the parameters).
+
+		- Build you application as usual, adding "liblmgr.a"
+		  to your ld command.
+
+	3. Run "make" in the FLEXlm directory (e.g., flexlm/v4.1/sun4_u4), in 
+	   order to re-build the daemon "demo", and lmcrypter.  This 
+	   is necessary in order for lmcrypter to use your new 
+	   encryption code that you entered in CONFIG_DAEMON.
+
+        During development if you change your ENCRYPTION_CODEs in 
+        lm_code.h, you must make sure to re-build your application and 
+        lmcrypter so that they are built with the correct ENCRYPTION_CODEs.
+
+	4. Run "lmcrypter" to create a new license file.  You'll want to
+	   start with an existing file, using the files in examples/licenses.
+
+        5. For more extensive examples, please see the "FLEXlm Style
+           Guide" available on-line through the cd manuals, which
+	   can be installed with install.cd.
+
+	This demo version of the Flexible license manager has the
+	following features disabled:
+
+		Redundant servers
+		Clock checking client <-> server
+		lc_log()
+		License file path
+		lc_hosttype()
+		lc_auth_data()
+		Vendor supplied vendor daemon initialization routines
+		End-user INCLUDE option
+		End-user EXCLUDE option
+		End-user TIMEOUT option
+		lmreread capability
+		Feature START date support
+		FEATURESET support.
+	
+	In addition, the software will expire (the expiration date is
+	a function of the FLEXlm vendor keys that were issued).

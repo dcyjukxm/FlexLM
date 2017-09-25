@@ -1,0 +1,160 @@
+#!/bin/sh
+#/******************************************************************************
+#	    COPYRIGHT (c) 1997,1998 by Globetrotter Software Inc.
+#	This software has been provided pursuant to a License Agreement
+#	containing restrictions on its use.  This software contains
+#	valuable trade secrets and proprietary information of 
+#	Globetrotter Software Inc and is protected by law.  It may 
+#	not be copied or distributed in any form or medium, disclosed 
+#	to third parties, reverse engineered or used in any manner not 
+#	provided for in said License Agreement except with the prior 
+#	written authorization from Globetrotter Software Inc.
+#
+# *****************************************************************************/
+#	Module:	@(#)gplatargs v1.109.0.0
+#	Last changed:  2/3/98
+#  
+#  	Function: 	ul_gplatargs 
+#  
+#  	Description: 	Get machine dependent cc, ld, lint args for ULTRAlite
+#  
+#  	Parameters:	-c [default] -- cc compiler args
+#			-compiler    - value for $(CC)
+#  			-O		optimizer args
+#  			-g		cc -g args
+#  			-l		linker/ld args
+#  			[-]h[elp]		help message
+#  			Note that args can be mixed, especially -O with 
+#  			-g, which is often -g3.
+#  
+#  	Return:		command args.  
+#			example --  "-O -g" returns -D\"alpha_u1\" -g3 on
+#			alpha_u1.
+#  
+#  	D. Birns
+#  	9/16/94
+#  
+#  
+#  
+RESULT=""
+USAGE="
+gplatargs v1.51.0.0\n
+gplatargs\t	[-c] default -- cc compiler args\n
+\t\t		[-O] cc optimizer args\n
+\t\t		[-g] cc debugger args\n
+\t\t		[-l] ld args (turns off -c)\n"
+
+cc=1
+ECHO=/bin/echo
+while [ $# -gt 0 ]
+do
+	case $1 in 
+		-pic) 	pic=1; cc=1 ;;
+		-p*) 	gplatform ;;
+		-c) 	cc=1 ;;
+		-compiler) whichcc=1 cc=0;;
+		-l) 	link=1; cc=0 ;;
+		-ld) 	link=1; cc=0 ;;
+		-ldshar)	ldshar=1; cc=0;;
+		-lint)	lint=1; cc=1;;
+		-O) 	optimize=1 ;;
+		-g) 	debug=1 ;;
+		-lint) 	lint=1 ;;
+		*_??|*_???) platform=$1;;
+		*) 	$ECHO $USAGE ; exit 1 ;;
+	esac
+	shift
+done
+
+if [ "$platform" = "" ]
+then
+	platform=`gplatform`
+	if [ $platform = sun4_u4 ] ; then
+		ECHO=/usr/5bin/echo
+	fi
+fi
+if [ "$platform" = "hp700_u11" ]
+then
+	platform=hp64
+fi
+
+
+if [ "$cc" = 1 ] ; then
+	case $platform in
+		alpha_u[3-9])	$ECHO "-std -DDEC_UNIX_3 \c" ;;
+		alpha_u*)	[ "$lint" = "" ] && $ECHO "-std \c" ;;
+		hp700_*) 	$ECHO "-DHP -Aa -v +ESlit -Wa,-w41 -y -DAportable CC=/hmgr/Mohawk/tools/bin/ccpa\c" ;;
+		i86_x5)		$ECHO "-DSUNOS5 -Dsun \c" ;;
+		hp64*) 	$ECHO "-DFLEXLM_ULTRALITE_STATIC_DEBUG -DHP +DA2.0W +DS2.0W CC=/bin/cc\c" ;;
+		i86_x5)		$ECHO "-DSUNOS5 -Dsun \c" ;;
+		i86_l*)		$ECHO "-DLINUX \c";;
+		i86_rl*)		$ECHO -n "-DLYNX ";;
+		alpha_l*)		$ECHO "-DLINUX -DALPHA_LINUX \c";;
+		sun4_u5*) 	$ECHO "-DSUNOS5 -DFLEXLM_ULTRALITE_STATIC_DEBUG\c" ;;
+		sun64*) 	$ECHO "-DSUNOS5 -DSUN64 -xarch=v9\c" ;;
+		sun4_u4*) 	$ECHO "-DSUNOS4 -DFLEXLM_ULTRALITE_STATIC_DEBUG\c" ;;
+	esac
+fi
+
+if [ "$whichcc" = 1 ] ; then
+	case $platform in
+		hp700_*) 	$ECHO "/hmgr/Mohawk/tools/bin/ccpa\c" ;;
+		hp64*) 		$ECHO "/bin/cc\c" ;;
+		*) 		$ECHO "cc\c" ;;
+	esac
+fi
+
+if [ "$optimize" = 1 -a "$debug" = 1 ] ; then
+	case $platform in
+		next*|decs*|apollo*|sony_u4|i86_b*)	$ECHO -n " -g" ;;
+		*)		$ECHO " -g\c" ;; 	# no optim by default
+	esac
+elif [ "$optimize" = 1 ] ; then 	 		# no optim by default
+	case $platform in 
+		alpha_*|moto_*|sun*) 	$ECHO " \c" ;;
+	esac
+elif [ "$debug" = 1 ] ; then
+	case $platform in 
+		next*|decs*|apollo*|sony_u4|i86_b*)	$ECHO -n " -g" ;;
+		*)		$ECHO " -g\c" ;;
+	esac
+fi
+
+if [ "$link" = 1 ] ; then
+	case $platform in 
+		hp64*)			$ECHO " +DA2.0W +DS2.0W\c" ;;
+		sun4_u5|hal_u5)		$ECHO " -lsocket -lnsl -lintl\c" ;;
+		sun64*)		$ECHO " -lsocket -lnsl -lintl -xarch=v9 -xildoff\c" ;;
+	esac
+fi
+if [ "$pic" = 1 ] ; then
+	case $platform in
+		sun4_u4) 	$ECHO " -PIC\c" ;;
+		hp700*)	$ECHO " +z\c";;
+		*) 	$ECHO " -pic\c" ;;
+	esac
+fi
+if [ "$ldshar" = 1 ] ; then
+	case $platform in
+		sun64*|sun4_u5|hal*)	$ECHO " -G -h\c";;
+		alpha_*) 	$ECHO " -shared\c" ;;
+		sun4_u4) 	$ECHO " -assert pure-text\c" ;;
+		sgi*_u5)	$ECHO " -shared -check_registry /usr/lib/so_locations\c";;
+		hp700*)	$ECHO " -b\c";;
+		hp64*)	$ECHO " -b\c";;
+	esac
+fi
+
+if [ "$lint" = 1 ] ; then
+	case $platform in
+		sun4_u4)	$ECHO " -a -b\c";;
+		alpha_u1)	$ECHO " -Nn20000\c";;
+	esac
+fi
+
+if [ "$cc" = 1 ] ; then
+	XTRA=`echo $XTRAARGS`
+	$ECHO " $XTRA"
+else
+	$ECHO ""
+fi

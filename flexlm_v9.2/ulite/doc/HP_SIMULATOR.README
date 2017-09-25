@@ -1,0 +1,21 @@
+To run the simulator:
+_____________________
+
+	% cd /hmgr/Mohawk/work.joseph
+	(set display)
+	% hpterm
+
+	in hpterm window:
+
+	% ksh
+	$ mosimi
+
+
+	Put my files in images/*801
+	^C to get attention
+	? to list commands
+	bs function_name
+	blist
+
+	(to get to test program)
+	ser ipr 

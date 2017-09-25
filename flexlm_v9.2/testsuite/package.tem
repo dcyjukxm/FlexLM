@@ -1,0 +1,144 @@
+PACKAGE suite demo start:1-jan-94 SIGN=0 COMPONENTS="comp1 comp2" \
+	 OPTIONS=SUITE SUPERSEDE ISSUED=1-jan-2000
+PACKAGE pkg demo 1.050 start:1-jan-94 SIGN=0 COMPONENTS=comp3:2.0:2
+	#PACKAGE test
+PACKAGE pkg1 demo 1.050 start:1-jan-94 SIGN=0 \
+	 COMPONENTS="pkg1comp1:1.0:2 pkg1comp2:2.0:2"
+	#SUITE test
+
+PACKAGE pkg2 demo 1.050 start:1-jan-94 SIGN=0 COMPONENTS="pkg2comp1 pkg2comp2" \
+	 OPTIONS=SUITE
+
+	#INCREMENT pkg test
+
+PACKAGE pkg3 demo 1.050 start:1-jan-94 SIGN=0 \
+	 COMPONENTS="pkg3comp1:1.0:2 pkg3comp2:2.0:2"
+
+	#Ignore 2nd FEATURE for pkg
+
+PACKAGE pkg4 demo 1.050 start:1-jan-94 SIGN=0 \
+	 COMPONENTS="pkg4comp1:1.0:2 pkg4comp2:2.0:2"
+
+	#INCREMENT SUITE test
+
+PACKAGE pkg5 demo 1.050 start:1-jan-94 SIGN=0 COMPONENTS="pkg5comp1 pkg5comp2" \
+	 OPTIONS=SUITE
+
+	#INCREMENT PACKAGE component before and after
+
+PACKAGE pkg6 demo 1.050 start:1-jan-94 SIGN=0 \
+	 COMPONENTS="pkg6comp1:1.0:2 pkg6comp2:2.0:2"
+
+	#INCREMENT SUITE component before and after
+
+PACKAGE pkg7 demo 1.050 start:1-jan-94 SIGN=0 COMPONENTS="pkg7comp1 pkg7comp2" \
+	 OPTIONS=SUITE
+
+	# same as last two, using INCREMENT first, instead of FEATURE
+
+PACKAGE pkg8 demo 1.050 start:1-jan-94 SIGN=0 \
+	 COMPONENTS="pkg8comp1:1.0:2 pkg8comp2:2.0:2"
+
+	#INCREMENT SUITE component before and after
+
+PACKAGE pkg9 demo 1.050 start:1-jan-94 SIGN=0 COMPONENTS="pkg9comp1 pkg9comp2" \
+	 OPTIONS=SUITE
+
+	#UPGRADE a component
+
+PACKAGE pkg10 demo 1.050 start:1-jan-94 SIGN=0 \
+	 COMPONENTS="pkg10comp1:1.0:2 pkg10comp2:2.0:2"
+
+	#Packages for Bad code tests
+
+PACKAGE pkg11 demo 1.050 start:1-jan-94 SIGN=0 COMPONENTS="pkg11comp1"
+
+	#Packages COMPONENTS with optional features
+
+PACKAGE pkg13 demo 1.050 start:1-jan-94 SIGN=0 \
+	 COMPONENTS="pkg13comp1"
+
+	#UPGRADE a PACKAGE
+
+PACKAGE pkg14 demo 1.000 start:1-jan-94 SIGN=0 COMPONENTS="pkg14comp1 pkg14comp2"
+
+	#UPGRADE a SUITE
+
+PACKAGE pkg15 demo 1.000 start:1-jan-94 SIGN=0 COMPONENTS="pkg15comp1 pkg15comp2" \
+	OPTIONS=SUITE
+
+	#UPGRADE a PACKAGE COMPONENT
+
+PACKAGE pkg16 demo 1.000 start:1-jan-94 SIGN=0 \
+	COMPONENTS="pkg16comp1:0.5 pkg16comp2:1.2" OPTIONS=SUITE
+
+	#PACKAGE lines duplicated, first FEATURE then INCREMENT
+PACKAGE pkg17 demo 1.000 start:1-jan-94 SIGN=0 COMPONENTS="pkg17comp1" 
+PACKAGE pkg17 demo 1.000 start:1-jan-94 SIGN=0 COMPONENTS="pkg17comp1" 
+
+PACKAGE pkg18 demo 1.000 start:1-jan-94 SIGN=0 COMPONENTS="pkg18comp1" 
+PACKAGE pkg18 demo 1.000 start:1-jan-94 SIGN=0 COMPONENTS="pkg18comp1" 
+
+	#MULTIPLE PACKAGEs WITH THE SAME COMPONENT and DUP PKG LINES
+PACKAGE pkg19a demo 1.000 start:1-jan-94 SIGN=0 COMPONENTS="pkg19comp1"  ck=1
+PACKAGE pkg19a demo 1.000 start:1-jan-94 SIGN=0 COMPONENTS="pkg19comp1"  ck=1
+
+PACKAGE pkg19b demo 1.000 start:1-jan-94 SIGN=0 COMPONENTS="pkg19comp1" 
+PACKAGE pkg19b demo 1.000 start:1-jan-94 SIGN=0 COMPONENTS="pkg19comp1" 
+
+
+	#INCREMENT OVERDRAFT
+
+
+	#DUP_GROUP
+
+
+	# UPGRADE
+
+
+	# UPGRADE a vendor string
+
+
+	# demof vendor daemon
+
+
+
+# 
+#	SUPERSEDE=xxx
+#
+	SUPERSEDE="supersede1 supersede2"
+#
+#	Bug 1652
+#
+
+
+#
+#	Test end-user options with package names
+#
+PACKAGE euop1 demo 1.000 start:1-jan-94 SIGN=0 COMPONENTS="euop1c1 euop1c2" 
+
+PACKAGE euop2 demo 1.000 start:1-jan-94 SIGN=0 COMPONENTS="euop2c1 euop2c2" 
+
+PACKAGE euop3 demo 1.000 start:1-jan-94 SIGN=0 COMPONENTS="euop3c1 euop3c2"  \
+	OPTIONS=SUITE
+
+PACKAGE euop4 demo 1.000 start:1-jan-94 SIGN=0 COMPONENTS="euop4c1 euop4c2" \
+	OPTIONS=SUITE
+
+PACKAGE opt_s1 demo 1.000 0 SIGN=0 COMPONENTS="opt_c1 opt_c2" \
+	OPTIONS=SUITE
+PACKAGE opt_s1_1 demo 1.000 0 SIGN=0 COMPONENTS="opt_c1_1 opt_c1_2" \
+	OPTIONS=SUITE
+
+PACKAGE opt_s2 demo 1.000 0 SIGN=0 COMPONENTS="opt_c2_1 opt_c2_2" \
+	OPTIONS=SUITE
+PACKAGE opt_s3 demo 1.000 0 SIGN=0 COMPONENTS="opt_c2_1 opt_c2_3" \
+	OPTIONS=SUITE
+
+PACKAGE bundle demo SIGN=0 COMPONENTS="b1 b2" \
+	 OPTIONS=BUNDLE
+PACKAGE p5923 demo 2.0 COMPONENTS="VDOC_GUI VDOC_PROG VSCRIPT" \
+       OPTIONS=SUITE SIGN=0 SIGN2=0
+
+#	Bug P6376
+PACKAGE p6376 demo 1.0 COMPONENTS="p6376_AAA p6376_BBB p6376_CCC" OPTIONS=SUITE SIGN=0 SIGN2=0

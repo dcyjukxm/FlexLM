@@ -1,0 +1,128 @@
+			FLEXlm-Ultralite
+			________________
+
+			     v6.0h
+
+			  Release Notes
+
+			    5/6/98
+
+
+	This is the first version of FLEXlm-Ultralite.
+	FLEXlm-Ultralite contains the client library only.
+
+	FLEXlm-Ultralite has the following characteristics
+
+		- no floating point
+		- no static variables
+		- no globals
+		- one external scratch data area of 975 bytes used for 
+			temporary storage at address 0x25000 
+		- No printf/sprintf 
+		- no stdlib calls, only the following 5 external routines 
+		  referenced:
+
+			memcpy
+			memset
+			strcpy
+			strlen
+			strncpy
+
+		Sizes - all functions in library
+
+			text    data     bss     total
+			10592    88      0       10680 		(sparc) 
+			 9764     0       0       9764		(pa-risc)
+
+
+	Using FLEXlm-Ultralite
+	______________________
+
+	FLEXlm-Ultralite has only a single call: lc_checkit().  This
+	call is used to check a node-locked license which can be generated
+	by any of the standard FLEXlm license generators.
+
+	The lc_checkit() call looks like this:
+
+	status = lc_checkit(VENDOR_NAME, FEATURE, key, hostid, &code);
+
+		Where:
+
+		(int) status - status return
+		(char *) VENDOR_NAME - Your vendor name (from GSI)
+		(char *) FEATURE     - Name of the license you are checking
+		(char *) key	     - The license key, supplied by your
+					ken-generating facility
+		(char *) hostid	     - Hostid of the current machine.
+		(VENDORCODE) code    - FLEXlm vendor keys/encryption seeds
+					(from LM_CODE() macro)
+
+		Your actual code would look something like this:
+
+		#include "lmclient.h" 
+		#include "lm_code.h"
+
+		#define FEATURE "whatever"
+
+		LM_CODE(code, ENCRYPTION_SEED1, ENCRYPTION_SEED2, VENDOR_KEY1,
+			VENDOR_KEY2, VENDOR_KEY3, VENDOR_KEY4, VENDOR_KEY5);
+
+		check_license()
+		{
+		  int err;
+
+			/* Get the license key "key" from the user */
+			/* Get the system hostid "hostid" from whatever call 
+						you want to use */
+
+			err = lc_checkit(VENDOR_NAME, FEATURE, key, hostid, 
+									&code);
+
+			if (err) ; 	/* license is bad - report error */
+			else	 ; 	/* license good */
+		}
+
+		Your license production facility should make licenses with the
+		following characteristics:
+
+		License type - FEATURE (not INCREMENT or UPGRADE)
+		Feature name - (same as "FEATURE" above, in this case 
+				"whatever" - you pick this name and you can 
+				have as many different ones as you like)
+		Expiration date - "permanent", or "1-jan-0" (fixed)
+		# licenses - "uncounted" or 0 (fixed)
+		Version - 1.0 (fixed)
+		hostid - "ID_STRING=xxx", where xxx is the string you pass
+				into lc_checkit()
+
+		Note that if you want to make generic licenses (ie, licenses 
+		that are not locked to a particular piece of hardware), you 
+		can use any fixed string as the hostid.  Your keyword 
+		generation center would make the license using this same
+		string, you would pass the same string to the lc_checkit() 
+		call as the hostid in this case.
+
+
+	FLEXlm-Ultralite versions
+	_________________________
+
+	hp700_ug1 - Generic objects for pa-risc
+
+
+	Contents of kit
+	_______________
+
+	The platform-specific directory contains:
+
+		liblmgr.a	- FLEXlm-Ultralite library
+		lmclient.h	- Include file 
+		RELEASE_NOTES	- This file
+
+	Build Environment
+	_________________
+
+	The hp700_ug1 kit was built as follows:
+
+	cc:  /hmgr/Mohawk/tools/bin/ccpa
+	flags:  -DLM_INTERNAL -DRELEASE_VERSION -DEMBEDDED_FLEXLM \
+		-DFLEXLM_ULTRALITE -Aa -v +ESlit -Wa,-w41 -y -DAportable -g -c

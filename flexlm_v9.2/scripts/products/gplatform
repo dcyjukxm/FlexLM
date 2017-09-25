@@ -1,0 +1,569 @@
+#!/bin/sh -
+#******************************************************************************
+#
+#	    COPYRIGHT (c) 1994-1998 by Globetrotter Software Inc.
+#	This software has been provided pursuant to a License Agreement
+#	containing restrictions on its use.  This software contains
+#	valuable trade secrets and proprietary information of 
+#	Globetrotter Software Inc and is protected by law.  It may 
+#	not be copied or distributed in any form or medium, disclosed 
+#	to third parties, reverse engineered or used in any manner not 
+#	provided for in said License Agreement except with the prior 
+#	written authorization from Globetrotter Software Inc.
+#
+# *****************************************************************************/
+#
+#	$RCSfile: gplatform,v $ $Revision: 1.120 $ 
+#
+#	Description:	Script to determine what machine and operating 
+#			system we are running on
+# 
+# 	Return:		GSI standard platform name
+#
+#   Original Author:
+#		J. McBeath
+#
+#	Usage:	gplatform [-arch] [-os] [platform]
+#		Parameters (mutually exclusive):
+#			-alt plat - print alternate for "plat"
+#			-arch    - print architechture only
+#			-os      - print OS rev only
+#			-list	 - list all platform names
+#			-n	 - Don't include OS version
+#			-v -ver -version - print version and exit
+#			platform - print verbose platform description
+# 
+#	Last Change $Date: 2003/07/11 06:25:52 $
+#	By $Author: jonl $
+# 
+# 
+
+SEP="_"
+err=0
+ARCH=0
+ALT=0
+OS=0
+NOVER=0
+PLATS="alpha_n3
+	alpha_u1
+	alpha_u3
+	alpha_u4
+	alpha_l1
+	alpha_l2
+	alpha_v1
+	alpha_v6
+	apollo_u10
+	auspex_u4
+	auspex_u5
+	convex_u10
+	convex_u11
+	cray2_u8
+	cray2_u8
+	crayc90_u8
+	crayc90_u9
+	craynv1_u6
+	crayt90_u9
+	crayt3e_u2
+	crayymp_u8
+	crayymp_u9
+	decs_u4
+	dg_u4
+	dg_u5
+	encore_u4
+	hal_u5
+	hp300_u8
+	hp700_u8
+	hp700_u9
+	hp700_u10
+	hp64_u11
+	i86_b2
+	i86_d4
+	i86_f2
+	i86_f3
+	i86_ob3
+	i86_g2
+	i86_l1
+	i86_l2
+	i86_n3
+	i86_o3
+	i86_r6
+	i86_r7
+	i86_rl2
+	i86_rl3
+	i86_u2
+	i86_u7
+	i86_w3
+	i86_x5
+	i86_z3
+	it64_lv2
+	it64_a5
+	it64_n5
+	java_01
+	mips_n3
+	mips_u4
+	mipsabi_u1
+	moto_u2
+	moto_u4
+	ncr_u2
+	nec_u2
+	necsx4_u7
+	necsx5_u12
+	next_u3
+        ppc_rl3
+	ppc_n3
+	ppc_u4
+	ppc_x5
+	rm400_u5
+	rs6000_u3
+	sco_u3
+	sgi_u4
+	sgi32_u5
+	sgi64_u6
+	sgi32_u6
+	sony_u4
+	sun3_u4
+	sun4_u4
+	sun4_u5
+	sun64_u5
+	vax_u4
+	vax_v5
+	vax_v6"
+
+#Decstation does not understand [ -x file ], so use -r instead
+
+
+if [ $# -gt 0 ]; then
+	GO_ON=0
+	case $1 in
+	-alt)		ALT=1;;
+	-arch)		ARCH=1; GO_ON=1;;
+	-os)		OS=1; GO_ON=1;;
+	-v)		echo "gplatform v1.34";;
+	-ver)		echo "gplatform v1.34";;
+	-version)	echo "gplatform v1.34";;
+	-n*)		NOVER=1; GO_ON=1;;
+	-list) 		echo "Platform names are: "
+			echo
+			echo $PLATS | sed 's/ /\
+/g' | pr -t -4;;
+	-listfull) 	for i in $PLATS
+			do
+				echo "$i		`gplatform $i`"
+			done ;;
+#
+#	TECH NAME	ENGLISH DESCRIPTION
+#	_________	___________________
+#
+	alpha_n3)	echo "Dec Alpha Windows/NT";;
+	alpha_l*)	echo "Dec Alpha Linux";;
+	alpha_u*)	echo "Dec Unix for Alpha";;
+	alpha_v1)	echo "Dec Alpha OpenVMS v1.x";;
+	alpha_v6)	echo "Dec Alpha OpenVMS v6.x";;
+	apollo_u10)	echo "Apollo DN3/4000, SR10.x";;
+	auspex_u4)	echo "Auspex Sparc SunOS v4.x";;
+	auspex_u5)	echo "Auspex Sparc Solaris v2.x";;
+	convex_u10)	echo "Convex C1,C2,C3 OS v10.x";;
+	convex_u11)	echo "Convex C1,C2,C3 OS v11.x";;
+	cray2_u8)	echo "CRAY-2 Unicos v8.x";;
+	crayc90_u8)	echo "CRAY-C90 Unicos v8.x";;
+	crayc90_u9)	echo "CRAY-C90 Unicos v9.x";;
+	crayt3e_u*)	echo "CRAY-T90 (CRAY TS) Unicos";;
+	crayt90_u*)	echo "CRAY-T90 (CRAY TS) Unicos";;
+	crayymp_u*)	echo "CRAY-YMP Unicos";;
+	crayymp_u9)	echo "CRAY-YMP Unicos v9.x";;
+	decs_u4)	echo "Dec Decstation Ultrix v4.x";;
+	dg_u4)		echo "DG AViiON DGUX v4.x";;
+	dg_u5)		echo "DG AViiON DGUX v5.x";;
+	encore_u4)	echo "Encore SVR4 v4.x";;
+	hal_u5)		echo "Hal 64-bit Solaris v2.x";;
+	hp300_u8)	echo "HP 9000/300,400 HP-UX v8.x";;
+	hp700_u8)	echo "HP 9000/700,800 HP-UX v8.x";;
+	hp700_u9)	echo "HP 9000/700,800 HP-UX v9.x";;
+	hp700_u10)	echo "HP 9000/700,800 HP-UX v10.x";;
+	hp64_u*)	echo "HP 64-bit HP-UX";;
+	i86_b2)		echo "BSDI OS 2.x";;
+	i86_d4)		echo "DG AViiON Pentium R4.x";;
+	i86_f2)		echo "Freebsd v 2.x";;
+	i86_f3)		echo "Freebsd v 3.x";;
+	i86_ob3)	echo "OpenBSD v 3.x";;
+	i86_l1)		echo "Intel x86, Linux v1.x";;
+	i86_l2)		echo "Intel x86, Linux v2.x";;
+	i86_g2)		echo "Intel x86, Linux with GNU libc";;
+	i86_n3)		echo "Intel x86, Windows/NT, Windows 95, (32-bit)";;
+	i86_o3)		echo "Intel x86, OS/2 v3.x";;
+	i86_rl2)	echo "Intel x86, ynx Realtime";;
+	i86_rl3)	echo "Intel x86, Lynx Realtime";;
+	i86_r6)		echo "Intel x86, Red Hat Linux 6.x";;
+	i86_r7)		echo "Intel x86, Red Hat Linux 7.x";;
+	i86_u2)		echo "Intel x86, Unixware v2.x";;
+	i86_u4)		echo "Intel x86, Unixware v4.x";;
+	i86_u7)		echo "Intel x86, Unixware Release 5 Version 7.x";;
+	i86_w3)		echo "Intel x86, Windows v3.x, Win32s (16-bit)";;
+	i86_x5)		echo "Intel x86, Solaris v2.x";;
+	i86_z3)		echo "Intel x86, Netware v3.x";;
+ 	it64_lv2)	echo "Linux Itanium v2.x";;
+	it64_n5)	echo "Win64 Itanium NT5.0";;
+	java_01)	echo "Java, Version 1.x";;
+	mips_n3)	echo "Mips Windows/NT";;
+	mips_u4)	echo "Mips OS 4.5x";;
+	mipsabi_u1)	echo "Mips ABI V1";;
+	moto_u2)	echo "Motorola MPC OS v2.x";;
+	moto_u4)	echo "Motorola MPC OS v4.x";;
+	ncr_u2)		echo "NCR OS v2.x";;
+	nec_u2)		echo "NEC EWS OS v2.x";;
+	necsx4_u*)	echo "NEC SX-4 OS";;
+	necsx5_u*)	echo "NEC SX-5 OS";;
+	next_u3)	echo "Next Motorola NextStep v3.x";;
+ 	ppc_rl3)	echo "Lynx PowerPc V3.x";;
+	ppc_n3)		echo "PowerPC Windows/NT";;
+	ppc_x5)		echo "PowerPC, Solaris v2.x";;
+	ppc_u4)		echo "PowerPC, AIX v4.x";;
+	rm400_u5)	echo "Siemens Nixdorf RM400 Sinux v5.x";;
+	rs6000_u3)	echo "IBM RS/6000 AIX v3.x";;
+	sco_u3)		echo "SCO Unix (intel) v3.x";;
+	sgi_u4)		echo "SGI 32-bit IRIX v4.x";;
+	sgi32_u5)		echo "SGI 32-bit IRIX 5 and 6";;
+	sgi32_u6)	echo "SGI 32-bit IRIX 6";;
+	sgi64_u6)	echo "SGI 64-bit IRIX 6";;
+	sony_u4)	echo "Sony BSD OS V4";;
+	sun3_u4)	echo "Sun3 (68k) SunOS v4.x";;
+	sun4_u4)	echo "Sun4 (sparc) SunOS v4.x";;
+	sun4_u5)	echo "Sun4  SunOS v5.x (Solaris 2.x)";;
+	sun64_u5)	echo "Sun 64-bit  SunOS v5.x (Solaris 2.x)";;
+	tandem_u4)	echo "Tandem NonStop-UX v4MP";;
+	vax_u4)		echo "Dec Vax Ultrix v4.x";;
+	vax_v5)		echo "Dec Vax/VMS v5.x";;
+	vax_v6)		echo "Dec Vax/VMS v6.x";;
+	*)		echo "Unknown platform $2";;
+	esac
+#
+#	Process the alternate platform name
+#	This is used to find an alternate acceptable palatform to try.  
+# 
+	if [ $ALT -eq 1 ]; then
+		altp=""
+		case "$2" in
+			alpha_*)	altp="alpha_u3";;
+			auspex_u4)	altp="sun4_u4";;
+			auspex_u5)	altp="sun4_u5";;
+			hal_*)		altp="sun4_u5";;
+			hp700_*)	altp="hp700_u10";;
+			i86_l*)		altp="i86_l1";;
+			i86_r6)		altp="i86_g2";;
+			i86_r7)		altp="i86_r6";;
+			ppc_u4)		altp="rs6000_u3";;
+			rs64_u4)		altp="ppc_u4";;
+			sgi32_*)	altp="sgi32_u5";;
+			sgi64_u6)	altp="sgi32_u6";;
+			sgi64_*)	altp="sgi32_u5";;
+			sun64_*)	altp="sun4_u5";;
+			*)		echo "UNKNOWN"; exit 1;;
+		esac
+		if [ "$altp" = "$2" ]; then
+			echo "UNKNOWN"
+			exit 1
+		else
+			echo "$altp"
+			exit 0
+		fi
+	fi
+
+#
+#	Anything more to do?
+#
+	if [ $GO_ON -eq 0 ]; then
+		exit 0
+	fi
+fi
+
+#Figure out what platform we are running on, and output that platform name
+#If the user has set the GPLATFORM environment variable, then we just use
+#that instead of trying to figure it out.
+if [ "X$GPLATFORM" != X ]; then
+	machine=`echo "$GPLATFORM" | sed -e 's/_[^_]*$//'`
+	os=`echo "$GPLATFORM" | sed -e 's/^[^_]*_//'`
+elif [ -f /bin/uname -o -f /usr/bin/uname ]; then
+	machine=`uname -m`
+	case $machine in
+	ia64)
+		case `uname -s` in
+		Linux)
+			machine=it64; osprefix=lr; oscalc=uname_r;;
+ 		AIX)  
+			machine=it64; osprefix=a; oscalc=uname_v;;
+ 		HP-UX)  
+			mver=`uname -r | sed -e 's/[AB]\.[B0]*\([1-9][0-9]*\).*/\1/'`
+			os=hp$mver
+			oscalc=osdone
+			machine=it64; osprefix=hp; 
+			;;
+		esac;;
+	sun3)	machine=sun3; oscalc=uname_r; osprefix=u; oscheck=SunOS;;
+	sun4)	machine=sun4; oscalc=uname_r; osprefix=u; oscheck=SunOS;;
+	sun4u) 
+		oscalc=uname_r; osprefix=u; oscheck=SunOS
+		if [ -x /bin/isalist  ] && isalist | grep '^sparcv9' > /dev/null
+		then
+			machine=sun64
+		else
+			machine=sun4
+		fi;;
+	Power*)	machine=ppc; os=mac10; oscalc=osdone;;
+	sun4[a-z]) machine=sun4; oscalc=uname_r; osprefix=u; oscheck=SunOS;;
+	sun4H) machine=hal; oscalc=uname_r; osprefix=u; oscheck=SunOS;;
+	aushp) machine=auspex; oscalc=uname_r; osprefix=u; oscheck=SunOS;;
+	x86_64) machine=amd64;os=s8;oscalc=osdone;;
+	i*86)   
+		case `uname -s` in
+		OpenBSD) machine=i86; oscalc=uname_r; osprefix=ob ;;
+		FreeBSD) machine=i86; oscalc=uname_r; osprefix=f ;;
+		Linux) 
+			machine=i86; oscalc=uname_r 
+			osprefix=l
+			if ldd /bin/ls |  grep libc.so.6 > /dev/null  
+			then
+				osprefix=g
+				if [ -d /etc/susehelp.d ]
+				then
+					oscalc=osdone
+					os=s8
+				fi
+				if [ -f /etc/redhat-release ]
+				then
+					oscalc=osdone
+					mver=`sed 's/.*elease //' /etc/redhat-release`
+					mver=`echo $mver | sed 's/\([0-9]\+\).*$/\1/'`
+					os=r$mver
+					machine=i86
+					osprefix=g
+					if [ $mver -lt 6 ] 
+					then
+						os=g2
+					fi
+				fi
+			fi;;
+		LynxOS) machine=i86; osprefix=rl; oscalc=uname_r ;;
+		BSD/OS) machine=i86; oscalc=uname_r; osprefix=b ;;
+		UnixWare) machine=i86; oscalc=uname_v; osprefix=u;;
+		*)
+			case `uname -r` in
+				4.2*) 	machine=i86; oscalc=uname_v; 
+						osprefix=u;;
+				*) machine=sco; oscalc=uname_r; osprefix=u;;
+			esac ;;
+		esac ;;
+	i86pc)	machine=i86; oscalc=uname_r; osprefix=x; oscheck=SunOS;;
+	IP*)    
+		if [ "$CC" = abicc ]
+		then
+			machine=mipsabi; osprefix=u; oscalc=osdone; os=u1
+		else
+			if [ `uname -s` = IRIX64 ]
+			then
+				machine=sgi64; osprefix=u; oscalc=uname_r;
+			else
+				if [ `uname -p` = nv1 ]
+				then
+				    machine=craynv1; os=u6; oscalc=osdone;
+				else
+				    machine=sgi32; osprefix=u; oscalc=uname_r;
+				fi
+			fi
+		fi;;
+
+	PowerPC)
+		case `uname -s` in
+		LynxOS) machine=ppc; osprefix=rl; oscalc=uname_r;;
+		esac ;;
+	ppc)    
+		case `uname -s` in
+		SunOS)    machine=ppc; oscalc=uname_r; osprefix=x; oscheck=SunOS;;
+		Linux)    machine=ppc; oscalc=uname_r; osprefix=mv; oscheck=Linux;;
+		esac ;;
+	prep)   machine=ppc; oscalc=uname_r; osprefix=x; oscheck=SunOS;;
+	RISC)	machine=decs; oscalc=uname_r; osprefix=u;;
+	AViiON)	
+		if [ `uname -p` = Pentium ]
+		then
+			machine=i86; os=d4; oscalc=osdone
+		else
+			machine=dg;	oscalc=uname_r; osprefix=u; 
+			oscheck=dgux
+		fi;;
+	alpha)	machine=alpha; oscalc=uname_r; 
+		if [ `uname -n` = chumley.globes.com ]
+		then
+			os=r6; oscalc=osdone
+		elif [ `uname -s` = Linux ]
+		then
+			osprefix=l 
+		else
+			osprefix=u 
+		fi
+		;;
+	RM400)  machine=rm400; oscalc=uname_r; osprefix=u; oscheck=SINIX-N;;
+	R3000)  machine=nec; os=u`uname -v`;oscalc=osdone; osprefix=u;;
+	m88k)	
+		if [ `uname -s` = UNIX_SV ] ; then
+			machine=encore
+			os=u`uname -v | sed 's/\..*//`
+		else
+			machine=moto 
+			if [ "$USEOCS" = yes ] ; then
+				os=u2
+			else
+				os=u4
+			fi
+		fi
+		oscalc=osdone; osprefix=u ;;
+	3314)   machine=ncr; os=u`uname -v | sed 's/\..*//'`; oscalc=osdone
+				osprefix=u;;
+	convex) machind=convex; os=u`uname -v | sed 's/\..*//'`; oscalc=osdone;
+			       osprefix=u;;
+	S4000)  machine=tandem; oscalc=uname_r; osprefix=u ;;
+	SX-4)   machine=necsx4; oscalc=uname_r; osprefix=u ;;
+	SX-5)	machine=necsx5; oscalc=osdone; osprefix=u; os=u12 ;;
+	CRAY*) machine=`uname -m | sed 's/ //g'`; oscalc=uname_r; osprefix=u
+                [ $machine = CRAYJ90 ] && machine=crayymp
+                [ $machine = CRAYTS ] && machine=crayt90
+                [ $machine = CRAYC90 ] && machine=crayc90
+                [ $machine = CRAYY-MP ] && machine=crayymp
+                ;;
+	00*) 
+		osprefix=u
+		mver=`uname -v`
+		case $mver in
+		3) machine=rs6000;;
+		4) test -f /bin/locale64 && machine=rs64 || machine=ppc;;
+		5) machine=rs64;;
+		esac 
+		os=$osprefix$mver
+		oscalc=osdone
+		;;
+	*)	uname_s=`uname -s`
+		case $uname_s in
+		HP-UX)	machine=hp700	#TBD - need to check for other HPs
+			mver=`uname -r | sed -e 's/[AB]\.[B0]*\([1-9][0-9]*\).*/\1/'`
+			os=u$mver
+			oscalc=osdone
+			if [ `uname -m` = "9000/375" ];  then
+				machine=hp300; os=u8;
+			fi
+#			if [ -f /stand/vmunix ] ; then
+#				file /stand/vmunix | grep ELF-64 > \
+#					/dev/null && machine=hp64
+#			fi
+			;;
+		HI-UX)	machine=hp700	#TBD - need to check for other HPs
+			mver=`uname -r | sed -e 's/\([1-9][0-9]*\).*/\1/'`
+			os=u`expr $mver + 6`
+			oscalc=osdone
+			;;
+		AIX)	machine=rs6000
+			mver=`uname -v`
+			[ $mver = 4 ] && machine=ppc
+			os=u$mver
+			oscalc=osdone
+			;;
+		mips)   machine=mips;mver=`uname -r | sed 's/_.*//'`
+                        os=u$mver
+                        oscalc=osdone;;
+		*)	machine=UNKNOWN; err=1;;
+		esac;;
+	esac
+
+	case $oscalc in
+	uname_r) mver=`uname -r | 
+			sed '
+			s/^V//
+			s/\..*//' # rmv leading V and trailing dec fraction
+			` 	
+		mconf=`echo $mver | sed -e 's/[1-9]/X/'`
+		if [ X$oscheck = X ]; then oscheck=`uname -s`; fi
+		if [ `uname -s` = $oscheck -a $mconf = "X" ]; then
+			os=$osprefix$mver
+		else
+			os=UNKNOWN; err=1
+		fi
+		;;
+
+	uname_v) mver=`uname -v | sed -e 's/^\([1-9]\)\..*/\1/'`
+		 os=$osprefix$mver
+		;;
+
+
+
+	old_uname_s) os=`uname -s | tr A-Z a-z`;;
+
+	uname_s) mver=`uname -s | sed -e 's/^\([1-9]\)\..*/\1/'`
+		os=$osprefix$mver;;
+
+	osdone)	: ;;
+	*)	os=UNKNOWN; err=1;;
+	esac
+
+elif [ -f /bin/arch ]; then
+	machine=`/bin/arch`
+	if [ -d /var ]; then
+		os=u4
+	else
+		os=u3
+	fi
+elif [ -r /sys/node_data ]; then
+	machine=apollo
+	if [ -r /usr/apollo/bin ]; then
+		os=u10
+	else
+		os=u9
+	fi
+elif [ -f /ultrixboot ]; then
+	machine=vax
+	os=ux_UNKNOWN
+	fgrep 'Ultrix-32 V3.' /etc/motd >/dev/null
+	if [ 0 = $status ]; then
+		os=u3
+	else
+		fgrep 'Ultrix V2.' /etc/motd >/dev/null
+		if [ 0 = $status ]; then
+			os=u2
+		else
+			os=u4
+		fi
+	fi
+#TBD - still need to figure out how to do versions for these...
+elif [ -f /hp-ux ]; then
+#TBD - need to distinguish between hp700 and hp300
+	machine=hp700
+	os=u1
+elif [ -r /NextApps ]; then
+	machine=next
+	os=u3	# this needs to be fixed but I dont know how
+	oscalc=osdone
+elif [ -r /usr/lpp ]; then
+	machine=rs6000
+	os=u3
+elif [ -r /usr/sony ]; then
+	machine=sony
+	os=u4
+else
+	machine=UNKNOWN
+	os=UNKNOWN
+	err=1
+fi
+#TBD - could have switches to determine what to output
+
+machine=`echo $machine | tr '[A-Z]' '[a-z]'`
+
+if [ $ARCH -eq 1 ]; then
+	echo $machine
+	exit $err
+fi
+if [ $OS -eq 1 ] ; then
+	echo $os; exit $err
+fi
+if [ "$NOVER" -eq 1 ] ; then
+	os=`echo $os | sed 's/[0-9]*$//'`
+fi
+
+echo $machine$SEP$os
+exit $err

@@ -1,0 +1,5 @@
+FEATURE l_install_test2 demo 1.000 07-jul-2018 uncounted 6E956982D153 \
+        HOSTID=ANY
+FEATURE l_install_test3 demof 1.000 07-jul-2018 uncounted 6F956982D153 \
+        HOSTID=ANY
+        

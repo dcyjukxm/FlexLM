@@ -1,0 +1,63 @@
+#!/bin/sh
+#
+#	FLEXlm-specific kit building
+#
+#	Runs @ end of KITMAKE, from kit directory
+#
+#	Parameters: $0 sccs_dir major-version minor-version full-version
+#
+#	Module:	XTRAMAKE v1.50.0.0
+#	Last changed:  8/11/98
+
+version=$1
+if [ "$version" = "" ]
+then
+	echo "usage: $0 version, exiting"
+	exit 1
+fi
+[ -d src ] || {
+	echo "must be run from parent flexlm directory, exiting"
+	exit 1
+}
+[ -d src_master ] && {
+	echo "src_master already exists, exiting"
+	exit 1
+}
+	
+src_master=src_master/flexlm/$version
+echo "Creating source directory in $src_master"
+
+mkdir src_master 
+mkdir src_master/flexlm 
+mkdir src_master/flexlm/$version
+
+src_dirs="app h machind master server src test i86_n3 lmtools \
+	testsuite utils v4replog vendor"
+
+here=`pwd`
+ln -s $here/BINARY_KIT $src_master
+ln -s $here/makefile $src_master
+ln -s $here/pc.mak $src_master
+ln -s $here/*.c $src_master
+
+for dir in  $src_dirs 
+do
+	mkdir $src_master/$dir
+	cd $src_master/$dir
+	for file in ../../../../$dir/* 
+	do
+		f=`basename $file`
+		case $f in
+		*.[ch]) rel_comment < $file > $f ;;
+		CVS) ;;
+		*) ln -s $file $f
+		esac
+	done
+	cd $here
+done
+
+cd $src_master/server
+rm -f lsfilter.c ls_dict.c lsreplog.c ls_log.c ls_log_open.c ls_logtime.c
+cd ../app
+rm -f lg_code.h
+

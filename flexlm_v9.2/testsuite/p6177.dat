@@ -1,0 +1,10 @@
+SERVER this_host any
+VENDOR demo
+USE_SERVER
+FEATURE f1 demo 1.0 permanent 4 SIGN="0047 FA1A 9979 11CE F3D5 F6DB \
+	0456 B300 28D7 14F8 4CA3 1C45 2F1F 9048 2D61"
+FEATURE f2 demo 1.0 permanent 4 SIGN="0047 FA1A 9979 11CE F3D5 F6DB \
+	0456 B300 28D7 14F8 4CA3 1C45 2F1F 9048 2D61"
+#NOTE: You can edit the hostname on the server line (1st arg).
+#      The (optional) daemon-path on the VENDOR line (2nd arg).
+#      Most other changes will invalidate this license.

@@ -1,0 +1,201 @@
+#!/bin/csh -f
+#******************************************************************************
+#
+#	    COPYRIGHT (c) 1988-1998 by Globetrotter Software Inc.
+#	This software has been provided pursuant to a License Agreement
+#	containing restrictions on its use.  This software contains
+#	valuable trade secrets and proprietary information of 
+#	Globetrotter Software Inc and is protected by law.  It may 
+#	not be copied or distributed in any form or medium, disclosed 
+#	to third parties, reverse engineered or used in any manner not 
+#	provided for in said License Agreement except with the prior 
+#	written authorization from Globetrotter Software Inc.
+#
+#******************************************************************************
+#
+#	Make a Flexible License Manager binary kit
+#
+#	M. Christiano
+#	3/14/88
+#
+#	Module:	BINARY_KIT v3.91.0.0
+#	Last changed:  9/17/97
+#
+
+if ($#argv < 2) then
+	echo usage: BINARY_KIT directory arch_os \[NOCLEAN\] \[NOLINT\]
+	echo ""
+	echo example: BINARY_KIT v1.5 sun4_u4
+	echo ""
+	echo values for arch are: \"apollo convex c90 decs dg hp300 hp700 i86 inter\"
+	echo \"mips moto mx300 ncr nec next rm400 rs6000 sgi sony sun3 sun386 sun4 ymp vax\"
+	echo ""
+	echo values for os are: \"uN \(unix\) sN \(sco\) xN \(Solaris/intel\) tN \(NextStep\)\"
+	echo "		- Where N is some integer"
+	echo ""
+	echo "BINARY_KIT must be run from the parent of the FLEXlm kit"
+	echo "directory.  Specify the FLEXlm kit directory as the first"
+	echo "argument to BINARY_KIT."
+	echo ""
+	echo "The result of a run of BINARY_KIT will be a binary kit directory"
+	echo contained in \"directory\"/\"arch_os\"
+	echo ""
+	exit
+endif
+
+set path = ($path ../utils)
+set binary = BINARY
+set doclean = true
+set dolint = false	
+set OSVER = ""
+set OSVER_O = ""
+set OSVER_L = ""
+
+
+# -------------------------------------------------------------------------
+#
+#	Get arguments
+#
+# -------------------------------------------------------------------------
+set src = $1
+set dest = $2
+set arch = `echo $dest | sed -e 's/_.*//'` 
+set os = `echo $dest | sed -e 's/.*_//'`
+
+while ($#argv > 2)
+	if ($3 == NOCLEAN) then
+		set doclean = false
+	shift
+end
+
+set CLEAN = `pwd`/$src/BINARY_CLEAN
+
+if (!(-e $src)) then
+	echo The FLEXlm source directory \"$src\" does not exist
+	echo For usage information, type \"BINARY_KIT\"
+	exit
+endif
+# -------------------------------------------------------------------------
+#
+#	Now, make the binary kit
+#
+# -------------------------------------------------------------------------
+echo Begin creation of $src BINARY kit on `date`
+echo Architecture: $arch, OS: $os, Host: `uname -n`
+echo ""
+cd $src
+# -------------------------------------------------------------------------
+#
+#	Set some options, depending on the platform
+#
+# -------------------------------------------------------------------------
+set XXCFLAG = ""
+set XCFLAGONLY = ""
+set XLFLAG = ""
+set OTHERCFLAGS = ""
+#-------------------------------------------------
+#	set OSVER* variables
+#-------------------------------------------------
+
+if ("$OSVER" == "") then
+	set OSVER = `utils/ul_platargs`
+	echo OSVER is \"$OSVER\"
+endif
+if ("$OSVER_O" == "") then
+	set OSVER_O = `utils/ul_platargs -O`
+	echo OSVER_O is \"$OSVER_O\"
+endif
+if ("$OSVER_L" == "") then
+	set OSVER_L = `utils/ul_platargs -l`
+	echo OSVER_L is \"$OSVER_L\"
+endif
+
+#
+#	These next 2 are just a couple of examples for now
+#
+if ($dest == "hp300_u8" || $dest == "hp700_u8") then
+	set LINTOUTFLAG = "-o "
+	set XLFLAG = "-D_CLASSIC_ANSI_TYPES"
+else if ($dest == "sun4_u5" || $dest == "i86_x5") then
+	set PICFLAG = "-K PIC"
+	if ($dest == sparc) then
+		set OTHERCFLAGS = "-DSPARC_COMPLIANT"
+		setenv ENVLDLIBS1=`pwd`/src	# Override link libraries
+	endif
+endif
+
+grep "define FLEXLM_VERSION" h/lmclient.h
+grep "define FLEXLM_REVISION" h/lmclient.h
+grep "define FLEXLM_PATCH" h/lmclient.h
+
+#
+#	Build all the executables
+#
+if ($doclean == true) then
+	echo "Cleaning out old binaries ..."
+	echo ""
+	cd src
+	make clean > /dev/null
+	cd ..
+endif
+echo ""
+
+set cflags = "$OTHERCFLAGS $XXCFLAG $XCFLAGONLY" 
+
+# 
+##########################################################
+# 	Make main shipping libraries here
+##########################################################
+
+echo "Creating FLEXlm-Ultralite binary kit"
+echo ""
+
+cd src
+make DEBUGFLAG="" \
+	XTRACFLAG="-DRELEASE_VERSION $OSVER $cflags -DLM_INTERNAL -DEMBEDDED_FLEXLM -DFLEXLM_ULTRALITE" \
+	XTRAOCFLAG="-DRELEASE_VERSION $OSVER_O $cflags -DLM_INTERNAL"
+		
+make lmlite
+cd ..
+
+echo ""
+mkdir $binary
+touch $binary/dummy
+rm -f $binary/*		# Get rid of any old stuff
+
+#
+#	Put the files where they belong
+#
+echo "Moving files"
+echo ""
+set list = (src/*.a src/lmlite.c h/lm_code.h h/lmclient.h \
+		utils/bin.makefile RELEASE_NOTES VERSION)
+foreach i ($list)
+	cp $i $binary
+end
+cd $binary
+ranlib *.a
+mv bin.makefile makefile
+cd ..
+
+#
+#	Move the kit to its final resting place
+#
+echo "moving kit to $dest"
+rm -rf $dest
+mkdir $dest
+mv $binary/* $dest
+rmdir $binary
+pwd
+#
+#
+echo "Cleaning up binary directory"
+$CLEAN
+cd ..
+
+#
+#	Build special platform-specific binaries here
+#
+
+
+echo "done $src binary kit build `date`."

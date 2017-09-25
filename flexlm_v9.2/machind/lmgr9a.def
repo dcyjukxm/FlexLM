@@ -1,0 +1,301 @@
+;/************************************************************************
+;
+;        COPYRIGHT (c) 2003 by Macrovision Corp.
+;        This software has been provided pursuant to a License Agreement
+;        containing restrictions on its use.  This software contains
+;        valuable trade secrets and proprietary information of 
+;        Macrovision Corp. and is protected by law.  It may not be copied
+;        or distributed in any form or medium, disclosed to third parties,
+;        reverse engineered or used in any manner not provided for in
+;        said License Agreement except with the prior written authorization
+;        from Macrovision Corp.
+;
+; ************************************************************************/
+
+LIBRARY   LMGR9A
+HEAPSIZE  8192
+EXPORTS
+;
+;       LSAPI functions
+;
+        LSRequest               @2
+        LSRelease               @3
+        LSFreeHandle            @4
+        LSUpdate                @5
+        LSGetMessage            @6
+        LSQuery                 @7
+        LSEnumProviders         @8
+
+        lc_auth_data            @32
+        lc_checkin              @33
+        lc_checkout             @34
+        lc_ck_feats             @35
+        lc_daemon               @36
+        lc_disconn              @37
+        lc_display              @38
+        lc_errstring            @39
+        lc_feat_list            @40
+        lc_feat_set             @41
+        l_flush_config          @42
+        lc_free_job             @43
+        lc_get_attr             @44
+        lc_get_config           @45
+        lc_get_feats            @46
+        lc_get_redir            @47
+        lc_gethostid            @48
+        lc_getid_type           @49
+        lc_hostname             @50
+        lc_idle                 @51
+        lc_init                 @52
+        lc_isadmin              @53
+        lc_lic_where            @54
+        lc_log                  @55
+        lc_master_list          @56
+        lc_next_conf            @57
+;        lc_node_lock            @58 ; obsolete in ver 5
+        lc_perror               @59
+        lc_remove               @60
+        lc_set_attr             @61
+        lc_shutdown             @62
+        lc_status               @63
+        lc_test_conf            @64
+        lc_userlist             @65
+        lc_username             @66
+        lc_vsend                @67
+        lc_first_job            @68
+        lc_next_job             @69
+        lc_sleep                @70
+        lc_hosttype             @71
+        lc_get_errno            @72
+        lc_removeh              @73
+        lc_set_errno            @74
+        lc_xstrcmp              @75
+        l_get_dlist             @76 ; changed from lc_ in ver 5
+        lc_timer                @77
+        lc_crypt                @78
+        lc_baddate              @79
+        lc_cryptstr             @80
+        l_free_daemon_list     @81  ; changed from lc in ver 5
+
+                  ; winsock calls for lmutil
+        l__WSAGetLastError       @82;
+        l__WSAFDIsSet            @83;
+        l__closesocket          @84;
+        l__connect              @85;
+        l__gethostbyname        @86;
+        l__htons                 @87;
+        l__ioctlsocket           @88;
+        l__ntohs                @89;
+        l__recv                 @90;
+        l__select               @91;
+        l__socket               @92;
+        l__send                 @93;
+        l__gethostname          @94;
+        lc_errtext              @95;
+        la_reread               @96;
+        lc_hostid               @97;
+        l_baddate                               @98;
+;
+;       Misc. functions used by FLEXlm utilities
+;
+        l_get_id                @101
+        l_asc_hostid            @102
+        l_basic_conn            @103
+        l_connect               @104
+        l_compare_version       @105
+        l_conn_msg              @106
+        l_decode_int            @107
+        l_get_date              @108
+        l_get_port              @109
+        l_lfgets                @110
+        l_lookup                @111
+        l_msg_cksum             @112
+        l_msg_size              @113
+        l_open_file             @114
+        l_parse_feature_line    @115
+        l_parse_server_line     @116
+        l_rcvmsg                @117
+        l_sndmsg                @118
+        l_text                  @119
+        l_zcp                   @120
+        l_cur_dlist             @121 ; changed from lc in ver 5
+        l_validdate             @122
+;        l_redundant             @123
+        timer_proc              @124
+        l_onebyte               @125
+        l_cksum                 @126
+        l_sum                   @127
+        l_addr_to_inet          @128
+        l_inet_cmp              @129
+        l_inet_to_addr          @130
+        l_connect_host_or_list  @131
+        l_file_checkout         @132
+;       l_connect_port          @133    This is now obselete
+        l_start_ok              @134
+        l_free_conf             @135
+        l_valid_version         @136
+        l_parse_package         @137
+        l_asc_date              @138
+        l_int_month             @139
+        l_check_conf            @140
+        l_upgrade_feat          @141
+;
+;       Added for servtest.c
+;
+;       l_config                @142
+        l_lfclose               @143
+        l_master_list_lfp       @144
+        l_putenv                @145
+;
+;       New exports after 4.0a
+;
+        l_rcvmsg_timeout        @146
+;
+;       More misc. functions
+;
+        l_get_endpoint          @147
+        l_connect_endpoint      @148
+        l_next_conf_or_marker   @149  ; changed in ver 5.0 from l_next_conf_or_server
+;
+;       Routines used by vendor daemon and lmgrd
+;
+        l_cksum_ok              @151
+        l_decode_long           @152
+        l_encode_int            @153
+        l_getattr               @154
+        l_str_crypt             @155
+        l_write_sernum          @156
+        l_bin_date              @157
+        l_date                  @158
+        l_decode_long_hex       @159
+        l_encode_long           @160
+        l_encode_long_hex       @161
+        l_extract_date          @162
+        l_get_cksum             @163
+        l_getexp                @164
+        l_host                  @165
+        l_init_file             @166
+        l_modify                @167
+        l_print_config          @168
+        l_read_sernum           @169
+        l_set_license_path      @170
+        l_str_dcrypt            @171
+;        l_string_key            @172
+        l_timer_add             @173
+        l_finder_port           @174
+        l_read_timeout          @175
+        l_good_bin_date         @176
+        l_hostid_cmp            @177
+        l_asc_hostid_len        @178
+        l_asc_id_one            @179
+        l_ipaddr                @180
+        lc_chk_conf             @181
+        lc_free_hostid          @182
+        l_hostid_cmp_exact      @183
+        l_midnight              @184
+        lc_copy_hostid          @185
+        lc_expire_days          @186
+        l_select_one            @187
+        lc_heartbeat            @188
+        lp_checkin              @189
+        lp_checkout             @190
+        lp_errstring            @191
+;        l_svk                   @192
+        l_hostid_cmp_one        @193
+        l_new_hostid            @194
+        lp_heartbeat            @195
+        l_select                @196
+        l_platform_name         @197
+        l_free_server                   @198
+        l_any_set                       @199
+        l__WSAStartup                   @200
+        l__WSACleanup                   @201
+        l__accept                       @202
+        l__getsockname                  @203
+        l__bind                         @204
+        l__listen                       @205
+        l__getservbyname                @206
+        l__WSASetLastError              @207
+        l__setsockopt                   @208
+        l__recvfrom                     @209
+        l__sendto                       @210
+        l__ntohl                        @211
+        l____WSAFDIsSet                 @212
+        lc_free_mem                     @213
+        l_rerd                          @214
+        lp_perror                       @215
+        lp_warning                      @216
+        lp_pwarn                        @217
+        l_set_error                     @218
+        l_master_list_from_job          @219
+        l_clear_error                   @220    
+        l_uppercase                     @221
+        l_keyword_eq                    @222
+        l_malloc                        @223
+        l_id_types_match                @224
+        lc_free_lmgrd_stat              @225
+        l_lmgrds                        @226
+        l__shutdown                     @227
+        l__htonl                        @228    
+        lc_check_key                    @229
+        la_parse_daemon                 @230
+        l_shutdown_one                  @231
+        l_getid_type                    @232
+        l_shutdown                      @233
+        l_shutdown_vendor               @234
+        l_files_in_dir                  @235
+        l_gethostid                     @236
+        l_set_user_init3                @237
+        l_check_fmt_ver                 @238
+        l_parse_decimal                 @239
+        l_decimal_format                @240
+        l_err_info_cp                   @241
+        l_parse_daemon                  @242
+        lc_cleanup                      @243
+        lc_set_registry                 @244
+        lc_convert                      @245
+        l_lowercase                     @246
+
+        lc_err_info                     @248
+        lc_new_job                      @249
+        l_filter_gen                    @250
+        l_appfile                       @251
+	l_n36_buff			@252
+	l_pubkey_verify			@253
+	l_x77_buf			@254
+	l_pc_connect			@255
+	l_make_tcp_socket		@256
+	l_make_udp_socket		@257
+	l_timer_mt_add			@258
+	l_timer_mt_change		@259
+	l_timer_mt_delete		@260
+	l_borrow_dptr			@261
+	l_borrow_decrypt		@262
+;
+;       WINNT specific startup routine.
+;
+
+        LP_SETUP                        @300
+        LP_CHECKOUT                     @301
+        LP_CHECKIN                      @302
+        LP_HEARTBEAT                    @303
+        LP_ERRSTRING                    @304
+        LC_CRYPTSTR                     @305
+        LC_HOSTID                       @306
+        COM_LC_CRYPTSTR                 @307
+        COM_LC_HOSTID                   @308
+
+	lt_checkout                     @401
+	lt_checkin                      @402
+	lt_heartbeat                    @403
+	lt_errstring	                @404
+	lt_perror	                @405
+	lt_pwarn	                @406
+	lt_warning	                @407
+
+	lc_init_simple_composite        @408
+	lc_borrow_return                @409
+
+	Java_com_macrovision_flexlm_HostId_lGetNativeHostId	@450
+
+        DllMain                         @500

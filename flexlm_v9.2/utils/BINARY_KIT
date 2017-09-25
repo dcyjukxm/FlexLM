@@ -1,0 +1,750 @@
+#!/bin/csh -f
+#******************************************************************************
+#
+#	    COPYRIGHT (c) 1988-1998 by Globetrotter Software Inc.
+#	This software has been provided pursuant to a License Agreement
+#	containing restrictions on its use.  This software contains
+#	valuable trade secrets and proprietary information of 
+#	Globetrotter Software Inc and is protected by law.  It may 
+#	not be copied or distributed in any form or medium, disclosed 
+#	to third parties, reverse engineered or used in any manner not 
+#	provided for in said License Agreement except with the prior 
+#	written authorization from Globetrotter Software Inc.
+#
+#******************************************************************************
+#
+#	Make a Flexible License Manager binary kit
+#
+#	M. Christiano
+#	3/14/88
+#
+#	Module:	BINARY_KIT v3.96.0.0
+#	Last changed:  6/11/98
+#
+
+if ($#argv < 2) then
+	echo usage: BINARY_KIT directory arch_os \[NOCLEAN\] \[NOLINT\]
+	echo ""
+	echo example: BINARY_KIT v1.5 sun4_u4
+	echo ""
+	echo values for arch are: \"apollo convex c90 decs dg hp300 hp700 i86 inter\"
+	echo \"mips moto mx300 ncr nec next rm400 rs6000 sgi sony sun3 sun386 sun4 ymp vax\"
+	echo ""
+	echo values for os are: \"uN \(unix\) sN \(sco\) xN \(Solaris/intel\) tN \(NextStep\)\"
+	echo "		- Where N is some integer"
+	echo ""
+	echo "BINARY_KIT must be run from the parent of the FLEXlm source"
+	echo "directory.  Specify the FLEXlm source directory as the first"
+	echo "argument to BINARY_KIT."
+	echo ""
+	echo "The result of a run of BINARY_KIT will be a binary kit directory"
+	echo contained in \"directory\"/\"arch_os\"
+	echo ""
+	exit
+endif
+
+set path = ($path ../utils)
+set binary = BINARY
+set doclean = true
+set dolint = false	
+set TEMP = _B_K_TEMP_
+set TEMP2 = _B_K_TEMP2_
+set B_MAKE = utils/bin.makefile
+set B_MAKE_TMP = /tmp/bin.makefile
+set NOMINI = true
+set LM_GENERIC_VD = false
+set SRC_GENERIC_CMD = ""
+set APP_GENERIC_CMD = ""
+set OSVER = ""
+set OSVER_O = ""
+set OSVER_L = ""
+
+
+# -------------------------------------------------------------------------
+#
+#	Get arguments
+#
+# -------------------------------------------------------------------------
+set src = $1
+set dest = $2
+set arch = `echo $dest | sed -e 's/_.*//'` 
+set os = `echo $dest | sed -e 's/.*_//'`
+
+if ($arch == "icl" || $arch == "ICL") then
+	set LINTOUTFLAG = "-o "
+	set arch = sun4
+endif
+while ($#argv > 2)
+	if ($3 == NOCLEAN) then
+		set doclean = false
+	else if ($3 == NOLINT) then
+		set dolint = false
+	else if ($3 == MINI) then
+		set NOMINI = false
+	else if ($3 == LM_GENERIC_VD) then
+		set LM_GENERIC_VD = true
+		set APP_GENERIC_CMD \
+			"cp ../genvd/ls_vkeys.o .;\
+			 ar rv liblmgr_as.a ls_vkeys.o;\
+			 ranlib liblmgr_as.a"
+		set SRC_GENERIC_CMD \
+			"cp ../genvd/lgclient.o .;\
+			 ar rv liblmgr.a lgclient.o;\
+			 ranlib liblmgr.a"
+	endif
+	shift
+end
+
+set CLEAN = `pwd`/$src/BINARY_CLEAN
+
+if (!(-e $src)) then
+	echo The FLEXlm source directory \"$src\" does not exist
+	echo For usage information, type \"BINARY_KIT\"
+	exit
+endif
+# -------------------------------------------------------------------------
+#
+#	Now, make the binary kit
+#
+# -------------------------------------------------------------------------
+echo Begin creation of $src BINARY kit on `date`
+echo Architecture: $arch, OS: $os, Host: `uname -n`
+echo ""
+cd $src
+# -------------------------------------------------------------------------
+#
+#	Set some options, depending on the platform
+#
+# -------------------------------------------------------------------------
+rm -f $TEMP
+rm -f $B_MAKE_TMP
+cp $B_MAKE $B_MAKE_TMP	# In case we don't mung it
+set XXCFLAG = ""
+set XCFLAGONLY = ""
+set XLFLAG = ""
+set LINKFLAGS = ""
+set OTHERCFLAGS = ""
+# 
+#	replog_stat values:
+#		internal 	-- Globetrotter internal source code
+#		v4 	 	-- Use v4 replog sources
+#		precompiled 	 -- Use v5 precompiled objects
+set replog_stat = internal 
+#-------------------------------------------------
+#	set OSVER* variables
+#-------------------------------------------------
+
+# Override for sgi32_u6
+
+if ( $dest == sgi32_u6 ) then
+	set OSVER_L = `utils/gplatargs -l sgi32_u6`
+	echo OSVER_L is \"$OSVER_L\"
+	set OSVER = `utils/gplatargs sgi32_u6`
+	echo OSVER is \"$OSVER\"
+	set OSVER_O = `utils/gplatargs -O sgi32_u6`
+	echo OSVER_O is \"$OSVER_O\"
+endif
+
+if ("$OSVER" == "") then
+	set OSVER = `utils/gplatargs`
+	echo OSVER is \"$OSVER\"
+endif
+if ("$OSVER_O" == "") then
+	set OSVER_O = `utils/gplatargs -O`
+	echo OSVER_O is \"$OSVER_O\"
+endif
+if ("$OSVER_L" == "") then
+	set OSVER_L = `utils/gplatargs -l`
+	echo OSVER_L is \"$OSVER_L\"
+endif
+if ($dest == "hp300_u8" || $dest == "hp700_u8") then
+	set LINKFLAGS = "XTRALIB=-lBSD"
+	set LINTOUTFLAG = "-o "
+	set XLFLAG = "-D_CLASSIC_ANSI_TYPES"
+	sed 's/XTRALIB =.*/XTRALIB = -lBSD/' < $B_MAKE > $TEMP2
+	rm -f $B_MAKE_TMP
+	sed 's/LDFLAGS =.*/LDFLAGS = -Q/' < $TEMP2 > $B_MAKE_TMP
+	rm $TEMP2
+else if ($dest == "mips_u2") then
+	set LINKFLAGS = "XTRALIB=-systype bsd43"
+	set LINTOUTFLAG = "-o "
+	sed 's/XTRALIB =.*/XTRALIB =-systype bsd43/' < $B_MAKE > $TEMP
+	sed 's/^XTRACFLAG =.*/XTRACFLAG = -systype bsd43/' < $TEMP > $TEMP2
+	rm -f $B_MAKE_TMP $TEMP
+	sed 's/LDFLAGS =.*/LDFLAGS =/' < $TEMP2 > $B_MAKE_TMP
+	rm -f $TEMP2
+	set XXCFLAG = "-systype bsd43"
+else if ($arch == "apollo") then
+	set XCFLAGONLY = "-W0,-compress -A segsize,32"
+	set XLFLAG = "-U__STDC__"
+	sed 's/LDFLAGS =.*/LDFLAGS =-U__STDC__ -Asegsize,32/' < $B_MAKE > $TEMP
+	rm -f $B_MAKE_TMP
+	sed 's/XTRALIB =.*/XTRALIB =/' < $TEMP > $B_MAKE_TMP
+else if ($dest == "sun4_u4" || $dest == "sun386_u4") then
+	set PICFLAG = "-PIC"
+	if ($dest == sparc) then
+		set OTHERCFLAGS = "-DSPARC_COMPLIANT"
+		setenv LD_LIBRARY_PATH /usr/lib:/lib   # Override link libraries
+		set LINKFLAGS = "XTRALIB= -Bdynamic -llis"
+		rm -f $TEMP
+		sed 's/XTRALIB =.*/XTRALIB = -Bdynamic -llis/' < $B_MAKE_TMP > $TEMP
+		rm -f $B_MAKE_TMP
+		sed 's/XTRACFLAG =.*/XTRACFLAG = -DSPARC_COMPLIANT/' < $TEMP > $B_MAKE_TMP
+	endif
+else if ($dest == "sun4_u5" || $dest == "i86_x5") then
+	#Note: LINKFLAGS set by OSVER -l
+	set PICFLAG = "-K PIC"
+	if ($dest == sparc) then
+		set OTHERCFLAGS = "-DSPARC_COMPLIANT"
+		setenv ENVLDLIBS1=`pwd`/src	# Override link libraries
+		set LINKFLAGS = "XTRALIB=-llis"
+		rm -f $TEMP
+		sed 's/XTRALIB =.*/XTRALIB = -llis/' < $B_MAKE_TMP > $TEMP
+		rm -f $B_MAKE_TMP
+		sed 's/XTRACFLAG =.*/XTRACFLAG = -DSPARC_COMPLIANT/' < $TEMP > $B_MAKE_TMP
+	endif
+else if ($arch == "convex") then
+	set XXCFLAG = "-tm c1"
+	set XLFLAG = "-tm c1"
+	sed 's/LDFLAGS =.*/LDFLAGS = -tm c1/' < $B_MAKE_TMP > $TEMP
+	rm -f $B_MAKE_TMP
+	sed 's/XTRALIB =.*/XTRALIB =/' < $TEMP > $B_MAKE_TMP
+else if ($dest == sgi_u5 || $dest == sgi32_u5 ) then
+	rm -rf /tmp/xxx
+	echo "sed '/^all/s/"'$'"/\\" > /tmp/xxx
+	echo '\\' >> /tmp/xxx
+	echo 'o32:\\' >> /tmp/xxx
+	echo    \
+	'	$(MAKE) CC=cc XTRALIB="-o32" XTRACFLAG="-DSGI5 -DSGI  -o32"\\' \
+								>> /tmp/xxx
+	echo '	@echo "SGI 32-bit ONLY:\\' >> /tmp/xxx
+	echo '	@echo " Link your application as necessary with"\\' >> /tmp/xxx
+	echo '	@echo " liblmgr_n32mips3 (-n32 -mips3)"\\' >> /tmp/xxx
+	echo '	@echo " or liblmgr_n32mips4 (-n32 -mips4)"\\' >> /tmp/xxx
+	echo "/'" >> /tmp/xxx
+	sh /tmp/xxx < $B_MAKE > $TEMP2
+	rm -f $B_MAKE_TMP /tmp/xxx
+	mv $TEMP2 $B_MAKE_TMP
+endif
+#
+#	Set bin.makefile from OSVER variables
+#
+sed 's/LDFLAGS =.*/LDFLAGS =/' < $B_MAKE_TMP > $TEMP
+unsetenv XTRAARGS
+sed "s/XTRACFLAG =.*/XTRACFLAG = $OSVER/"< $TEMP > $TEMP2
+rm -f $B_MAKE_TMP
+sed "s/XTRALIB =.*/XTRALIB = $OSVER_L/" < $TEMP2 > $B_MAKE_TMP
+if ($arch == "next") then
+	set dolint = false
+else if ($arch == "moto") then
+	set dolint = false
+endif
+rm -f $TEMP
+
+#
+#	Warn if missing precompiled replog objects
+#
+if (-e server/lsreplog.c) then
+	set replog_stat = internal
+	echo "INTERNAL GSI REPLOG VERSION"
+else if (-e server/lsreplog.o || -e precompiled/lsreplog.o) then
+	set replog_stat = precompiled
+	mkdir precompiled
+	echo "Using Precompiled reportlog files (recommended)"
+else
+#
+#	PUT MESSAGE EXPLAINING REPORTLOG SOURCE OPTIONS
+#
+	echo "\
+Precompiled reportlog objects are missing--\
+The FLEXlm v5.0 REPORTLOG is a secure log file.  With this security the \
+reportlog can be optionally used by you for billing purposes with \
+customers that want this feature.  Because of the security features, \
+Globetrotter does not release source code for this part of the \
+'server' directory.\
+We recommend that you use precompiled source code for the following files\
+in server/liblmgr_s.a: ls_dict.o ls_log.o ls_log_open.o ls_logtime.o \
+lsfilter.o lsreplog.o\
+\
+To do this,\
+	1) cd to the precompiled directory for the platform\
+        2) ar x liblmgr_s.a ls_dict.o ls_log.o ls_log_open.o ls_logtime.o \
+                lsfilter.o lsreplog.o\
+        3) copy these object files in to 'server'"
+echo "\
+Optionally, we've provided source in the v4replog directory for the\
+version 4 format reportlog, which is not a secure format, but which\
+is readable by FLEXadmin.  BINARY_KIT will notice if the precompiled\
+objects are missing, and, if you choose, compiled the\
+version 4 reportlog files automatically."
+	echo -n "Do you want to exit now (y/n)? (recommended) "
+	set resp = ($<)
+	if ($resp != "n") then
+		exit
+	endif
+	set replog_stat = v4
+	echo "Continuing with build, and using v4replog directory"
+endif
+	
+
+
+
+	
+
+#
+#	Display the version strings in the source
+#
+foreach i (server/ls_data app/ls_daemon)
+	grep FLEXlm $i.c
+end
+grep FLEXLM_ h/lmclient.h
+
+#
+#	Build all the executables
+#
+if ($doclean == true) then
+	echo "Cleaning out old binaries ..."
+	echo ""
+	if ($replog_stat == precompiled) then
+		if (! (-e precompiled/lsreplog.o)) then
+			mkdir precompiled 
+			cd server
+			mv ls_dict.o ls_log.o ls_log_open.o ls_logtime.o \
+				lsfilter.o  lsreplog.o ../precompiled
+			cd ..
+		endif
+	endif
+	make clean > /dev/null
+	if ( $replog_stat == precompiled) then
+		cp precompiled/* server
+	else if ($replog_stat == v4) then
+		rm -f v4replog/*.o
+	endif
+endif
+echo ""
+if ($dest == sparc) then
+#
+#	Create SCD 2.0 sharable library and companion liblmgr.a
+#
+	cd src
+	echo "Creating SCD 2.0 sharable library"
+	echo ""
+	echo "Doing make clean ..."
+	make clean > /dev/null
+	if ($dest == "sun4_u4") then
+		make XTRACFLAG="$PICFLAG -DRELEASE_VERSION $OSVER $OTHERCFLAGS $XXCFLAG $XCFLAGONLY -DLM_INTERNAL" liblis.a
+		rm -f /usr/lib/liblis.so*
+		cp liblis.so.* /usr/lib
+		ln -s /usr/lib/liblis.so.* /usr/lib/liblis.so
+	else
+		make XTRACFLAG="$PICFLAG -DRELEASE_VERSION $OSVER $OTHERCFLAGS $XXCFLAG $XCFLAGONLY -DLM_INTERNAL" SHAREDOPTS="-dy -G -z text -z nodefs -h liblis.so.1" liblis.a
+	endif
+	cd ..
+endif
+if ("$LINKFLAGS" == "") then
+	set LINKFLAGS = "XTRALIB=$OSVER_L"
+endif
+set cflags = "$OTHERCFLAGS $XXCFLAG $XCFLAGONLY" 
+###########################################################
+# First make debug libraries
+###########################################################
+# echo "Making -g libraries"
+# echo ""
+# mkdir debug_libs
+# mkdir debug_libs/$dest
+# 
+# foreach dir (v4replog src server app master )
+# 	cd $dir
+# 	if ("$dir" == src) then
+# 		set lib = liblmgr.a
+# 	else if ("$dir" == v4replog) then
+# 		if ($replog_stat != v4) then
+# 			cd ..
+# 			continue
+# 		endif
+# 		set lib = liblmgr_v4s.a
+# 	else if ("$dir" == server) then
+# 		set lib = liblmgr_s.a
+# 		if ($replog_stat == precompiled) then
+# 			cp ../precompiled/* .
+# 		else if ($replog_stat == v4) then
+# 			cp ../v4replog/*.o .
+# 			echo "" > empty.c
+# 			cc -c empty.c
+# 			cp empty.o lsfilter.o
+# 			cp empty.o ls_dict.o
+# 			cp empty.o lsreplog.o
+# 			cp empty.o ls_log.o
+# 			cp empty.o ls_log_open.o
+# 			cp empty.o ls_logtime.o
+# 			rm empty*
+# 		endif
+# 	else if ("$dir" == app) then
+# 		set lib = liblmgr_as.a
+# 	else if ("$dir" == master) then
+# 		set lib = liblmgrd.a
+# 	endif
+# 	make "$lib" XTRACFLAG="-DRELEASE_VERSION $OSVER $cflags -DLM_INTERNAL" \
+# 		XTRAOCFLAG="-DRELEASE_VERSION $OSVER_O $cflags -DLM_INTERNAL" \
+# 		"$LINKFLAGS"
+# 
+# 	if ("$dir" == server && $replog_stat == v4) then
+# 		ar r liblmgr_s.a lsv4*.o
+# 	endif
+# 
+# 	if ("$dir" == src) then
+# 		$SRC_GENERIC_CMD
+# 	else if ("$dir" == app) then
+# 		$APP_GENERIC_CMD
+# 	endif
+# 	cp $lib ../debug_libs/$dest
+# 	cd ..
+# end
+# 
+##########################################################
+# 	Make main shipping libraries here
+##########################################################
+
+echo "Creating FLEXlm binary kit"
+echo ""
+
+make clean
+if ( $replog_stat == precompiled) then
+	cp precompiled/* server
+else if ( $replog_stat == v4) then
+	rm -f v4replog/*.o
+endif
+
+
+if ($replog_stat == v4) then
+	cd v4replog
+	make DEBUGFLAG="" \
+		XTRACFLAG="-DRELEASE_VERSION $OSVER $cflags -DLM_INTERNAL" \
+		XTRAOCFLAG="-DRELEASE_VERSION $OSVER_O $cflags -DLM_INTERNAL" \
+		"$LINKFLAGS"
+	cd ../server
+	make clean
+	echo "" > empty.c
+	cc -c empty.c
+	cp empty.o lsfilter.o
+	cp empty.o ls_dict.o
+	cp empty.o lsreplog.o
+	cp empty.o ls_log.o
+	cp empty.o ls_log_open.o
+	cp empty.o ls_logtime.o
+	make v4replog DEBUGFLAG="" \
+		XTRACFLAG="-DRELEASE_VERSION $OSVER $cflags  -DLM_INTERNAL" \
+		XTRAOCFLAG="-DRELEASE_VERSION $OSVER_O $cflags -DLM_INTERNAL" \
+		"$LINKFLAGS"
+	cp ../v4replog/*.o .
+	ar r liblmgr_s.a *.o
+	ranlib liblmgr_s.a
+	cd ..
+endif
+	
+make DEBUGFLAG="" XTRACFLAG="-DRELEASE_VERSION $OSVER $cflags -DLM_INTERNAL" \
+	XTRAOCFLAG="-DRELEASE_VERSION $OSVER_O $cflags -DLM_INTERNAL" \
+		"$LINKFLAGS"
+cd src
+$SRC_GENERIC_CMD
+cd ../app
+$APP_GENERIC_CMD
+cd ..
+
+echo ""
+mkdir $binary
+touch $binary/dummy
+rm -f $binary/*		# Get rid of any old stuff
+#
+#	Move the TLI libraries into the binary directory
+#
+if ($dest == "sun4_u5" || $dest == "i86_x5" ) then
+	cp src/l_tli.o $binary
+endif
+#
+#	Make the lint libraries, lint everything
+#
+if ($dolint == true) then
+	echo "Creating lint libraries"
+	echo "Lint options: $OSVER $XXCFLAG $XLFLAG"
+	echo ""
+	make lint XTRALINTFLAG="$OSVER $XXCFLAG $XLFLAG -DLM_INTERNAL"
+endif
+#
+#	Put the files where they belong
+#
+echo ""
+echo "Moving files"
+echo ""
+set list = (src/*.a server/*.a app/*.a src/*.ln server/*.ln app/*.ln master/lmgrd master/liblmgrd.a utils/*)
+foreach i ($list)
+	cp $i $binary
+end
+cd $binary
+strip lmutil
+strip lmrand1
+foreach i (lmcksum lmdown lmhostid lmremove lmreread lmstat lmswitchr lmver)
+	rm -f $i
+end
+cd ..
+#
+#	Get makefile
+#
+rm -f $binary/makefile
+rm -f $binary/bin.makefile
+cp $B_MAKE_TMP $binary/makefile
+ranlib $binary/*.a
+#
+#	Move the kit to its final resting place
+#
+echo "moving kit to $dest"
+mkdir $dest
+mv $binary/* $dest
+rmdir $binary
+if ($dest == i86_s3) then
+	cp scoinfo.o $dest
+endif
+pwd
+if ($dest == sparc) then
+#
+#	Move sharable library and companion liblmgr.a
+#
+	cd src
+	echo moving sharable library liblis.so to $dest
+ls liblis*
+	rm -f ../$dest/liblmgr.a
+	mv liblmgr.a ../$dest/liblmgr.a
+	mv liblis.so* ../$dest
+	pushd ../$dest
+	rm -f liblis.so
+	ln -s liblis.so.* liblis.so
+	popd
+	mv liblis.a ../$dest
+	cd ..
+endif
+cd $dest
+pwd
+echo "Doing make in binary directory"
+echo ""
+make
+strip lmgrd
+chmod ugo+x makekey
+echo "Cleaning up binary directory"
+$CLEAN
+cd ..
+echo "Building any special versions of client library"
+
+#
+#	Now, build special versions of the client library for some platforms
+#
+
+if ($dest == apollo) then
+#
+#	Create liblmgr.a with -W0,-pic
+#
+	cd src
+	echo "Creating -W0,-pic version of liblmgr.a"
+	echo ""
+	echo "Doing make clean ..."
+	make clean > /dev/null
+	set XCFLAGONLY = "-W0,-compress,-pic -A segsize,32"
+	make DEBUGFLAG="" XTRACFLAG="-DRELEASE_VERSION $OSVER $OTHERCFLAGS $XXCFLAG $XCFLAGONLY -DLM_INTERNAL"
+	$SRC_GENERIC_CMD
+	mv liblmgr.a ../$dest/liblmgr_pic.a
+	if ($NOMINI == "true") then
+		echo "Doing make clean ..."
+		make clean > /dev/null
+	endif
+	cd ..
+endif
+
+
+if ($dest == dec_u4 || $dest == mips_u2 || $dest == sgi_u4 ) then
+#
+#	Create liblmgr.a with the -G 0 option
+#
+	cd src
+	echo "Creating -G 0 version of liblmgr.a"
+	echo ""
+	echo "Doing make clean ..."
+	make clean > /dev/null
+	make DEBUGFLAG="" XTRACFLAG="-DRELEASE_VERSION $OSVER $OTHERCFLAGS $XXCFLAG $XCFLAGONLY -G 0 -DLM_INTERNAL"
+	$SRC_GENERIC_CMD
+	mv liblmgr.a ../$dest/liblmgr_g0.a
+	if ($NOMINI == "true") then
+		echo "Doing make clean ..."
+		make clean > /dev/null
+	endif
+	cd ..
+endif
+if ($dest == sgi_u5 || $dest == sgir8_u6 || $dest == sgi32_u5 || $dest == sgi64_u6 ) then
+#
+#	Create liblmgr.a with the -xgot option
+#
+	cd src
+	echo "Creating -xgot version of liblmgr.a"
+	echo ""
+	echo "Doing make clean ..."
+	make clean > /dev/null
+	make DEBUGFLAG="" XTRACFLAG="-DRELEASE_VERSION $OSVER $OTHERCFLAGS $XXCFLAG $XCFLAGONLY -xgot -G 0 -DLM_INTERNAL"
+	$SRC_GENERIC_CMD
+	mv liblmgr.a ../$dest/liblmgr_xgot.a
+	if ($NOMINI == "true") then
+		echo "Doing make clean ..."
+		make clean > /dev/null
+	endif
+	cd ..
+endif
+if ($dest == sgi32_u6 ) then
+#
+#	Create liblmgr.a with the -n32 -mips4 option
+#
+	cd src
+	echo "Creating -n32mips4 version of liblmgr.a"
+	echo ""
+	echo "Doing make clean ..."
+	make clean > /dev/null
+	make DEBUGFLAG="" XTRACFLAG="-DRELEASE_VERSION -DSGI $OTHERCFLAGS $XXCFLAG $XCFLAGONLY -n32 -mips4 -G 0 -DLM_INTERNAL -DSGI32"
+	$SRC_GENERIC_CMD
+	mv liblmgr.a ../$dest/liblmgr_n32mips4.a
+	if ($NOMINI == "true") then
+		echo "Doing make clean ..."
+		make clean > /dev/null
+	endif
+	cd ..
+endif
+if ($dest == sgir8_u6 || $dest == sgi64_u6 ) then
+#
+#	Create liblmgr.a with the -64 -mips4 option
+#
+	cd src
+	echo "Creating -64mips4 version of liblmgr.a"
+	echo ""
+	echo "Doing make clean ..."
+	make clean > /dev/null
+	make DEBUGFLAG="" XTRACFLAG="-DRELEASE_VERSION -DSGI $OTHERCFLAGS $XXCFLAG $XCFLAGONLY -64 -mips4 -G 0 -DLM_INTERNAL -DSGI6"
+	$SRC_GENERIC_CMD
+	mv liblmgr.a ../$dest/liblmgr_64mips4.a
+	if ($NOMINI == "true") then
+		echo "Doing make clean ..."
+		make clean > /dev/null
+	endif
+	cd ..
+endif
+
+if ($dest == ncr_u2) then
+#
+#	Create ucb liblmgr.a 
+#
+	cd src
+	opath = $path
+	set path = (/usr/ucb $path)
+	setenv CC /usr/ucb/cc
+	echo "Creating ucb version of liblmgr.a"
+	echo ""
+	echo "Doing make clean ..."
+	make clean > /dev/null
+	make DEBUGFLAG="" XTRACFLAG="-DRELEASE_VERSION $OSVER $OTHERCFLAGS $XXCFLAG $XCFLAGONLY -DLM_INTERNAL"
+	$SRC_GENERIC_CMD
+	mv liblmgr.a ../$dest/liblmgr_ucb.a
+	if ($NOMINI == "true") then
+		echo "Doing make clean ..."
+		make clean > /dev/null
+	endif
+	unsetenv CC
+	cd ..
+endif
+if ($dest == hp300_u8 || $dest == hp700_u9 || $dest == hp700_u10 || $dest == hp700_u11 || $dest == hp64_u11) then
+#
+#	Create PIC liblmgr.a (with +Z)
+#
+	cd src
+	echo "Creating pic version (+Z) of liblmgr.a"
+	echo ""
+	echo "Doing make clean ..."
+	make clean > /dev/null
+	set XCFLAGONLY = "+Z"
+	make DEBUGFLAG="" XTRACFLAG="-DRELEASE_VERSION $OSVER $OTHERCFLAGS $XXCFLAG $XCFLAGONLY -DLM_INTERNAL"
+	$SRC_GENERIC_CMD
+	mv liblmgr.a ../$dest/liblmgr_pic.a
+	if ($NOMINI == "true") then
+		echo "Doing make clean ..."
+		make clean > /dev/null
+	endif
+	cd ..
+endif
+
+if ($dest == mips_u2) then
+#
+#	Create SYSV liblmgr.a (with -systype sysv)
+#
+	cd src
+	echo "Creating SYSV version of liblmgr.a"
+	echo ""
+	echo "Doing make clean ..."
+	make clean > /dev/null
+	set XXCFLAG = "-systype sysv"
+	make DEBUGFLAG="" XTRACFLAG="-DRELEASE_VERSION $OSVER $OTHERCFLAGS $XXCFLAG $XCFLAGONLY -DLM_INTERNAL"
+	$SRC_GENERIC_CMD
+	mv liblmgr.a ../$dest/liblmgr_sysv.a
+	if ($NOMINI == "true") then
+		echo "Doing make clean ..."
+		make clean > /dev/null
+	endif
+	cd ..
+endif
+
+if ($dest == sun4_u4 || $dest == sun4_u5 || $dest == i86_x5 ) then
+#
+#	Create liblmgr.a with PIC
+#
+	cd src
+	echo "Creating PIC version of liblmgr.a"
+	echo ""
+	echo "Doing make clean ..."
+	make clean > /dev/null
+	make CFLAGS="-I../h $PICFLAG -DRELEASE_VERSION $OSVER $OTHERCFLAGS $XXCFLAG $XCFLAGONLY -DLM_INTERNAL"
+	$SRC_GENERIC_CMD
+	mv liblmgr.a ../$dest/liblmgr_pic.a
+	cd ..
+endif
+
+if ($dest == sun4_u5 || $dest == i86_x5 && ! (-e ../machind/FLEXlm.po)) then
+#
+#	Create the message file for internationalization
+#
+set T = .temp_msgs
+
+	mkdir $T
+	foreach i (`grep -l lmtext src/*.c app/*.c vendor/*.c master/*.c utils/*.c`)
+		sed -e 's/lmtext/gettext/' < $i > $T/$i:t
+	end
+	cd $T
+	xgettext -s -d FLEXlm *.c
+	cp FLEXlm.po ../machind/FLEXlm.po
+	cd ..
+	rm -rf $T
+endif
+
+#
+#	Finally, make the "mini" kit hierarchy
+#
+
+if ($NOMINI == "false") then
+
+	echo ""
+	echo "Creating mini-kit hierarchy in mini$dest
+	mkdir mini$dest
+	cd mini$dest
+	ln -s ../../$dest/* .
+	touch lminfox
+	foreach i (liblmgr.a makefile lmgrd* lmdown* lmfeatset* lmreread* lmswitchr* lminfo*)
+		rm -f $i
+	end
+	cp ../../src/libmini_lmgr.a liblmgr.a
+	cp ../../utils/mini.makefile makefile
+	cd ../..
+
+endif
+
+echo "done $src binary kit build `date`."

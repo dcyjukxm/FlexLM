@@ -1,0 +1,155 @@
+Programming Advice for Making FLEXlm More Secure
+________________________________________________
+
+
+1) Use v8.1+ CRO
+
+
+2) Using the Flexible API:
+
+	o Put #define LM_INTERNAL at the top of your source
+	  code that makes FLEXlm calls.
+	o Call lc_new_job()
+	o Sometime after lc_new_job(), set lm_job->lm_errno to
+	  some unusual number, say 0xD2582B76.
+	o After lc_checkout(), if lc_checkout succeeds,
+	  make sure that lm_job->lm_errno is set to a
+	  number <= 0 and >= LM_LAST_ERRNO.
+
+3) Malloc feature names.
+
+	Make sure your feature names are not "clear text" strings, as a
+	hacker can easily replace a more expensive feature with a less
+	expensive feature name.  The feature names should be malloc'd,
+	and then sprintf'd.  For example, assume the feature name is
+	"feature1":
+
+                char *feat;
+
+                feat = (char *)malloc(20);
+
+                sprintf(feat, "%s%c%c%s%d", "fea", 't', 'u', "re", 1);
+                CHECKOUT(..., feat, ...);
+
+4) Disable or modify features with expiring demo licenses.
+
+	The most common mode of shipping demo licenses is a FEATURE
+	line that enables everything, and expires soon.  This line
+	typically has a hostid of "DEMO", and a count of 0:
+
+        FEATURE ...  1-jan-97 0 ... HOSTID=DEMO
+
+	FLEXlm has security for expiration dates (in v5.1, this is
+	built- in, but before v5.1, you must call lc_baddate()).  While
+	this security is pretty good, if a hacker gets around this,
+	then they have a license which enables everything.
+
+	We recommend that the application use the FLEXible API, and
+	after determining that the checkout was enabled with a DEMO
+	FEATURE line, it should limit or modify behavior in such as way
+	that the product is not really useful.  A famous useful example
+	is the word-processing program that prints "EVALUATION" in gray
+	diagonally across every output page; the evaluator can fully
+	evaluate the program, but it has no real utility.
+
+	Further comments on expiration dates:
+
+	Unfortunately there is no "secure" method that we
+	know of to get around setting the system date back.  
+
+	Consider that the user is taking fairly visible steps
+	to steal a product.  This would not be allowed at many or
+	most large companies for fear of lawsuit.  Our feeling is
+	that sites altering dates and touching files to steal, may
+	not be sites that would be willing to pay for the software
+	anyway, and therefore should not be necessarily considered
+	a lost sale.
+
+	Also, consider that touching these files on a regular basis, and
+	working with a system with the wrong date, is a real price that
+	such a hacker must pay.
+
+5) When HEARTBEAT function fails, exit or freeze the application.
+
+	Stopping and restarting the server is a way of getting extra
+	licenses.  The way to prevent this is via the HEARTBEAT
+	function.  Make sure it's called regularly (at least once every
+	5 minutes), and exit when it fails for, say, 10-20 minutes,
+	depending on your application.  Be sure to warn the users
+	what's happening, and save work before exiting.
+
+6) Use "ret_num_reconnects, minutes" arguments to lc_heartbeat()
+
+	Use the lc_heartbeat() FLEXible API call, and utilitize these 2
+	arguments.  When used properly, they prevent the hacker from
+	stopping and restarting the server many times in a few minutes,
+	which is another way or getting extra licenses.
+
+7) Call lc_auth_data, and make sure it looks correct.
+
+	This prevents some simple hacks in the server that would always
+	always return ok on a checkout.  You should check at least the
+	feature name.
+
+8) Put customer name in license and present in splash screen.
+
+	If someone steals a license and runs it on a box with a changed
+	hostid, the customer name appearing indicates that it's a
+	stolen license.
+
+9) LM_A_VD_FEATURE_INFO and make sure feature looks reasonable.
+
+	This prevents a server hack that returns okay, but doesn't
+	update any data structures.
+
+10) Use a "splash-screen" to identify the user.  This
+    makes the user of a stolen license more aware of this.  And will
+    prevent a single "free" license from being used at "respectable"
+    sites.
+
+        o Require NOTICE="" (lc_notice) in CONFIG struct
+
+        o Display contents of NOTICE="" prominently, using 
+ 	  lc_auth_data().
+
+11) The following ensures that the license-key is being checked.
+
+	After successful checkout, use the following outline:
+
+	CONFIG *c, ctemp;
+	int i;
+	VENDORCODE code;
+
+	lc_new_job(...&code...);
+	lc_checkout(..."myfeature"... &code...);
+	if (!c = lc_auth_data(job, "myfeature"))
+	{
+		 this should succeed ... it's a security problem if it 
+		 doesn't
+	}
+	memcpy(&ctemp, c, sizeof(ctemp));
+	/* replace ctemp.code with a random code */
+	srand(time(0));
+	for (i = 0; i < strlen( c->code); i++)
+	{
+		sprintf(&ctemp.code[i], "%X", rand() % 0x10);
+	}
+	if (lc_check_key(job, &ctemp, &code) != LM_BADCODE)
+	{
+		should have failed, this is a security breach ...
+	}
+
+13) Don't use the FLEXlm DLL on Windows.  If you *must* use FLEXlm in 
+    a DLL, we recommend that you make your own DLL, and not use the
+    standard FLEXlm DLL.  This DLL should link in the static FLEXlm
+    library, and you would provide "wrapper" functions around the
+    FLEXlm API.  The point is that the calling programs should not call
+    a standard FLEXlm API call for licensing, but one of your own
+    functions.  This way a "standard" hacker FLEXlm DLL can't be used
+    to disable licensing -- your particular DLL would have to be
+    compromised.  In addition, it's better if your licensing DLL has
+    code which is essential to your application.  That way a hacker
+    can't just replace your DLL with their own.  With all this said,
+    it's far better to avoid having a DLL for licensing.
+
+ *	Module: $Id: security.txt,v 1.6 2001/12/28 23:48:21 daniel Exp $

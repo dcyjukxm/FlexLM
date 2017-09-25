@@ -1,0 +1,5 @@
+SERVER this_host ANY
+VENDOR demo /usr/flexlm/flex7.1/sun64_u5/demo
+USE_SERVER
+INCREMENT f1 demo 1.0 permanent 1 SIGN=CE33478BDA92
+INCREMENT f1 demo 1.0 permanent 2 SIGN=0F70878BDAD2

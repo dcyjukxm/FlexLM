@@ -1,0 +1,106 @@
+
+                   FLEXLM ULITE AND CVS
+___________________________________________________________
+
+  author:  $Author: charliem $
+  version: $Id: README,v 1.1 2000/09/26 14:40:29 charliem Exp $
+___________________________________________________________
+
+OVERVIEW
+
+    The FLEXlm ulite project is a sub-project of FLEXlm.
+There is no "flexlmulite" directory at the top of the
+CVS repository; rather the desired sub-components of
+FLEXlm for ulite are described in CVSROOT/modules.
+
+    The command "cvs checkout flexlmulite" executes
+several checkout aliases that build, from the hierarchical
+FLEXlm project, the flat ulite project.  Because of this
+there are special considerations required when dealing
+with ulite.
+
+SUBPROJECT MAPPING
+
+    This table shows the mapping of files between FLEXlm
+and the ulite project:
+
+         FLEXlm                            ULITE
+         ------                            -----
+        src/l_crypt.c                flexsrc/l_crypt.c
+            l_key.c                          l_key.c
+            l_strkey.c                       l_strkey.c
+
+          h/l_privat.h                     h/l_privat.h
+            l_prot.h                         l_prot.h
+            l_strkey.h                       l_strkey.h
+            lgetattr.h                       lgetattr.h
+            lm_comm.h                        lm_comm.h
+            lmachdep.h                       lmachdep.h
+
+    machind/lmclient.h               machind/lmclient.h
+
+        ulite/src/*                       src/*
+    ulite/release/*                   release/*
+        ulite/mfg/*                       mfg/*
+       ulite/test/*                      test/*
+      ulite/utils/*                     utils/*
+
+    Note that the directories, src, release, mfg, test and utils
+are merely moved up to the root level of the ulite project.  But
+the directories flexlmsrc, h and machind hold only a subset of
+what can be found in their FLEXlm counterparts.
+
+CHECKING OUT ULITE
+
+    1) Use a standard CVS command:
+
+		cvs checkout flexlmulite
+
+    This will create a flexlmulite directory in the
+    proper flat format (i.e. not under a "ulite"
+    directory as found in the FLEXlm project).
+
+ADDING FILES 
+
+    Adding files to the ulite directories (src, release, mfg, test)
+is straight forward:
+
+		cvs add <new file>
+		cvs commit
+
+This adds the file to the repository.  It will be available for
+any future checkout.
+
+    Adding files to the reference directories (flexsrc, h, machind)
+is more complicated because the contents of those directories
+has been fixed in the project definition.  To add a file there:
+
+		cvs add <new file>
+		cvs commit
+		cd <workarea directory>
+		cvs checkout CVSROOT/modules
+		cd CVSROOT
+		vi modules  (... and add the file to the ulite description)
+		cvs commit
+
+CREATING A RELEASE
+
+    1) Tag the current development as the release.  To release 7.5:
+
+		cvs tag -F -r flexulite-v7_5
+
+       Note the use of "-F" to force the tag if it already exists.
+       Also note the tag name preface:  "flexulite".  This is
+       especially important for ulite because it shares files with
+       the FLEXlm project.  By prefacing the tag with the name of the
+       product, we can easily tell to which project a tag belongs.
+
+BUILDING A RELEASE
+
+    1) Create a fresh, read-only, copy:
+
+		cd <release area>
+		cvs -r checkout -r flexulite-v7_5 flexulite
+
+    2) Continue with the build process.
+

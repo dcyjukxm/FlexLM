@@ -1,0 +1,4 @@
+SERVER this_host ANY
+VENDOR demo
+#a counted license
+FEATURE f1 demo 1.0 permanent 4 SIGN=2EFB8679E085

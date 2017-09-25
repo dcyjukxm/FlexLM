@@ -1,0 +1,96 @@
+
+replog_stat=v4
+
+#
+#	Warn if missing precompiled replog objects
+#
+if [ -f server/lsreplog.o -o -f precompiled/lsreplog.o ]
+then
+	replog_stat=precompiled
+	mkdir precompiled
+	echo "Using Precompiled reportlog files (recommended)"
+else
+#
+#	PUT MESSAGE EXPLAINING REPORTLOG SOURCE OPTIONS
+#
+	echo "\n\
+Precompiled reportlog objects are missing--\n\
+The FLEXlm v5.0 REPORTLOG is a secure log file.  With this security the \n\
+reportlog can be optionally used by you for billing purposes with \n\
+customers that want this feature.  Because of the security features, \n\
+Globetrotter does not release source code for this part of the \n\
+'server' directory.\n\
+We recommend that you use precompiled source code for the following files\n\
+in server/liblmgr_s.a: ls_dict.o ls_log.o ls_log_open.o ls_logtime.o \n\
+lsfilter.o lsreplog.o\n\
+\n\
+To do this,\n\
+	1) cd to the precompiled directory for the platform\n\
+        2) ar x liblmgr_s.a ls_dict.o ls_log.o ls_log_open.o ls_logtime.o \n\
+                lsfilter.o lsreplog.o\n\
+        3) copy these object files in to 'server'"
+echo "\n\
+Optionally, we've provided source in the v4replog directory for the\n\
+version 4 format reportlog, which is not a secure format, but which\n\
+is readable by FLEXadmin.  BINARY_KIT will notice if the precompiled\n\
+objects are missing, and, if you choose, compiled the\n\
+version 4 reportlog files automatically."
+	echo "Do you want to exit now (y/n)? (recommended) "
+	read resp
+	[ "$resp" = "n" ] && exit
+	replog_stat=v4
+	echo "Continuing with build, and using v4replog directory"
+fi
+if [ $replog_stat = precompiled ] 
+then
+	if [ -f precompiled/lsreplog.o ]
+	then
+		:
+	else
+		mkdir precompiled 
+		cd server
+		mv ls_dict.o ls_log.o ls_log_open.o ls_logtime.o \
+			lsfilter.o  lsreplog.o ../precompiled
+		cd ..
+	fi
+fi
+make clean > /dev/null
+if [ $replog_stat = precompiled ] 
+then
+	cp precompiled/* server
+elif [ $replog_stat = v4 ] 
+then
+	rm -f v4replog/*.o
+fi
+	
+if [ $replog_stat = v4 ] 
+then
+	cd v4replog
+	make DEBUGFLAG="" XTRACFLAG="-DRELEASE_VERSION `gplatargs` \
+		-DLM_INTERNAL" XTRALIB="`gplatargs -l`" PLATFORM=`gplatform` \
+		AR="$AR" STRIP="$STRIP" || {
+			echo make failed exiting
+			exit 1
+		}
+
+	cd ../server
+	make clean
+	echo "" > empty.c
+	$CC -c empty.c
+	cp empty.o lsfilter.o
+	cp empty.o ls_dict.o
+	cp empty.o lsreplog.o
+	cp empty.o ls_log.o
+	cp empty.o ls_log_open.o
+	cp empty.o ls_logtime.o
+	make v4replog DEBUGFLAG="" XTRACFLAG="-DRELEASE_VERSION `gplatargs` \
+		-DLM_INTERNAL" XTRALIB="`gplatargs -l`" PLATFORM=`gplatform` \
+		AR="$AR" STRIP="$STRIP" || {
+			echo make failed exiting
+			exit 1
+		}
+	cp ../v4replog/*.o .
+	$AR r liblmgr_s.a *.o
+	[ -f /bin/ranlib -o /usr/bin/ranlib ] && ranlib liblmgr_s.a
+	cd ..
+fi

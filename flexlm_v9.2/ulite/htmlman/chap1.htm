@@ -1,0 +1,216 @@
+<html>
+
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<meta name="GENERATOR" content="Microsoft FrontPage 5.0">
+<meta name="TEMPLATEBASE" content="Users Guide Template">
+<meta name="LASTUPDATED" content="10/01/01 08:52:19">
+<title>Chapter 1 </title>
+</head>
+
+<body link="#0066CC" vlink="#800080" text="#000000" alink="#FF0000" bgcolor="#FFFFFF"
+background="graphics/backgrnd.gif">
+
+<p><img src="graphics/flexlmScript.gif" align="left"
+alt="FLEXlm icon"> </p>
+
+<table width="331" border="0" align="right" cellpadding="0" cellspacing="0">
+  <tr>
+    <td><a href="TOC.htm#TOC"><img src="graphics/navtoc.gif" width="84" height="23"
+    border="0" alt="TOC"> </a></td>
+    <td><a href="TOC.htm"><img src="graphics/navprev.gif" width="80" height="23"
+    border="0" alt="PREV"> </a></td>
+    <td><a href="chap2.htm"><img src="graphics/navnext.gif" width="83" height="23"
+    border="0" alt="NEXT"> </a></td>
+    <td><a href="IX.htm"><img src="graphics/navidx.gif" width="84" height="23"
+    border="0" alt="INDEX"> </a></td>
+  </tr>
+</table>
+
+<p><br clear="all">
+</p>
+
+<hr align="left">
+
+<blockquote>
+<h2>
+  <a name="912233"> </a>Chapter 1 
+</h2>
+
+
+<h2>
+  <a name="912240"> </a>Introduction
+</h2><hr>
+
+
+<h3>
+  <a name="912237"> </a>1.1	 Overview of FLEX<em>lm</em> Ultralite
+</h3>
+
+
+<p>
+  <a name="911587"> </a>FLEX<em>lm</em> Ultralite is a software licensing library for devices with the following characteristics:
+</p>
+
+<ul>
+  <li ><a name="911588"> </a>Limited amount of random access memory (RAM)
+  <li ><a name="911589"> </a>Limited development environment
+  <li ><a name="911590"> </a>Limited or no network connectivity
+</ul>
+
+<p>
+  <a name="911591"> </a>FLEX<em>lm</em> Ultralite can be ported to machines and devices that do not have these limitations, but machines and devices without these limitations are better supported by FLEX<em>lm</em>.
+</p>
+
+
+<p>
+  <a name="911592"> </a>To accommodate these limited devices, the FLEX<em>lm</em> Ultralite library has the following characteristics:
+</p>
+
+<ul>
+  <li ><a name="911593"> </a>Small footprint
+  <li ><a name="911594"> </a>No dynamic memory allocation
+  <li ><a name="911595"> </a>No global or static variables
+  <li ><a name="911597"> </a>No floating point variables or intermediate floating point calculations
+  <li ><a name="911598"> </a>No calls to external functions
+  <li ><a name="911599"> </a>Uncounted, unexpiring, unversioned license models only
+</ul>
+
+<h3>
+  <a name="911063"> </a>1.2	 About This Manual
+</h3>
+
+
+<p>
+  <a name="911067"> </a>This manual, the <em>FLEXlm Ultralite Programmers Guide</em>, includes a complete description of the application programming interface (API) that is used to incorporate FLEX<em>lm</em> Ultralite license management into your application.
+</p>
+
+
+<h3>
+  <a name="911618"> </a>1.3	 Related Documentation
+</h3>
+
+
+<p>
+  <a name="912499"> </a>To understand FLEX<em>lm</em> Ultralite, you should understand the basic workings of FLEX<em>lm</em>. Refer to the following documents for basic FLEX<em>lm</em> issues:
+</p>
+
+<ul>
+  <li ><a name="911632"> </a>The <em>FLEXlm Programmers Guide</em> 
+  <dl>
+     <dt> <a name="912518"> </a>Provides an introduction to FLEX<em>lm</em>, instructions for evaluating FLEX<em>lm</em> on UNIX and Windows systems, descriptions of the Trivial and Simple APIs, and guidelines for integration of FLEX<em>lm</em> into your application.
+  </dl>
+  <li ><a name="911081"> </a>The <em>FLEXlm Reference Manual</em> 
+  <dl>
+     <dt> <a name="912525"> </a>Provides a comprehensive description of all other aspects of FLEX<em>lm</em> from the software developer's perspective, including a complete description of the FLEXible API, the most complete API available for license management.
+  </dl>
+  <li ><a name="912828"> </a>The <em>FLEXlm Ultralite Release Notes</em>
+  <dl>
+     <dt> <a name="912835"> </a>Provides platform-specific information for this version of FLEX<em>lm</em> Ultralite. This information includes the platform build environment specifics, contents of the kit, memory usage issues and an API coding example.
+  </dl>
+</ul>
+
+<h3>
+  <a name="911158"> </a>1.4	 Typographic Conventions
+</h3>
+
+
+<p>
+  <a name="911159"> </a>The following typographic conventions are used in this manual:
+</p>
+
+<ul>
+  <li ><a name="911160"> </a>The first time a new term is used it is presented in <em>italics</em>.
+  <li ><a name="911161"> </a>Commands and path, file, and environment variable names are presented in a <code>fixed_font</code>.
+  <li ><a name="911162"> </a>Other variable names are in an <code><em>italic_fixed_font</em></code>. 
+  <li ><a name="911163"> </a>API function calls are in a <font  face="Arial" size="2">sans-serif font</font>.
+</ul>
+
+<h3>
+  <a name="912137"> </a>1.5	 FLEX<em>lm</em> Ultralite and FLEX<em>lm</em> Comparison
+</h3>
+
+
+<p>
+  <a name="911844"> </a>The following table compares the features of FLEX<em>lm</em> Ultralite with FLEX<em>lm</em>:
+
+<table border="3">
+  <caption></caption>
+  <tr>
+    <th><a name="912684"> </a><font  face="Times New Roman" size="3">FLEX</font><em>lm</em> Ultralite
+</th>
+    <th><a name="912771"> </a>FLEX<em>lm
+</em></th>
+  </tr>
+  <tr>
+    <td><a name="912695"> </a>Small footprint to accommodate <br>devices that have limited RAM.<br></td>
+    <td><a name="912773"> </a>Larger footprint for environments <br>containing multi-megabytes of <br>RAM.<br></td>
+  </tr>
+  <tr>
+    <td><a name="912697"> </a>No network connectivity.<br></td>
+    <td><a name="912775"> </a>Full network connectivity.<br></td>
+  </tr>
+  <tr>
+    <td><a name="912700"> </a>Only one license model is <br>supported: uncounted, unexpiring, <br>and unversioned.<br></td>
+    <td><a name="912777"> </a>All license models are supported.<br></td>
+  </tr>
+  <tr>
+    <td><a name="912708"> </a>Any FLEX<em>lm</em> license generator <br>can be used: GT<em>licensing</em>, <br><code>lmcrypt</code>, <code>makekey</code>, <code>genlic</code>, or <br><font  face="Arial" size="2">lc_cryptstr().</font> Care is needed to stay <br>within FLEX<em>lm</em> Ultralite license <br>model restrictions.<br></td>
+    <td><a name="912786"> </a>Any FLEX<em>lm</em> license generator can <br>be used<font  face="Arial" size="2">.<br></font></td>
+  </tr>
+  <tr>
+    <td><a name="912720"> </a>Used for devices whose <br>development environments <br>contain a limited (or no) C <br>function library.<br></td>
+    <td><a name="912788"> </a>Requires a development <br>environment containing the full C <br>function library.<br></td>
+  </tr>
+  <tr>
+    <td><a name="912726"> </a>Supports only GLOBEtrotter's <br>proprietary license keys for <br>authentication.<br></td>
+    <td><a name="912791"> </a>Both Counterfeit Resistance Option <br>(CRO) digital signatures and <br>GLOBEtrotter's proprietary license <br>keys are supported for <br>authentication.<br></td>
+  </tr>
+  <tr>
+    <td><a name="912729"> </a>Only vendor-defined hostids are <br>supported.<br></td>
+    <td><a name="912796"> </a>Hostids are chosen from a number <br>of portable hostid types or from a <br>number of platform-specific hostid <br>types. In addition, vendor-defined <br>hostids are supported.<br></td>
+  </tr>
+  <tr>
+    <td><a name="912731"> </a>Only the license key component of <br>a licence line is passed as an <br>argument to the FLEX<em>lm</em> Ultralite <br>API.<br></td>
+    <td><a name="912798"> </a>Entire license lines are accessed <br>from a license file or are passed as <br>an argument to the FLEXlm API.<br></td>
+  </tr>
+  <tr>
+    <td><a name="912736"> </a>The API consists of one simple <br>function, <font  face="Arial" size="2">lc_checkit()</font>. Its options <br>are limited to match the limited <br>requirements of small, embedded <br>devices.<br></td>
+    <td><a name="912800"> </a>Three different APIs are provided, <br>each with a rich set of options.<br></td>
+  </tr>
+</table>
+
+
+
+
+</p>
+
+
+<p>
+  <a name="911180"> </a>
+</p>
+</blockquote>
+
+<hr>
+
+<table width="380" align="right" border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td align=left><em>FLEXlm Ultralite Programmers Guide</em>
+  </tr>
+    <td align=left><em>September 2001</em></td>
+</table>
+
+<table width="331" border="0" align="left" cellpadding="0" cellspacing="0">
+  <tr>
+    <td><a href="TOC.htm#TOC"><img src="graphics/navtoc.gif" width="84" height="23"
+    border="0" alt="TOC"> </a></td>
+    <td><a href="TOC.htm"><img src="graphics/navprev.gif" width="80" height="23"
+    border="0" alt="PREV"> </a></td>
+    <td><a href="chap2.htm"><img src="graphics/navnext.gif" width="83" height="23"
+    border="0" alt="NEXT"> </a></td>
+    <td><a href="IX.htm"><img src="graphics/navidx.gif" width="84" height="23"
+    border="0" alt="INDEX"> </a></td>
+  </tr>
+</table>
+</body>
+</html>

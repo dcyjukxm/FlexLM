@@ -1,0 +1,361 @@
+/******************************************************************************
+
+	    COPYRIGHT (c) 1997 by Globetrotter Software Inc.
+	This software has been provided pursuant to a License Agreement
+	containing restrictions on its use.  This software contains
+	valuable trade secrets and proprietary information of 
+	Globetrotter Software Inc and is protected by law.  It may 
+	not be copied or distributed in any form or medium, disclosed 
+	to third parties, reverse engineered or used in any manner not 
+	provided for in said License Agreement except with the prior 
+	written authorization from Globetrotter Software Inc.
+
+ *****************************************************************************/
+/*	
+ *	Module:	%M% v%R%.%L%.%B%.%S%
+ *
+ *	Function:	l_string_key
+ *
+ *			This file is always included into other C source
+ *			files for security reasons.  It's always a static
+ *			function
+ *
+ *			It must be used with "#include l_strkey. at the
+ *	 		top of the file.
+ *
+ *	M. Christiano
+ *	12/21/96
+ *
+ *	Last changed:  %G%
+ *
+ */
+#include "lmachdep.h"
+#include "lmclient.h"
+#include "lmachdep.h"
+#include "lmclient.h"
+#include "l_strkey.h"
+
+static
+unsigned int
+reverse_bits(c)
+int c;
+{
+  unsigned char ret = 0;
+  int i, k;
+
+        for (k = 7, i = 0 ; i < 8; i++, k--)
+        {
+                ret |= ((c & (1<<i)) ? (1 << k) : 0) ;
+        }
+	return (unsigned int) ret;
+
+}
+/*-
+ *	Turn a string into a L_STRKEY_BLOCKSIZE key
+ */
+static
+unsigned char * API_ENTRY
+
+#ifdef LM_CKOUT
+
+l_string_key(job, input, inputlen, code, len, license_key)
+LM_HANDLE *job;
+unsigned char *input;
+int inputlen;
+VENDORCODE *code;	/*- Vendor's "special" code */
+unsigned long len;
+char *license_key;
+
+#else
+
+l_string_key(job, input, inputlen, code, len)
+LM_HANDLE *job;
+unsigned char *input;
+int inputlen;
+VENDORCODE *code;	/*- Vendor's "special" code */
+unsigned long len;
+
+#endif /* LM_CKOUT */
+{
+  int i, j;
+  unsigned char *p;
+  int length;
+  unsigned char *newinput;
+#define MEMBUF (job ? job->mem_ptr1 : membuf)
+#ifdef FLEXLM_ULTRALITE
+  unsigned char *y = (unsigned char *) LM_FUL_Y_PTR;
+  unsigned char *membuf = (unsigned char *) LM_FUL_MEMBUF_PTR;
+#else
+  static unsigned char y[L_STRKEY_BLOCKSIZE];	/*- output ciphertext */
+  static unsigned char *membuf = 0;
+#endif
+#ifdef LM_CKOUT
+  char lkey[MAX_CRYPT_LEN + 1];
+  int keylen;
+#endif
+
+  void *cmd_string = job->license_file_pointers;
+
+output_dec_word(10000, 1, cmd_string);
+output_dec_word(inputlen, 1, cmd_string);
+output_dec_word(len, 1, cmd_string);
+
+	memset(y, 0, L_STRKEY_BLOCKSIZE);
+	length = (inputlen) / L_STRKEY_BLOCKSIZE;
+/*-
+ *	V2.38: optimize: malloc once on the first pass, and leave the
+ *		malloced data around.  This also avoids a malloc while
+ *		we are in code called by lm_timer() (P329).
+ *
+ *	V2.4a: Fix the optimization by saving the malloc'd ptr in "membuf"
+ *		(P359)
+ */
+	if (job->mem_ptr1_siz == 0)
+	{
+		job->mem_ptr1_siz = (int)(MAXINPUTLEN + L_STRKEY_BLOCKSIZE);
+		if (job)
+			newinput = job->mem_ptr1 = 
+				(unsigned char *) malloc(job->mem_ptr1_siz);
+		else
+			newinput = membuf = 
+				(unsigned char *) malloc(job->mem_ptr1_siz);
+		if (!newinput)
+		{
+			return(NULL);
+		}
+	}
+/*-
+ *	If we don't have a multiple of the blocksize, just
+ *	malloc a little more and copy it in.
+ */
+
+#ifdef LM_CKOUT /* make sure that license_key is reasonable */
+
+xprintf("Checking stuff about key\n");
+output_dec_word(license_key, 1, cmd_string);
+
+	if (!license_key) return 0;
+	keylen = strlen(license_key);
+
+xprintf("Keylen: ");
+output_dec_word(keylen, 1, cmd_string);
+xprintf("\n");
+
+	if ((keylen < 12) || (keylen > MAX_CRYPT_LEN))
+		return 0;
+	if (keylen != 12) len = L_SECLEN_LONG;
+	for (i = 0; license_key[i] ; i++)
+	{
+		xprintf("license_key[] = "); xputchar(license_key[i]);
+			xprintf("\n");
+		if (!isxdigit(license_key[i]))
+			return 0;
+	}
+	strcpy(lkey, license_key);
+	l_uppercase(lkey);
+	if (keylen == MAX_CRYPT_LEN) /* remove start date */
+	{
+		lkey[1] = lkey[2];
+		lkey[2] = lkey[4];
+		lkey[3] = lkey[6];
+		lkey[4] = lkey[8];
+		lkey[5] = lkey[9];
+		lkey[6] = lkey[10];
+		lkey[7] = lkey[11];
+		lkey[8] = lkey[12];
+		lkey[9] = lkey[13];
+		lkey[10] = lkey[14];
+		lkey[11] = lkey[15];
+		lkey[12] = lkey[16];
+		lkey[13] = lkey[17];
+		lkey[14] = lkey[18];
+		lkey[15] = lkey[19];
+		lkey[16] = 0;
+	}
+xprintf("license key is "); xprintf(lkey); xprintf("\n");
+#endif /* LM_CKOUT */
+	
+	
+
+	if (inputlen % L_STRKEY_BLOCKSIZE)
+	{
+		length++;
+		newinput = MEMBUF;
+
+		if (job->mem_ptr1_siz < (int)(inputlen + L_STRKEY_BLOCKSIZE))
+/*-
+ *		This shouldn't ever happen, but if it does, just malloc
+ *		the new length.
+ */
+		{
+			(void) free((char *) MEMBUF);
+			job->mem_ptr1_siz = (int)(inputlen + L_STRKEY_BLOCKSIZE);
+			if (job) 
+				newinput = job->mem_ptr1 = 
+				(unsigned char *) malloc(job->mem_ptr1_siz);
+			else
+				newinput = membuf =
+				(unsigned char *) malloc(job->mem_ptr1_siz);
+		}
+		if (newinput == (unsigned char *)NULL)
+		{
+			return(NULL);
+		}
+		memset(newinput, 0, inputlen + L_STRKEY_BLOCKSIZE);
+		memcpy(newinput, input, inputlen);
+	}
+	else
+	{
+		newinput = input;
+	}
+/*-
+ *	Ok, "newinput" is the string to be encrypted, "code" is the
+ *	initializing vector, and we will take the last block of
+ *	cyphertext as the output.
+ *	Use block chaining with cyphertext feedback.
+ */
+	p = y;
+	p = l_movelong(code->data[0], p);    /*- Move the 64-bit code in now */
+	p = l_movelong(code->data[1], p);
+	p = newinput;
+	for (i = 0; i < length; i++)
+	{
+		XOR(p, y, y);	/*- encrypt (input XOR last output) */
+		our_encrypt(y);
+		p += L_STRKEY_BLOCKSIZE;
+	}
+	if (len == L_SECLEN_SHORT)
+	{
+		y[7] = (unsigned char) reverse_bits((int)y[7]) & 0xff;
+		y[6] = (unsigned char) reverse_bits((int)y[6]) & 0xff;
+		y[0] = (unsigned char) ((int) y[7] + (int) y[0]) & 0xff;
+		y[1] = (unsigned char) ((int) y[6] + (int) y[1]) & 0xff;
+		y[6] = y[7] = 0;
+
+	}
+#ifdef LM_CKOUT
+	j = L_STRKEY_BLOCKSIZE;
+	if (len == L_SECLEN_SHORT) j -= 2;
+	for (i = 0; i < j; i++)
+	{
+	  unsigned char x;
+	  char c;
+
+
+		c = lkey[i * 2];
+		if (isdigit(c)) x = (c - '0') << 4;
+		else x = ((c - 'A') + 10) << 4;
+
+		c = lkey[(i * 2) + 1];
+		if (isdigit(c)) x += (c - '0');
+		else x += ((c - 'A') + 10);
+
+output_dec_word(x, 1, cmd_string);
+output_dec_word(y[i], 1, cmd_string);
+		if (x != y[i]) return 0;
+	}
+#endif /* LM_CKOUT */
+
+output_dec_word(atox(y, len), 1, cmd_string);
+output_dec_word(10000, 1, cmd_string);
+	return(atox(y, len));
+}
+#if 0
+main()
+{
+unsigned char *input;
+int inputlen;
+VENDORCODE *code;
+	l_string_key(input, inputlen, code);
+}	
+#endif
+
+/*-
+ *	Move a longword to the source string (Don't move just a bunch of 0s)
+ */
+
+static unsigned char *
+l_movelong(ldata, p)
+long ldata;
+unsigned char *p;
+{
+	ldata = signed32(ldata); /*- P2249 */
+	
+	*p++ = (unsigned char) (ldata & 0xff);
+	if (ldata > 255 || ldata < -256)
+		*p++ = (unsigned char) ((ldata >> 8) & 0xff);
+	if (ldata > 32000 || ldata < -32000)
+		*p++ = (unsigned char) (((ldata) >> 16) & 0xff);
+	if (ldata > 16000000 || ldata < -16000000)
+		*p++ = (unsigned char) ((ldata >> 24) & 0xff);
+	return (p);
+}
+
+static
+long
+signed32(l)
+long l;
+{
+#ifdef LM_LONG_64BIT
+
+        if (sizeof(long) == 8   &&       /*- 64-bit system */
+                        (l & 0x80000000)) /*- 32-bit sign bit */
+                l |= 0xffffffff00000000;        /*-sign extend it */
+#endif /* PC */
+
+        return l;
+}
+
+
+/*-
+ *	atox() - Turn an 8-byte binary string into a hex string
+ */
+static
+unsigned char *
+atox(s, len) 
+unsigned char *s;
+unsigned long len;
+{
+  int isshort = (len == L_SECLEN_SHORT);
+  int i;
+#ifdef FLEXLM_ULTRALITE
+  unsigned char *result = (unsigned char *) LM_FUL_RESULT2_PTR;
+  unsigned char *hex = (unsigned char *) "0123456789ABCDEF";
+#else
+  static unsigned char result[L_STRKEY_RESULT_LEN];
+  static unsigned char hex[] = "0123456789ABCDEF";
+#endif
+  unsigned char *r = result;
+
+	for (i=0; i<8; i++)
+	{
+		*r++ = hex[(*s >> 4) & 0xf];
+		*r++ = hex[*s & 0xf];
+		s++;
+	}
+	if (isshort) result[12] = 0; /* truncate */
+	return(result);
+}
+/*-
+ *	our_encrypt() - Encrypt L_STRKEY_BLOCKSIZE bytes, in place
+ */
+
+static
+void
+our_encrypt(s)
+unsigned char *s;
+{
+  unsigned char t0 = s[0];
+  unsigned char t1 = s[1];
+  unsigned char t2 = s[2];
+  unsigned char t3 = s[3];
+
+	s[0] = (unsigned char) ((int) s[7] + (int) s[4]) & 0xff;
+	s[1] = (unsigned char) ((int) s[5] + (int) t3) & 0xff;
+	s[2] = (unsigned char) (~((int) s[4] + (int) t2)) & 0xff;
+	s[3] = (unsigned char) ((int) t0 + (int) s[5]) & 0xff;
+	s[4] = (unsigned char) ((int) s[6] + (int) t3) & 0xff;
+	s[5] = (unsigned char) (~((int) t1 + (int) s[6])) & 0xff;
+	s[6] = (unsigned char) ((int) t0 + (int) s[7]) & 0xff;
+	s[7] = (unsigned char) ((int) t1 + (int) t2) & 0xff;
+}

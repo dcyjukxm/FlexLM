@@ -1,0 +1,2857 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN" "http://www.w3.org/MarkUp/Wilbur/HTML32.dtd">
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+    <meta name="GENERATOR" content="Microsoft FrontPage 5.0">
+    <meta name="TEMPLATEBASE" content="Simple HTML">
+    <meta name="LASTUPDATED" content="07/10/03 11:19:30">
+    <title>FLEXlm® Release Notes Version 9.2</title>
+  </head>
+
+  <body link="#3366CC" vlink="#9999CC" text="#000000" alink="#0000CC" bgcolor="#FFFFFF">
+
+    &nbsp;<blockquote>
+<a name="wp998197"> </a><h1><div align="center"><font color="#336699" face="Arial, Verdana, Helvetica, sans-serif" size="5"><b>
+FLEXlm® Release Notes<br>Version 9.2
+</b></font></div></h1>
+<hr>
+
+<a name="wp1014873"> </a><h2><font color="#336699" face="Arial, Verdana, Helvetica, sans-serif" size="4"><b>
+Overview
+</b></font></h2>
+
+<a name="wp1003441"> </a><p><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+These release notes contain the following sections:
+</font></p>
+<ul>
+
+<a name="wp1004475"> </a><li><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2"><a  href="#wp1014421">Summary of Enhancements in Version 9.x</a></font></li>
+<ul>
+
+<a name="wp1016046"> </a><li><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2"><a  href="#wp1015918">Version 9.2</a></font></li>
+
+<a name="wp1016054"> </a><li><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2"><a  href="#wp1015922">Version 9.0</a></font></li>
+</ul>
+
+<a name="wp1009766"> </a><li><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2"><a  href="#wp1013977">Resolved Problems</a></font></li>
+<ul>
+
+<a name="wp1016225"> </a><li><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2"><a  href="#wp1016086">Version 9.2</a></font></li>
+
+<a name="wp1016233"> </a><li><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2"><a  href="#wp1016090">Version 9.0</a></font></li>
+</ul>
+
+<a name="wp1012164"> </a><li><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2"><a  href="#wp1000073">Platform Notes</a></font></li>
+
+<a name="wp1015017"> </a><li><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2"><a  href="#wp1015011">Copyright</a></font></li>
+</ul>
+
+<a name="wp1014421"> </a><h2><font color="#336699" face="Arial, Verdana, Helvetica, sans-serif" size="4"><b>
+Summary of Enhancements in Version 9.x
+</b></font></h2>
+
+<a name="wp1015918"> </a><h3><font color="#336699" face="Arial, Verdana, Helvetica, sans-serif" size="3"><b>
+Version 9.2
+</b></font></h3>
+
+<a name="wp1015929"> </a><h5><font color="#336699" face="Arial, Verdana, Helvetica, sans-serif" size="2"><i>
+FLEXlm License Manager event logging
+</i></font></h5>
+<ul>
+
+<a name="wp1016024"> </a><li><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">Support is available to log actionable FLEX<i>lm</i> license manager events via the Microsoft Windows event-logging service.</font></li>
+
+<a name="wp1016042"> </a><li><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">For more information see the <i>FLEXlm Programmers Guide</i>.</font></li>
+</ul>
+
+<a name="wp1015933"> </a><h5><font color="#336699" face="Arial, Verdana, Helvetica, sans-serif" size="2"><i>
+Internationalization Support for FLEXlm Parameter Names
+</i></font></h5>
+<ul>
+
+<a name="wp1015979"> </a><li><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">Internationalization support is now available for the full complement of FLEX<i>lm</i> parameters. FLEX<i>lm</i> v9.1 adds support for the following parameters:</font></li>
+<ul>
+
+<a name="wp1015980"> </a><li><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">Host names</font></li>
+
+<a name="wp1015982"> </a><li><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">User names</font></li>
+
+<a name="wp1015983"> </a><li><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">File names</font></li>
+<dl>
+<a name="wp1015969"> </a><dd><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+These parameters can contain characters in any language and any codepage, including the UTF-8 encoding of Unicode. 
+</font></dd>
+</dl></ul>
+
+<a name="wp1016286"> </a><li><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">See the <i>FLEXlm Programmers Guide</i> for complete details regarding internationalization support in FLEX<i>lm</i>.</font></li>
+</ul>
+
+<a name="wp1016002"> </a><h5><font color="#336699" face="Arial, Verdana, Helvetica, sans-serif" size="2"><i>
+Universal Naming Convention (UNC) Support in FLEXlm 
+</i></font></h5>
+<ul>
+
+<a name="wp1016009"> </a><li><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">FLEX<i>lm</i> recognizes path name specifications using the Universal Naming Convention (UNC). As an example, the UNC path name specification for <font face="Courier New, Courier, mono">lmgrd</font> would be:<br><font face="Courier New, Courier, mono">&#160;&#160;&#160;&#160;\\myserver\c\Program Files\flexlm\i86_n3\lmgrd</font></font></li>
+</ul>
+
+<a name="wp1016332"> </a><h5><font color="#336699" face="Arial, Verdana, Helvetica, sans-serif" size="2"><i>
+New Options File Keywords
+</i></font></h5>
+<ul>
+
+<a name="wp1016336"> </a><li><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">GROUPCASEINSENSITIVE - controls case sensitivity for user name and hostname lists in GROUP or HOST_GROUP keywords.</font></li>
+
+<a name="wp1016345"> </a><li><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">MAX_BORROW_HOURS - provides a way to change the maximum borrow period of a feature.</font></li>
+
+<a name="wp1016348"> </a><li><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">For further details, see the <i>FLEXlm End Users Guide</i>.</font></li>
+</ul>
+
+<a name="wp1016620"> </a><h5><font color="#336699" face="Arial, Verdana, Helvetica, sans-serif" size="2"><i>
+New Platform Support
+</i></font></h5>
+<ul>
+
+<a name="wp1016621"> </a><li><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">Support added for Red Hat Linux v9.0 on Intel x86 processors.</font></li>
+</ul>
+
+<a name="wp1016622"> </a><h5><font color="#336699" face="Arial, Verdana, Helvetica, sans-serif" size="2"><i>
+Revised lmstrip Utility for Windows Platforms
+</i></font></h5>
+<ul>
+
+<a name="wp1016373"> </a><li><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">The utility, <font face="Courier New, Courier, mono">lmstrip</font>, has been revised for Windows platforms.</font></li>
+</ul>
+
+<a name="wp1016380"> </a><h5><font color="#336699" face="Arial, Verdana, Helvetica, sans-serif" size="2"><i>
+New Vendor Daemon Variable
+</i></font></h5>
+<ul>
+
+<a name="wp1016389"> </a><li><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">A new vendor daemon variable, <font face="Courier New, Courier, mono">ls_hud_hostid_case_sensitive</font>, is introduced in this release. It provides case sensitivity control for <font face="Courier New, Courier, mono">HOSTNAME</font>, <font face="Courier New, Courier, mono">DISPLAY</font>, and <font face="Courier New, Courier, mono">USER </font>hostid types in served, node-locked licenses.</font></li>
+</ul>
+
+<a name="wp1015922"> </a><h3><font color="#336699" face="Arial, Verdana, Helvetica, sans-serif" size="3"><b>
+Version 9.0
+</b></font></h3>
+
+<a name="wp1014431"> </a><h5><font color="#336699" face="Arial, Verdana, Helvetica, sans-serif" size="2"><i>
+Composite Hostids
+</i></font></h5>
+<ul>
+
+<a name="wp1014438"> </a><li><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">A new hostid type, composite hostid, is provided in this release. A composite hostid allows the vendor to combine one or more FLEX<i>lm</i> simple hostids together, in a manner that is not apparent to the end user, providing a more secure hostid.</font></li>
+
+<a name="wp1015305"> </a><li><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">A composite hostid can be used anywhere a simple hostid is used.</font></li>
+
+<a name="wp1015306"> </a><li><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">Use COMPOSITE= for this hostid type in the license file.</font></li>
+
+<a name="wp1015739"> </a><li><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">For more information, see the chapter entitled &quot;Composite Hostids&quot; in the <i>FLEXlm Reference Manual</i>.</font></li>
+</ul>
+
+<a name="wp1015307"> </a><h5><font color="#336699" face="Arial, Verdana, Helvetica, sans-serif" size="2"><i>
+New FLEXible API Functions
+</i></font></h5>
+<ul>
+
+<a name="wp1015308"> </a><li><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">lc_borrow_return(): this function provides support for early return of borrowed licenses.</font></li>
+<ul>
+
+<a name="wp1014470"> </a><li><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">This new FLEXible API function is used to return a borrowed license to the pool of available licenses before the borrow period expires.</font></li>
+
+<a name="wp1015086"> </a><li><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">Provides you with the means to include support for early return of borrowed licenses from your proprietary interface.</font></li>
+</ul>
+
+<a name="wp1015272"> </a><li><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">lc_init_simple_composite(): this function initializes a composite hostid in the current job.</font></li>
+
+<a name="wp1015877"> </a><li><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">See the <i>FLEXlm Reference Manual</i> for more information.</font></li>
+</ul>
+
+<a name="wp1015104"> </a><h5><font color="#336699" face="Arial, Verdana, Helvetica, sans-serif" size="2"><i>
+New Environment Variable
+</i></font></h5>
+<ul>
+
+<a name="wp1015856"> </a><li><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">A new environment variable, FLEXLM_TIMEOUT, is introduced in this release. This variable sets the timeout value a FLEX<i>lm</i>-licensed application uses when attempting to connect to a license server port in the range 27000-27009. The default setting is 100000 microseconds.</font></li>
+
+<a name="wp1015868"> </a><li><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">See the <i>FLEXlm End Users Guide</i> for more information.</font></li>
+</ul>
+
+<a name="wp1015845"> </a><h5><font color="#336699" face="Arial, Verdana, Helvetica, sans-serif" size="2"><i>
+Support for FLEXlm Java v9.0 (Packaged Separately)
+</i></font></h5>
+<ul>
+
+<a name="wp1015140"> </a><li><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">FLEX<i>lm</i> Java v9.0 (packaged separately) requires FLEX<i>lm</i> v9.0.</font></li>
+</ul>
+
+<a name="wp1013977"> </a><h2><font color="#336699" face="Arial, Verdana, Helvetica, sans-serif" size="4"><b>
+Resolved Problems
+</b></font></h2>
+
+<a name="wp1016086"> </a><h3><font color="#336699" face="Arial, Verdana, Helvetica, sans-serif" size="3"><b>
+Version 9.2
+</b></font></h3>
+
+<a name="wp1016091"> </a><div><font color="#000000" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+</font></div><div align="left">
+<table border="1">
+  <caption></caption>
+  <tr align="center">    <th>
+<a name="wp1016095"> </a><div><div align="center"><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2"><b>
+Problem Number
+</b></font></div></div>
+</th>
+    <th>
+<a name="wp1016097"> </a><div><div align="center"><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2"><b>
+Description
+</b></font></div></div>
+</th>
+</tr>
+  <tr align="left">    <td>
+<a name="wp1017043"> </a><div><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+<font face="Courier New, Courier, mono">P6576</font>
+</font></div>
+</td>
+    <td>
+<a name="wp1017045"> </a><div><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+In certain circumstances, lc_vsend() does not connect to the second license server in a colon separated list of servers.
+</font></div>
+</td>
+</tr>
+  <tr align="left">    <td>
+<a name="wp1017036"> </a><div><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+<font face="Courier New, Courier, mono">P6742</font>
+</font></div>
+</td>
+    <td>
+<a name="wp1017041"> </a><div><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+The utility, <font face="Courier New, Courier, mono">lmstrip</font>, is not properly stripping some FLEX<i>lm</i> internal symbols. This causes subsequent linking to have unresolved references.
+</font></div>
+</td>
+</tr>
+  <tr align="left">    <td>
+<a name="wp1017029"> </a><div><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+<font face="Courier New, Courier, mono">P7014</font>
+</font></div>
+</td>
+    <td>
+<a name="wp1017031"> </a><div><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+A checkout filter is called duplicate times, in some circumstances, for the same license file line when license file is accessed via port@host. This causes undefined results for the FLEX<i>lm</i>-enabled application.
+</font></div>
+</td>
+</tr>
+  <tr align="left">    <td>
+<a name="wp1017047"> </a><div><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+<font face="Courier New, Courier, mono">P7148</font>
+</font></div>
+</td>
+    <td>
+<a name="wp1017049"> </a><div><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+When a queued license request is made to a component of a package suite, the request pends forever.
+</font></div>
+</td>
+</tr>
+  <tr align="left">    <td>
+<a name="wp1017071"> </a><div><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+<font face="Courier New, Courier, mono">P7190</font>
+</font></div>
+</td>
+    <td>
+<a name="wp1017073"> </a><div><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+Contrary to the documentation, the value of a <font face="Courier New, Courier, mono">HOSTNAME</font> hostid is treated as case sensitive.
+</font></div>
+</td>
+</tr>
+  <tr align="left">    <td>
+<a name="wp1017067"> </a><div><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+<font face="Courier New, Courier, mono">P7266</font>
+</font></div>
+</td>
+    <td>
+<a name="wp1017069"> </a><div><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+A request to borrow one or more package components fails if the package uses CRO authentication.
+</font></div>
+</td>
+</tr>
+  <tr align="left">    <td>
+<a name="wp1017063"> </a><div><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+<font face="Courier New, Courier, mono">P7341</font>
+</font></div>
+</td>
+    <td>
+<a name="wp1017065"> </a><div><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+The license server does not append to an existing debug log, if configured to do so, if started as a service at boot time.
+</font></div>
+</td>
+</tr>
+  <tr align="left">    <td>
+<a name="wp1017059"> </a><div><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+<font face="Courier New, Courier, mono">P7342</font>
+</font></div>
+</td>
+    <td>
+<a name="wp1017061"> </a><div><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+When using lc_auth_data() on a FEATURE/INCREMENT line within a PACKAGE, the NOTICE= field is returned as <font face="Courier New, Courier, mono">NULL.</font>
+</font></div>
+</td>
+</tr>
+  <tr align="left">    <td>
+<a name="wp1017055"> </a><div><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+<font face="Courier New, Courier, mono">P7359</font>
+</font></div>
+</td>
+    <td>
+<a name="wp1017057"> </a><div><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+When <font face="Courier New, Courier, mono">ls_use_all_feature_lines</font> is set to 1, multiple FEATURE lines for a given feature within a PACKAGE are ignored.
+</font></div>
+</td>
+</tr>
+  <tr align="left">    <td>
+<a name="wp1017051"> </a><div><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+<font face="Courier New, Courier, mono">P7404</font>
+</font></div>
+</td>
+    <td>
+<a name="wp1017053"> </a><div><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+The options file keyword, <font face="Courier New, Courier, mono">BORROW_LOWWATER</font>, incorrectly evaluates the number of available licenses for borrowing.
+</font></div>
+</td>
+</tr>
+</table>
+</div>
+<div><font color="#000000" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+</font></div>
+
+<a name="wp1016090"> </a><h3><font color="#336699" face="Arial, Verdana, Helvetica, sans-serif" size="3"><b>
+Version 9.0
+</b></font></h3>
+
+<a name="wp1014509"> </a><div><font color="#000000" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+</font></div><div align="left">
+<table border="1">
+  <caption></caption>
+  <tr align="center">    <th>
+<a name="wp1014494"> </a><div><div align="center"><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2"><b>
+Problem Number
+</b></font></div></div>
+</th>
+    <th>
+<a name="wp1014496"> </a><div><div align="center"><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2"><b>
+Description
+</b></font></div></div>
+</th>
+</tr>
+  <tr align="left">    <td>
+<a name="wp1015445"> </a><div><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+P6140
+</font></div>
+</td>
+    <td>
+<a name="wp1015447"> </a><div><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+FLEX<i>lm</i> gives an invalid license error in some circumstances where a decimal license is used inside of a START_LICENSE/END_LICENSE block.
+</font></div>
+</td>
+</tr>
+  <tr align="left">    <td>
+<a name="wp1015882"> </a><div><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+P6380
+</font></div>
+</td>
+    <td>
+<a name="wp1015884"> </a><div><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+<font face="Courier New, Courier, mono">lmnewlog</font> returns failure even though report logs were successfully switched.
+</font></div>
+</td>
+</tr>
+  <tr align="left">    <td>
+<a name="wp1015449"> </a><div><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+P6594
+</font></div>
+</td>
+    <td>
+<a name="wp1015451"> </a><div><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+With identically named features from different vendors, a SUPERSEDE line affects the feature from the wrong vendor.
+</font></div>
+</td>
+</tr>
+  <tr align="left">    <td>
+<a name="wp1015453"> </a><div><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+P6666
+</font></div>
+</td>
+    <td>
+<a name="wp1015455"> </a><div><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+The UPGRADE keyword does not follow the standard license-file sorting rules.
+</font></div>
+</td>
+</tr>
+  <tr align="left">    <td>
+<a name="wp1015469"> </a><div><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+P6931
+</font></div>
+</td>
+    <td>
+<a name="wp1015471"> </a><div><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+A request for an early-borrowed-license-return FLEXible API function.
+</font></div>
+</td>
+</tr>
+  <tr align="left">    <td>
+<a name="wp1015473"> </a><div><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+P6960
+</font></div>
+</td>
+    <td>
+<a name="wp1015583"> </a><div><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+With one node-locked and one floating license for the same feature, FLEX<i>lm</i> always looks at the node-locked license first.
+</font></div>
+
+<a name="wp1015475"> </a><div><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+If it is denied, it won&#39;t continue to check out the floating license.
+</font></div>
+</td>
+</tr>
+  <tr align="left">    <td>
+<a name="wp1015477"> </a><div><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+P6984
+</font></div>
+</td>
+    <td>
+<a name="wp1015479"> </a><div><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+In some instances, queued license requests are not dequeued when the licenses become available.
+</font></div>
+</td>
+</tr>
+  <tr align="left">    <td>
+<a name="wp1015481"> </a><div><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+P7000
+</font></div>
+</td>
+    <td>
+<a name="wp1015483"> </a><div><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+The command line help for <font face="Courier New, Courier, mono">lmgrd</font> does not match the documentation.
+</font></div>
+</td>
+</tr>
+  <tr align="left">    <td>
+<a name="wp1015485"> </a><div><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+P7001
+</font></div>
+</td>
+    <td>
+<a name="wp1015597"> </a><div><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+The command line help for <font face="Courier New, Courier, mono">lmstat</font> does not match the documentation.
+</font></div>
+</td>
+</tr>
+  <tr align="left">    <td>
+<a name="wp1015489"> </a><div><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+P7008
+</font></div>
+</td>
+    <td>
+<a name="wp1015491"> </a><div><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+FLEX<i>lm</i> gives an invalid license error if the first word after a continuation character inside a quoted string is a license keyword.
+</font></div>
+</td>
+</tr>
+  <tr align="left">    <td>
+<a name="wp1015493"> </a><div><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+P7034
+</font></div>
+</td>
+    <td>
+<a name="wp1015495"> </a><div><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+An application with a borrowed license continues to run after the license has expired.
+</font></div>
+</td>
+</tr>
+  <tr align="left">    <td>
+<a name="wp1015497"> </a><div><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+P7054
+</font></div>
+</td>
+    <td>
+<a name="wp1015499"> </a><div><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+On Windows Itanium platforms, a checkout request specifying the LM_CHECK_BADDATE policy modifier crashes the application.
+</font></div>
+</td>
+</tr>
+  <tr align="left">    <td>
+<a name="wp1015501"> </a><div><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+P7067
+</font></div>
+</td>
+    <td>
+<a name="wp1015629"> </a><div><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+The lmremove command does not give the appropriate error message for a feature that was not checked out.
+</font></div>
+</td>
+</tr>
+  <tr align="left">    <td>
+<a name="wp1015513"> </a><div><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+P7082
+</font></div>
+</td>
+    <td>
+<a name="wp1015515"> </a><div><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+The EXCLUDEALL and INCLUDEALL options file keywords do not have an effect.
+</font></div>
+</td>
+</tr>
+  <tr align="left">    <td>
+<a name="wp1015517"> </a><div><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+P7101
+</font></div>
+</td>
+    <td>
+<a name="wp1015519"> </a><div><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+Cannot return a borrowed license early if a semicolon (;) is used to delimit multiple pathnames in LM_LICENSE_FILE or <i>VENDOR</i>_LICENSE_FILE.
+</font></div>
+</td>
+</tr>
+  <tr align="left">    <td>
+<a name="wp1015525"> </a><div><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+P7106
+</font></div>
+</td>
+    <td>
+<a name="wp1015527"> </a><div><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+lc_hostid() is undefined in <font face="Courier New, Courier, mono">lmgr8c.dll</font>.
+</font></div>
+</td>
+</tr>
+  <tr align="left">    <td>
+<a name="wp1015521"> </a><div><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+P7113
+</font></div>
+</td>
+    <td>
+<a name="wp1015677"> </a><div><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+A Windows service not able to create a <font face="Courier New, Courier, mono">C:\Documents and Settings\All Users\Application</font> folder with SafeCast installed.
+</font></div>
+</td>
+</tr>
+  <tr align="left">    <td>
+<a name="wp1015529"> </a><div><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+P7118
+</font></div>
+</td>
+    <td>
+<a name="wp1015531"> </a><div><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+When the LM_CO_QUEUE policy is specified in lc_checkout() and a checkout data string is set, a subsequent checkin labeled with the checkout data string can fail in some circumstances.
+</font></div>
+</td>
+</tr>
+</table>
+</div>
+<div><font color="#000000" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+</font></div>
+
+<a name="wp1000073"> </a><h2><font color="#336699" face="Arial, Verdana, Helvetica, sans-serif" size="4"><b>
+Platform Notes
+</b></font></h2>
+
+<a name="wp1007250"> </a><p><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+The following operating systems are supported in this version of FLEX<i>lm</i><sup><sup>®</sup></sup>. See <a  href="#wp1006897">&quot;Detailed Platform Information&quot; </a> for more information on each platform.
+</font></p>
+
+<a name="wp1005914"> </a><div><font color="#000000" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+
+</font></div>
+
+<a name="wp1007299"> </a><div><font color="#000000" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+</font></div><div align="left">
+<table border="1">
+  <caption></caption>
+  <tr align="center">    <th>
+<a name="wp1011922"> </a><div><div align="center"><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2"><b>
+Operating System
+</b></font></div></div>
+</th>
+    <th>
+<a name="wp1011924"> </a><div><div align="center"><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2"><b>
+Hardware Platform
+</b></font></div></div>
+</th>
+</tr>
+  <tr align="left">    <td>
+<a name="wp1011927"> </a><div><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+<a  href="#wp1007254">AIX 32-bit</a>
+</font></div>
+</td>
+    <td><ul>
+
+<a name="wp1011929"> </a><li><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">PowerPC general</font></li>
+
+<a name="wp1012093"> </a><li><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">PowerPC, RS6000</font></li>
+</ul>
+</td>
+</tr>
+  <tr align="left">    <td>
+<a name="wp1011932"> </a><div><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+<a  href="#wp1010392">AIX 64-bit</a>
+</font></div>
+</td>
+    <td><ul>
+
+<a name="wp1011934"> </a><li><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">PowerPC, RS6000</font></li>
+</ul>
+</td>
+</tr>
+  <tr align="left">    <td>
+<a name="wp1011936"> </a><div><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+<a  href="#wp1010393">Compaq Tru64 UNIX</a>
+</font></div>
+</td>
+    <td><ul>
+
+<a name="wp1011938"> </a><li><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">DEC Alpha</font></li>
+</ul>
+</td>
+</tr>
+  <tr align="left">    <td>
+<a name="wp1011940"> </a><div><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+<a  href="#wp1010394">DEC Alpha OSF</a>
+</font></div>
+</td>
+    <td><ul>
+
+<a name="wp1011942"> </a><li><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">DEC Alpha</font></li>
+</ul>
+</td>
+</tr>
+  <tr align="left">    <td>
+<a name="wp1011944"> </a><div><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+<a  href="#wp1010395">HP-UX 32-bit</a>
+</font></div>
+</td>
+    <td><ul>
+
+<a name="wp1011946"> </a><li><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">Intel Itanium</font></li>
+
+<a name="wp1012094"> </a><li><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">HP 32-bit</font></li>
+</ul>
+</td>
+</tr>
+  <tr align="left">    <td>
+<a name="wp1011948"> </a><div><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+<a  href="#wp1010396">HP-UX 64-bit</a>
+</font></div>
+</td>
+    <td><ul>
+
+<a name="wp1011950"> </a><li><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">Intel Itanium</font></li>
+
+<a name="wp1012095"> </a><li><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">HP 64-bit</font></li>
+</ul>
+</td>
+</tr>
+  <tr align="left">    <td>
+<a name="wp1011952"> </a><div><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+<a  href="#wp1010397">Intel FreeBSD</a>
+</font></div>
+</td>
+    <td><ul>
+
+<a name="wp1011954"> </a><li><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">Intel x86</font></li>
+</ul>
+</td>
+</tr>
+  <tr align="left">    <td>
+<a name="wp1011956"> </a><div><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+<a  href="#wp1010398">IRIX 32-bit</a>
+</font></div>
+</td>
+    <td><ul>
+
+<a name="wp1011958"> </a><li><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">SGI 32-bit</font></li>
+</ul>
+</td>
+</tr>
+  <tr align="left">    <td>
+<a name="wp1011960"> </a><div><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+<a  href="#wp1010399">IRIX 64-bit</a>
+</font></div>
+</td>
+    <td><ul>
+
+<a name="wp1011962"> </a><li><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">SGI 64-bit</font></li>
+</ul>
+</td>
+</tr>
+  <tr align="left">    <td>
+<a name="wp1011964"> </a><div><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+<a  href="#wp1010400">Mac OS</a>
+</font></div>
+</td>
+    <td><ul>
+
+<a name="wp1011966"> </a><li><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">PowerPC</font></li>
+</ul>
+</td>
+</tr>
+  <tr align="left">    <td>
+<a name="wp1011968"> </a><div><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+<a  href="#wp1010401">Microsoft Windows 95/98/NT/2000/XP/ME</a>
+</font></div>
+</td>
+    <td><ul>
+
+<a name="wp1011970"> </a><li><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">Intel x86</font></li>
+</ul>
+</td>
+</tr>
+  <tr align="left">    <td>
+<a name="wp1011972"> </a><div><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+<a  href="#wp1010402">Microsoft Windows XP Professional, Win 64, Windows 2000 Server, Windows Server 2003</a>
+</font></div>
+</td>
+    <td><ul>
+
+<a name="wp1011974"> </a><li><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">Intel Itanium</font></li>
+</ul>
+</td>
+</tr>
+  <tr align="left">    <td>
+<a name="wp1011976"> </a><div><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+<a  href="#wp1010403">Red Hat Linux</a>
+</font></div>
+</td>
+    <td><ul>
+
+<a name="wp1011978"> </a><li><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">DEC Alpha</font></li>
+
+<a name="wp1012096"> </a><li><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">Intel x86</font></li>
+
+<a name="wp1012097"> </a><li><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">Intel Itanium</font></li>
+</ul>
+</td>
+</tr>
+  <tr align="left">    <td>
+<a name="wp1011984"> </a><div><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+<a  href="#wp1010933">Siemens Nixdorf RM400 Sinux</a>
+</font></div>
+</td>
+    <td><ul>
+
+<a name="wp1011986"> </a><li><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">Siemens Nixdorf RM400 (mips)</font></li>
+</ul>
+</td>
+</tr>
+  <tr align="left">    <td>
+<a name="wp1011988"> </a><div><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+<a  href="#wp1016898">Solaris 32-bit</a>
+</font></div>
+</td>
+    <td><ul>
+
+<a name="wp1011990"> </a><li><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">Sun 32-bit</font></li>
+
+<a name="wp1016668"> </a><li><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">Intel x86</font></li>
+</ul>
+</td>
+</tr>
+  <tr align="left">    <td>
+<a name="wp1011992"> </a><div><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+<a  href="#wp1016892">Solaris 64-bit</a>
+</font></div>
+</td>
+    <td><ul>
+
+<a name="wp1011994"> </a><li><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">Sun 64-bit</font></li>
+</ul>
+</td>
+</tr>
+</table>
+</div>
+<div><font color="#000000" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+</font></div>
+
+<a name="wp1006897"> </a><h3><font color="#336699" face="Arial, Verdana, Helvetica, sans-serif" size="3"><b>
+Detailed Platform Information
+</b></font></h3>
+
+<a name="wp1007258"> </a><p><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+The following sections list the operating systems and their associated hardware platforms for which support is provided by FLEX<i>lm</i>. Each platform entry contains the following information:
+</font></p>
+<ul>
+
+<a name="wp1007259"> </a><li><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">Platform</font></li>
+<dl>
+<a name="wp1012119"> </a><dd><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+The specific hardware platform for which support is provided.
+</font></dd>
+</dl>
+<a name="wp1012114"> </a><li><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">OS</font></li>
+<dl>
+<a name="wp1012115"> </a><dd><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+The specific operating system version or versions supported on the platform.
+</font></dd>
+</dl>
+<a name="wp1012111"> </a><li><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">FLEX<i>lm</i> platform name</font></li>
+<dl>
+<a name="wp1012125"> </a><dd><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+This code specifies both the binary base name of the installer and the installation folder that contains the platform-specific FLEX<i>lm</i> components.
+</font></dd>
+</dl>
+<a name="wp1007284"> </a><li><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">Built with</font></li>
+<dl>
+<a name="wp1012132"> </a><dd><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+The compilation and linkage command lines used to build the FLEX<i>lm</i> client library and other components included in the Software Development Kit. 
+</font></dd>
+</dl>
+<a name="wp1007288"> </a><li><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">Notes</font></li>
+<dl>
+<a name="wp1012139"> </a><dd><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+Additional notes and caveats specific to that platform, which are useful for developing your FLEX<i>lm</i>-enabled product.
+</font></dd>
+</dl></ul>
+
+<a name="wp1007254"> </a><h5><font color="#336699" face="Arial, Verdana, Helvetica, sans-serif" size="2"><i>
+AIX 32-bit
+</i></font></h5>
+
+<a name="wp1011518"> </a><div><font color="#000000" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+</font></div><div align="left">
+<table border="1">
+  <caption></caption>
+  <tr align="left">    <td>
+<a name="wp1011495"> </a><div><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+Platform:
+</font></div>
+</td>
+    <td>
+<a name="wp1011497"> </a><div><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+PowerPC, RS6000
+</font></div>
+</td>
+</tr>
+  <tr align="left">    <td>
+<a name="wp1011499"> </a><div><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+OS:
+</font></div>
+</td>
+    <td>
+<a name="wp1011501"> </a><div><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+AIX 3.2 to 4.3
+</font></div>
+</td>
+</tr>
+  <tr align="left">    <td>
+<a name="wp1011506"> </a><div><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+FLEX<i>lm</i> Platform name:
+</font></div>
+</td>
+    <td>
+<a name="wp1011508"> </a><div><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+rs6000_u3
+</font></div>
+</td>
+</tr>
+  <tr align="left">    <td>
+<a name="wp1011510"> </a><div><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+Built with:
+</font></div>
+</td>
+    <td>
+<a name="wp1011512"> </a><div><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+cc:   <font face="Courier New, Courier, mono">/bin/cc -D_BSD -D_BSD_INCLUDES</font>
+</font></div>
+
+<a name="wp1011513"> </a><div><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+link: &#160;<font face="Courier New, Courier, mono">/bin/cc -lbsd</font>
+</font></div>
+</td>
+</tr>
+  <tr align="left">    <td>
+<a name="wp1011515"> </a><div><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+Notes:
+</font></div>
+</td>
+    <td><ul>
+
+<a name="wp1011517"> </a><li><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">Multi-threaded heartbeats not supported.</font></li>
+</ul>
+</td>
+</tr>
+</table>
+</div>
+<div><font color="#000000" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+</font></div>
+
+<a name="wp1011399"> </a><div><font color="#000000" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+</font></div><div align="left">
+<table border="1">
+  <caption></caption>
+  <tr align="left">    <td>
+<a name="wp1011410"> </a><div><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+Platform:
+</font></div>
+</td>
+    <td>
+<a name="wp1011412"> </a><div><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+PowerPC, RS6000
+</font></div>
+</td>
+</tr>
+  <tr align="left">    <td>
+<a name="wp1011414"> </a><div><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+OS:
+</font></div>
+</td>
+    <td>
+<a name="wp1011416"> </a><div><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+AIX 4.x or higher
+</font></div>
+</td>
+</tr>
+  <tr align="left">    <td>
+<a name="wp1011388"> </a><div><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+FLEX<i>lm</i> Platform name:
+</font></div>
+</td>
+    <td>
+<a name="wp1011390"> </a><div><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+ppc_u4
+</font></div>
+</td>
+</tr>
+  <tr align="left">    <td>
+<a name="wp1011392"> </a><div><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+Built with:
+</font></div>
+</td>
+    <td>
+<a name="wp1011394"> </a><div><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+<font face="Courier New, Courier, mono">/bin/cc -DRS6000 -D_BSD -D_BSD_INCLUDES -DAIX_PPC</font>
+</font></div>
+</td>
+</tr>
+  <tr align="left">    <td>
+<a name="wp1011396"> </a><div><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+Notes:
+</font></div>
+</td>
+    <td><ul>
+
+<a name="wp1011398"> </a><li><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">uname -a: <font face="Courier New, Courier, mono">AIX sysxxx 1 4 00FFFFFF4D00</font></font></li>
+</ul>
+</td>
+</tr>
+</table>
+</div>
+<div><font color="#000000" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+</font></div>
+
+<a name="wp1011377"> </a><div><font color="#000000" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+
+</font></div>
+
+<a name="wp1010392"> </a><h5><font color="#336699" face="Arial, Verdana, Helvetica, sans-serif" size="2"><i>
+AIX 64-bit
+</i></font></h5>
+
+<a name="wp1011549"> </a><div><font color="#000000" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+</font></div><div align="left">
+<table border="1">
+  <caption></caption>
+  <tr align="left">    <td>
+<a name="wp1011553"> </a><div><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+Platform:
+</font></div>
+</td>
+    <td>
+<a name="wp1011555"> </a><div><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+PowerPC, RS6000
+</font></div>
+</td>
+</tr>
+  <tr align="left">    <td>
+<a name="wp1011557"> </a><div><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+OS:
+</font></div>
+</td>
+    <td>
+<a name="wp1011559"> </a><div><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+AIX 4.3 to 5.x
+</font></div>
+</td>
+</tr>
+  <tr align="left">    <td>
+<a name="wp1011534"> </a><div><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+FLEX<i>lm</i> Platform name:
+</font></div>
+</td>
+    <td>
+<a name="wp1011536"> </a><div><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+rs64_u4
+</font></div>
+</td>
+</tr>
+  <tr align="left">    <td>
+<a name="wp1011538"> </a><div><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+Built with:
+</font></div>
+</td>
+    <td>
+<a name="wp1011540"> </a><div><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+cc: &#160;<font face="Courier New, Courier, mono">/bin/cc -DRS64 -DRS6000 -D_BSD \ <br>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;-D_BSD_INCLUDES -qnolm -q64</font>
+</font></div>
+
+<a name="wp1011541"> </a><div><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+link: <font face="Courier New, Courier, mono">/bin/cc -lbsd -q64 -lpthreads</font>
+</font></div>
+</td>
+</tr>
+  <tr align="left">    <td>
+<a name="wp1011543"> </a><div><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+Notes:
+</font></div>
+</td>
+    <td><ul>
+
+<a name="wp1011545"> </a><li><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">uname -a: <font face="Courier New, Courier, mono">AIX sysxxx 3 4 000687724C00</font></font></li>
+
+<a name="wp1011546"> </a><li><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">You have to use <font face="Courier New, Courier, mono">ar -X64</font> and <font face="Courier New, Courier, mono">strip -X64</font> on this platform.</font></li>
+
+<a name="wp1011547"> </a><li><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">Older 32-bit binaries run fine on this OS.</font></li>
+
+<a name="wp1011548"> </a><li><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">Multi-threaded heartbeats not supported.</font></li>
+</ul>
+</td>
+</tr>
+</table>
+</div>
+<div><font color="#000000" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+</font></div>
+
+<a name="wp1011887"> </a><div><font color="#000000" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+</font></div><div align="left">
+<table border="1">
+  <caption></caption>
+  <tr align="left">    <td>
+<a name="wp1011861"> </a><div><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+Platform:
+</font></div>
+</td>
+    <td>
+<a name="wp1011863"> </a><div><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+PowerPC, RS6000
+</font></div>
+</td>
+</tr>
+  <tr align="left">    <td>
+<a name="wp1011865"> </a><div><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+OS:
+</font></div>
+</td>
+    <td>
+<a name="wp1011867"> </a><div><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+AIX 5L 5.0 or higher
+</font></div>
+</td>
+</tr>
+  <tr align="left">    <td>
+<a name="wp1011872"> </a><div><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+FLEX<i>lm</i> Platform name:
+</font></div>
+</td>
+    <td>
+<a name="wp1011874"> </a><div><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+rs64_u5
+</font></div>
+</td>
+</tr>
+  <tr align="left">    <td>
+<a name="wp1011876"> </a><div><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+Built with:
+</font></div>
+</td>
+    <td>
+<a name="wp1011878"> </a><div><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+cc: <font face="Courier New, Courier, mono">-DAIX5 -DRS64 -DRS6000 -D_BSD \<br>&#160;&#160;&#160;-D_BSD_INCLUDES -qnolm -q64</font>
+</font></div>
+
+<a name="wp1011879"> </a><div><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+link: <font face="Courier New, Courier, mono">-lbsd -q64 -lpthreads</font>
+</font></div>
+</td>
+</tr>
+  <tr align="left">    <td>
+<a name="wp1011881"> </a><div><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+Notes:
+</font></div>
+</td>
+    <td><ul>
+
+<a name="wp1011883"> </a><li><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">uname -a: <font face="Courier New, Courier, mono">AIX sysxxx 1 5 000687724C00</font></font></li>
+
+<a name="wp1011884"> </a><li><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">You have to use <font face="Courier New, Courier, mono">ar -X64</font> and <font face="Courier New, Courier, mono">strip -X64</font> on this platform.</font></li>
+
+<a name="wp1011885"> </a><li><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">Older 32-bit binaries run fine on this OS.</font></li>
+
+<a name="wp1011886"> </a><li><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">Multi-threaded heartbeats not supported.</font></li>
+</ul>
+</td>
+</tr>
+</table>
+</div>
+<div><font color="#000000" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+</font></div>
+
+<a name="wp1011523"> </a><div><font color="#000000" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+
+</font></div>
+
+<a name="wp1010393"> </a><h5><font color="#336699" face="Arial, Verdana, Helvetica, sans-serif" size="2"><i>
+Compaq Tru64 UNIX
+</i></font></h5>
+
+<a name="wp1010504"> </a><div><font color="#000000" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+</font></div><div align="left">
+<table border="1">
+  <caption></caption>
+  <tr align="left">    <td>
+<a name="wp1010482"> </a><div><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+Platform:
+</font></div>
+</td>
+    <td>
+<a name="wp1010484"> </a><div><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+DEC ALpha
+</font></div>
+</td>
+</tr>
+  <tr align="left">    <td>
+<a name="wp1010486"> </a><div><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+OS:
+</font></div>
+</td>
+    <td>
+<a name="wp1010488"> </a><div><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+OSF 3.2 or higher
+</font></div>
+</td>
+</tr>
+  <tr align="left">    <td>
+<a name="wp1010493"> </a><div><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+FLEX<i>lm</i> Platform name:
+</font></div>
+</td>
+    <td>
+<a name="wp1010495"> </a><div><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+alpha_u3
+</font></div>
+</td>
+</tr>
+  <tr align="left">    <td>
+<a name="wp1010497"> </a><div><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+Built with:
+</font></div>
+</td>
+    <td>
+<a name="wp1010499"> </a><div><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+<font face="Courier New, Courier, mono">/usr/bin/cc -std -DDEC_UNIX_3</font>
+</font></div>
+</td>
+</tr>
+  <tr align="left">    <td>
+<a name="wp1010501"> </a><div><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+Notes:
+</font></div>
+</td>
+    <td><ul>
+
+<a name="wp1010503"> </a><li><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">uname -a: <font face="Courier New, Courier, mono">OSF1 sysxxx V3.2 17 alpha</font></font></li>
+</ul>
+</td>
+</tr>
+</table>
+</div>
+<div><font color="#000000" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+</font></div>
+
+<a name="wp1010478"> </a><div><font color="#000000" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+
+</font></div>
+
+<a name="wp1010394"> </a><h5><font color="#336699" face="Arial, Verdana, Helvetica, sans-serif" size="2"><i>
+DEC Alpha OSF
+</i></font></h5>
+
+<a name="wp1011855"> </a><div><font color="#000000" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+</font></div><div align="left">
+<table border="1">
+  <caption></caption>
+  <tr align="left">    <td>
+<a name="wp1011833"> </a><div><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+Platform:
+</font></div>
+</td>
+    <td>
+<a name="wp1011835"> </a><div><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+DEC ALpha
+</font></div>
+</td>
+</tr>
+  <tr align="left">    <td>
+<a name="wp1011837"> </a><div><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+OS:
+</font></div>
+</td>
+    <td>
+<a name="wp1011839"> </a><div><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+OSF 3.2 or higher
+</font></div>
+</td>
+</tr>
+  <tr align="left">    <td>
+<a name="wp1011844"> </a><div><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+FLEX<i>lm</i> Platform name:
+</font></div>
+</td>
+    <td>
+<a name="wp1011846"> </a><div><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+alpha_u3
+</font></div>
+</td>
+</tr>
+  <tr align="left">    <td>
+<a name="wp1011848"> </a><div><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+Built with:
+</font></div>
+</td>
+    <td>
+<a name="wp1011850"> </a><div><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+cc: <font face="Courier New, Courier, mono">/usr/bin/cc -std -DDEC_UNIX_3</font>
+</font></div>
+</td>
+</tr>
+  <tr align="left">    <td>
+<a name="wp1011852"> </a><div><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+Notes:
+</font></div>
+</td>
+    <td><ul>
+
+<a name="wp1011854"> </a><li><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">uname -a: OSF1 sysxxx V3.2 17 alpha</font></li>
+</ul>
+</td>
+</tr>
+</table>
+</div>
+<div><font color="#000000" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+</font></div>
+
+<a name="wp1011829"> </a><div><font color="#000000" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+
+</font></div>
+
+<a name="wp1010395"> </a><h5><font color="#336699" face="Arial, Verdana, Helvetica, sans-serif" size="2"><i>
+HP-UX 32-bit
+</i></font></h5>
+
+<a name="wp1010540"> </a><div><font color="#000000" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+</font></div><div align="left">
+<table border="1">
+  <caption></caption>
+  <tr align="left">    <td>
+<a name="wp1010544"> </a><div><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+Platform:
+</font></div>
+</td>
+    <td>
+<a name="wp1010546"> </a><div><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+HP 32-bit
+</font></div>
+</td>
+</tr>
+  <tr align="left">    <td>
+<a name="wp1010548"> </a><div><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+OS:
+</font></div>
+</td>
+    <td>
+<a name="wp1010561"> </a><div><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+HP-UX 10.20 to 11.20
+</font></div>
+</td>
+</tr>
+  <tr align="left">    <td>
+<a name="wp1010527"> </a><div><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+FLEX<i>lm</i> Platform name:
+</font></div>
+</td>
+    <td>
+<a name="wp1010529"> </a><div><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+hp700_u10
+</font></div>
+</td>
+</tr>
+  <tr align="left">    <td>
+<a name="wp1010531"> </a><div><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+Built with:
+</font></div>
+</td>
+    <td>
+<a name="wp1010533"> </a><div><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+cc: <font face="Courier New, Courier, mono">/bin/cc -Aa -D_HIUX_SOURCE -D_HPUX_SOURCE</font> <br><font face="Courier New, Courier, mono">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;+DA1.0 +DS1.0</font>
+</font></div>
+</td>
+</tr>
+  <tr align="left">    <td>
+<a name="wp1010535"> </a><div><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+Notes:
+</font></div>
+</td>
+    <td><ul>
+
+<a name="wp1010537"> </a><li><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">uname -a: <font face="Courier New, Courier, mono">HP-UX sysxxx B.10.20 A 9000/715 2005771344</font></font></li>
+
+<a name="wp1010538"> </a><li><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2"> Hostid note: we no longer recommend using ethernet address as a hostid. It may fail on some HP-UX 11.x systems.</font></li>
+
+<a name="wp1010539"> </a><li><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">No multi-threaded heartbeat support (use hp700_u11 if needed)</font></li>
+</ul>
+</td>
+</tr>
+</table>
+</div>
+<div><font color="#000000" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+</font></div>
+
+<a name="wp1010593"> </a><div><font color="#000000" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+</font></div><div align="left">
+<table border="1">
+  <caption></caption>
+  <tr align="left">    <td>
+<a name="wp1013319"> </a><div><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+Platform:
+</font></div>
+</td>
+    <td>
+<a name="wp1013321"> </a><div><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+HP 32-bit
+</font></div>
+</td>
+</tr>
+  <tr align="left">    <td>
+<a name="wp1013323"> </a><div><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+OS:
+</font></div>
+</td>
+    <td>
+<a name="wp1013325"> </a><div><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+HP-UX 11.20 or higher
+</font></div>
+</td>
+</tr>
+  <tr align="left">    <td>
+<a name="wp1013330"> </a><div><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+FLEX<i>lm</i> Platform name:
+</font></div>
+</td>
+    <td>
+<a name="wp1013332"> </a><div><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+hp700_u11
+</font></div>
+</td>
+</tr>
+  <tr align="left">    <td>
+<a name="wp1013334"> </a><div><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+Built with:
+</font></div>
+</td>
+    <td>
+<a name="wp1013336"> </a><div><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+cc: <font face="Courier New, Courier, mono">/bin/cc -Aa -D_HIUX_SOURCE -D_HPUX_SOURCE <br>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;+DA1.0 +DS1.0</font>
+</font></div>
+</td>
+</tr>
+  <tr align="left">    <td>
+<a name="wp1013338"> </a><div><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+Notes:
+</font></div>
+</td>
+    <td><ul>
+
+<a name="wp1013340"> </a><li><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">uname -a: <font face="Courier New, Courier, mono">HP-UX sysxxx B.11.00 A 9000/780 2013810305 <br>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;two-user</font></font></li>
+
+<a name="wp1013342"> </a><li><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">Hostid note: we no longer recommend using ethernet address as a hostid. It may fail on some HP-UX 11.x systems.</font></li>
+</ul>
+</td>
+</tr>
+</table>
+</div>
+<div><font color="#000000" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+</font></div>
+
+<a name="wp1011118"> </a><div><font color="#000000" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+</font></div><div align="left">
+<table border="1">
+  <caption></caption>
+  <tr align="left">    <td>
+<a name="wp1011129"> </a><div><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+Platform:
+</font></div>
+</td>
+    <td>
+<a name="wp1011131"> </a><div><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+Intel Itanium
+</font></div>
+</td>
+</tr>
+  <tr align="left">    <td>
+<a name="wp1011133"> </a><div><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+OS:
+</font></div>
+</td>
+    <td>
+<a name="wp1011135"> </a><div><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+HP-UX 11.20 or higher
+</font></div>
+</td>
+</tr>
+  <tr align="left">    <td>
+<a name="wp1011101"> </a><div><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+FLEX<i>lm</i> Platform name:
+</font></div>
+</td>
+    <td>
+<a name="wp1011103"> </a><div><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+it32_hp11
+</font></div>
+</td>
+</tr>
+  <tr align="left">    <td>
+<a name="wp1011105"> </a><div><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+Built with:
+</font></div>
+</td>
+    <td>
+<a name="wp1011107"> </a><div><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+cc: <font face="Courier New, Courier, mono">/bin/cc -DHP -DHP64 -DHPINTEL_64 <br>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;-D_HIUX_SOURCE-D_HPUX_SOURCE +DD64</font>
+</font></div>
+</td>
+</tr>
+  <tr align="left">    <td>
+<a name="wp1011109"> </a><div><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+Notes:
+</font></div>
+</td>
+    <td><ul>
+
+<a name="wp1011111"> </a><li><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">uname -a: </font></li>
+<dl>
+<a name="wp1013350"> </a><dd><font color="Black" face="Courier New, Courier, mono" size="2">
+HP-UX sysxxx B.11.20 U ia64 2625004313 <br>&#160;&#160;&#160;&#160;&#160;unlimited-user license
+</font></dd>
+</dl>
+<a name="wp1011112"> </a><li><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">hostid note: Use <font face="Courier New, Courier, mono">lmhostid</font> from the FLEXlm platform directory to determine the hostid. This returns the machine identification and is equivalent to the identification returned by the HP-UX command:</font></li>
+<dl>
+<a name="wp1011113"> </a><dd><font color="Black" face="Courier New, Courier, mono" size="2">
+getconf CS_PARTITION_IDENT
+</font></dd>
+</dl>
+<a name="wp1011114"> </a><li><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">For example:</font></li>
+<dl>
+<a name="wp1011115"> </a><dd><font color="Black" face="Courier New, Courier, mono" size="2">
+&gt; lmhostid<br>&gt; The FLEXlm host ID of this machine is<br>&#160;&#160;&quot;ID_STRING=9c766319-db72-d411-af62-&#160;&#160;0060b05e4c05&quot;
+</font></dd>
+</dl>
+<a name="wp1011116"> </a><li><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">Older methods of obtaining the hostid which return the ethernet address are still supported, but may fail on some systems. The older methods include:</font></li>
+<dl>
+<a name="wp1011117"> </a><dd><font color="Black" face="Courier New, Courier, mono" size="2">
+&gt; uname -i  (returns decimal hostid)<br>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;2625004313<br>&gt; lmhostid -long (returns hexidecimal hostid)<br>&#160;&#160;The FLEXlm host ID of this machine is <br>&#160;&#160;&quot;9c766319&quot;
+</font></dd>
+</dl></ul>
+</td>
+</tr>
+</table>
+</div>
+<div><font color="#000000" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+</font></div>
+
+<a name="wp1010516"> </a><div><font color="#000000" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+
+</font></div>
+
+<a name="wp1010396"> </a><h5><font color="#336699" face="Arial, Verdana, Helvetica, sans-serif" size="2"><i>
+HP-UX 64-bit
+</i></font></h5>
+
+<a name="wp1010632"> </a><div><font color="#000000" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+</font></div><div align="left">
+<table border="1">
+  <caption></caption>
+  <tr align="left">    <td>
+<a name="wp1010636"> </a><div><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+Platform:
+</font></div>
+</td>
+    <td>
+<a name="wp1010638"> </a><div><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+HP 64-bit
+</font></div>
+</td>
+</tr>
+  <tr align="left">    <td>
+<a name="wp1010640"> </a><div><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+OS
+</font></div>
+</td>
+    <td>
+<a name="wp1010642"> </a><div><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+HP-UX 11.00 or higher
+</font></div>
+</td>
+</tr>
+  <tr align="left">    <td>
+<a name="wp1010621"> </a><div><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+FLEX<i>lm</i> Platform name:
+</font></div>
+</td>
+    <td>
+<a name="wp1010623"> </a><div><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+hp64_u11
+</font></div>
+</td>
+</tr>
+  <tr align="left">    <td>
+<a name="wp1010625"> </a><div><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+Built with:
+</font></div>
+</td>
+    <td>
+<a name="wp1010627"> </a><div><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+cc: <font face="Courier New, Courier, mono">/bin/cc -D_HIUX_SOURCE -D_HPUX_SOURCE <br>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;+DA2.0W +DS2.0W</font>
+</font></div>
+</td>
+</tr>
+  <tr align="left">    <td>
+<a name="wp1010629"> </a><div><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+Notes:
+</font></div>
+</td>
+    <td><ul>
+
+<a name="wp1010631"> </a><li><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">uname -a: <font face="Courier New, Courier, mono">HP-UX sysxxx B.11.00 A 9000/780 <br>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;2013810305 two-user license</font></font></li>
+</ul>
+</td>
+</tr>
+</table>
+</div>
+<div><font color="#000000" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+</font></div>
+
+<a name="wp1011187"> </a><div><font color="#000000" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+</font></div><div align="left">
+<table border="1">
+  <caption></caption>
+  <tr align="left">    <td>
+<a name="wp1011191"> </a><div><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+Platform:
+</font></div>
+</td>
+    <td>
+<a name="wp1011193"> </a><div><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+Intel Itanium
+</font></div>
+</td>
+</tr>
+  <tr align="left">    <td>
+<a name="wp1011195"> </a><div><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+OS:
+</font></div>
+</td>
+    <td>
+<a name="wp1011208"> </a><div><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+HP-UX 11.20 or higher
+</font></div>
+</td>
+</tr>
+  <tr align="left">    <td>
+<a name="wp1011170"> </a><div><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+FLEX<i>lm</i> Platform name:
+</font></div>
+</td>
+    <td>
+<a name="wp1011172"> </a><div><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+it64_hp11
+</font></div>
+</td>
+</tr>
+  <tr align="left">    <td>
+<a name="wp1011174"> </a><div><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+Built with:
+</font></div>
+</td>
+    <td>
+<a name="wp1011176"> </a><div><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+cc: <font face="Courier New, Courier, mono">/bin/cc -DHP -DHP64 -DHPINTEL_64 <br>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;-D_HIUX_SOURCE -D_HPUX_SOURCE +DD64</font>
+</font></div>
+</td>
+</tr>
+  <tr align="left">    <td>
+<a name="wp1011178"> </a><div><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+Notes:
+</font></div>
+</td>
+    <td><ul>
+
+<a name="wp1011180"> </a><li><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">uname -a: </font></li>
+<dl>
+<a name="wp1013372"> </a><dd><font color="Black" face="Courier New, Courier, mono" size="2">
+HP-UX sysxxx B.11.20 U ia64 2625004313 <br>&#160;&#160;&#160;&#160;&#160;unlimited-user license
+</font></dd>
+</dl>
+<a name="wp1011181"> </a><li><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">hostid note: Use <font face="Courier New, Courier, mono">lmhostid</font> from the FLEXlm platform directory to determine the hostid. This returns the machine identification and is equivalent to the identification returned by the HP-UX command:</font></li>
+<dl>
+<a name="wp1011182"> </a><dd><font color="Black" face="Courier New, Courier, mono" size="2">
+getconf CS_PARTITION_IDENT
+</font></dd>
+</dl>
+<a name="wp1011183"> </a><li><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">For example:</font></li>
+<dl>
+<a name="wp1011184"> </a><dd><font color="Black" face="Courier New, Courier, mono" size="2">
+&gt; lmhostid<br>&gt; The FLEXlm host ID of this machine is<br>&#160;&#160;&quot;ID_STRING=9c766319-db72-d411-af62-&#160;&#160;0060b05e4c05&quot;
+</font></dd>
+</dl>
+<a name="wp1011185"> </a><li><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">Older methods of obtaining the hostid which return the ethernet address are still supported, but may fail on some systems. The older methods include:</font></li>
+<dl>
+<a name="wp1011186"> </a><dd><font color="Black" face="Courier New, Courier, mono" size="2">
+&gt; uname -i  (returns decimal hostid)<br>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;2625004313<br>&gt; lmhostid -long (returns hexidecimal hostid)<br>&#160;&#160;The FLEXlm host ID of this machine is <br>&#160;&#160;&quot;9c766319&quot;
+</font></dd>
+</dl></ul>
+</td>
+</tr>
+</table>
+</div>
+<div><font color="#000000" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+</font></div>
+
+<a name="wp1010610"> </a><div><font color="#000000" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+
+</font></div>
+
+<a name="wp1010397"> </a><h5><font color="#336699" face="Arial, Verdana, Helvetica, sans-serif" size="2"><i>
+Intel FreeBSD
+</i></font></h5>
+
+<a name="wp1010707"> </a><div><font color="#000000" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+</font></div><div align="left">
+<table border="1">
+  <caption></caption>
+  <tr align="left">    <td>
+<a name="wp1010723"> </a><div><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+Platform:
+</font></div>
+</td>
+    <td>
+<a name="wp1010725"> </a><div><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+Intel x86
+</font></div>
+</td>
+</tr>
+  <tr align="left">    <td>
+<a name="wp1010727"> </a><div><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+OS:
+</font></div>
+</td>
+    <td>
+<a name="wp1010729"> </a><div><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+FreeBSD 3.4 or higher
+</font></div>
+</td>
+</tr>
+  <tr align="left">    <td>
+<a name="wp1010693"> </a><div><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+FLEX<i>lm</i> Platform name:
+</font></div>
+</td>
+    <td>
+<a name="wp1010695"> </a><div><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+i86_f3
+</font></div>
+</td>
+</tr>
+  <tr align="left">    <td>
+<a name="wp1010698"> </a><div><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+Built with:
+</font></div>
+</td>
+    <td>
+<a name="wp1010700"> </a><div><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+cc:  <font face="Courier New, Courier, mono">/usr/bin/cc</font>
+</font></div>
+
+<a name="wp1010701"> </a><div><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+link: <font face="Courier New, Courier, mono">-pthread</font>
+</font></div>
+</td>
+</tr>
+  <tr align="left">    <td>
+<a name="wp1010703"> </a><div><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+Notes:
+</font></div>
+</td>
+    <td><ul>
+
+<a name="wp1010705"> </a><li><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">This is the FreeBSD platform. We no longer support i86_f2, which is incompatible with i86_f3. i86_f3 however, is completely compatible with i86_f4 (freebsd 4.x)</font></li>
+
+<a name="wp1010706"> </a><li><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">uname -a: </font></li>
+<dl>
+<a name="wp1013391"> </a><dd><font color="Black" face="Courier New, Courier, mono" size="2">
+FreeBSD sysxxx 3.4-RELEASE FreeBSD 3.4<br>&#160;&#160;&#160;-RELEASE #0: Mon Dec 20 06:54:39 GMT 1999 <br>&#160;&#160;&#160;jkh@time.cdrom.com:/usr/src/sys/compile/<br>&#160;&#160;&#160;GENERIC i386
+</font></dd>
+</dl></ul>
+</td>
+</tr>
+</table>
+</div>
+<div><font color="#000000" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+</font></div>
+
+<a name="wp1010682"> </a><div><font color="#000000" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+
+</font></div>
+
+<a name="wp1010398"> </a><h5><font color="#336699" face="Arial, Verdana, Helvetica, sans-serif" size="2"><i>
+IRIX 32-bit
+</i></font></h5>
+
+<a name="wp1011597"> </a><div><font color="#000000" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+</font></div><div align="left">
+<table border="1">
+  <caption></caption>
+  <tr align="left">    <td>
+<a name="wp1011601"> </a><div><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+Platform:
+</font></div>
+</td>
+    <td>
+<a name="wp1011603"> </a><div><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+SGI 32-bit
+</font></div>
+</td>
+</tr>
+  <tr align="left">    <td>
+<a name="wp1011605"> </a><div><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+OS:
+</font></div>
+</td>
+    <td>
+<a name="wp1011607"> </a><div><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+IRIX 6.2 or higher
+</font></div>
+</td>
+</tr>
+  <tr align="left">    <td>
+<a name="wp1011584"> </a><div><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+FLEX<i>lm</i> Platform name:
+</font></div>
+</td>
+    <td>
+<a name="wp1011586"> </a><div><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+sgi32_u6 (mips3)
+</font></div>
+
+<a name="wp1011623"> </a><div><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+sgio32_u6 (-o32 compiler option, for mips2)
+</font></div>
+</td>
+</tr>
+  <tr align="left">    <td>
+<a name="wp1011588"> </a><div><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+Built with:
+</font></div>
+</td>
+    <td>
+<a name="wp1011590"> </a><div><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+cc:  <font face="Courier New, Courier, mono">/bin/cc -DSGI6 -DSGI32 -DSGI {-n32 -mips3 | -o32 }</font>
+</font></div>
+
+<a name="wp1011591"> </a><div><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+link: <font face="Courier New, Courier, mono">/bin/cc {-n32 -mips3 | -o32 } -lpthread</font>
+</font></div>
+</td>
+</tr>
+  <tr align="left">    <td>
+<a name="wp1011593"> </a><div><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+Notes:
+</font></div>
+</td>
+    <td><ul>
+
+<a name="wp1011595"> </a><li><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2"> uname -a: <font face="Courier New, Courier, mono">IRIX sysxxx 6.2 03131015 IP22</font></font></li>
+
+<a name="wp1011596"> </a><li><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2"> Note that -<font face="Courier New, Courier, mono">o32</font> format is in <font face="Courier New, Courier, mono">liblmgr_o32.a</font> in the platform directory.</font></li>
+</ul>
+</td>
+</tr>
+</table>
+</div>
+<div><font color="#000000" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+</font></div>
+
+<a name="wp1011573"> </a><div><font color="#000000" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+
+</font></div>
+
+<a name="wp1010399"> </a><h5><font color="#336699" face="Arial, Verdana, Helvetica, sans-serif" size="2"><i>
+IRIX 64-bit
+</i></font></h5>
+
+<a name="wp1011649"> </a><div><font color="#000000" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+</font></div><div align="left">
+<table border="1">
+  <caption></caption>
+  <tr align="left">    <td>
+<a name="wp1011653"> </a><div><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+Platform:
+</font></div>
+</td>
+    <td>
+<a name="wp1011655"> </a><div><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+SGI 64-bit
+</font></div>
+</td>
+</tr>
+  <tr align="left">    <td>
+<a name="wp1011657"> </a><div><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+OS:
+</font></div>
+</td>
+    <td>
+<a name="wp1011659"> </a><div><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+IRIX 6.5 or higher
+</font></div>
+</td>
+</tr>
+  <tr align="left">    <td>
+<a name="wp1011637"> </a><div><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+FLEX<i>lm</i> Platform name:
+</font></div>
+</td>
+    <td>
+<a name="wp1011639"> </a><div><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+sgi64_u6
+</font></div>
+</td>
+</tr>
+  <tr align="left">    <td>
+<a name="wp1011641"> </a><div><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+Built with:
+</font></div>
+</td>
+    <td>
+<a name="wp1011643"> </a><div><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+cc:  <font face="Courier New, Courier, mono">/bin/cc -DSGI6 -DSGI -DSGI64 -64 -mips3</font>
+</font></div>
+
+<a name="wp1011644"> </a><div><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+link: <font face="Courier New, Courier, mono">/bin/cc -64 -mips3 -lpthread</font>
+</font></div>
+</td>
+</tr>
+  <tr align="left">    <td>
+<a name="wp1011646"> </a><div><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+Notes:
+</font></div>
+</td>
+    <td>
+<a name="wp1011648"> </a><div><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+uname -a: <font face="Courier New, Courier, mono">IRIX64 sysxxx 6.5 05190003 IP26</font>
+</font></div>
+</td>
+</tr>
+</table>
+</div>
+<div><font color="#000000" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+</font></div>
+
+<a name="wp1011626"> </a><div><font color="#000000" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+
+</font></div>
+
+<a name="wp1010400"> </a><h5><font color="#336699" face="Arial, Verdana, Helvetica, sans-serif" size="2"><i>
+Mac OS
+</i></font></h5>
+
+<a name="wp1011346"> </a><div><font color="#000000" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+</font></div><div align="left">
+<table border="1">
+  <caption></caption>
+  <tr align="left">    <td>
+<a name="wp1011350"> </a><div><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+Platform:
+</font></div>
+</td>
+    <td>
+<a name="wp1011352"> </a><div><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+PowerPC
+</font></div>
+</td>
+</tr>
+  <tr align="left">    <td>
+<a name="wp1011354"> </a><div><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+OS:
+</font></div>
+</td>
+    <td>
+<a name="wp1011367"> </a><div><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+Mac OS X 10.1 or higher
+</font></div>
+</td>
+</tr>
+  <tr align="left">    <td>
+<a name="wp1011335"> </a><div><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+FLEX<i>lm</i> Platform name:
+</font></div>
+</td>
+    <td>
+<a name="wp1011337"> </a><div><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+ppc_mac10
+</font></div>
+</td>
+</tr>
+  <tr align="left">    <td>
+<a name="wp1011339"> </a><div><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+Built with:
+</font></div>
+</td>
+    <td>
+<a name="wp1011341"> </a><div><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+cc: <font face="Courier New, Courier, mono">/usr/bin/cc</font>
+</font></div>
+</td>
+</tr>
+  <tr align="left">    <td>
+<a name="wp1011343"> </a><div><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+Notes:
+</font></div>
+</td>
+    <td><ul>
+
+<a name="wp1011345"> </a><li><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">uname -a: </font></li>
+<dl>
+<a name="wp1013437"> </a><dd><font color="Black" face="Courier New, Courier, mono" size="2">
+Darwin sysxxx 1.4 Darwin Kernel Version 1.4: <br>&#160;&#160;&#160;Sun Sep 9 15:39:59 PDT 2001; <br>&#160;&#160;&#160;root:xnu/xnu-201.obj~1/RELEASE_PPC <br>&#160;&#160;&#160;Power Macintosh powerpc
+</font></dd>
+</dl></ul>
+</td>
+</tr>
+</table>
+</div>
+<div><font color="#000000" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+</font></div>
+
+<a name="wp1011324"> </a><div><font color="#000000" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+
+</font></div>
+
+<a name="wp1010401"> </a><h5><font color="#336699" face="Arial, Verdana, Helvetica, sans-serif" size="2"><i>
+Microsoft Windows 95/98/NT/2000/XP/ME
+</i></font></h5>
+
+<a name="wp1011060"> </a><div><font color="#000000" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+</font></div><div align="left">
+<table border="1">
+  <caption></caption>
+  <tr align="left">    <td>
+<a name="wp1011064"> </a><div><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+Platform:
+</font></div>
+</td>
+    <td>
+<a name="wp1011066"> </a><div><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+Intel x86
+</font></div>
+</td>
+</tr>
+  <tr align="left">    <td>
+<a name="wp1011068"> </a><div><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+OS:
+</font></div>
+</td>
+    <td>
+<a name="wp1011081"> </a><div><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+Windows 95/98/NT/2000/XP/ME
+</font></div>
+</td>
+</tr>
+  <tr align="left">    <td>
+<a name="wp1011042"> </a><div><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+FLEX<i>lm</i> Platform name:
+</font></div>
+</td>
+    <td>
+<a name="wp1011044"> </a><div><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+i86_n3 (installer name is <font face="Courier New, Courier, mono">flexlm.exe</font>)
+</font></div>
+</td>
+</tr>
+  <tr align="left">    <td>
+<a name="wp1011046"> </a><div><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+Built with:
+</font></div>
+</td>
+    <td>
+<a name="wp1011048"> </a><div><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+cl: Microsoft Visual C++ v6
+</font></div>
+</td>
+</tr>
+  <tr align="left">    <td>
+<a name="wp1011050"> </a><div><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+Notes:
+</font></div>
+</td>
+    <td><ul>
+
+<a name="wp1011052"> </a><li><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2"><font face="Courier New, Courier, mono">genlic</font> GUI license generator utility support not available, please use lmcrypt or makekey command-line utilities.</font></li>
+
+<a name="wp1011056"> </a><li><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">FLEXlock changes have occurred in this release of FLEX<i>lm</i>. Please see <i>FLEXlm Programmers Guide</i> for additional information.</font></li>
+</ul>
+</td>
+</tr>
+</table>
+</div>
+<div><font color="#000000" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+</font></div>
+
+<a name="wp1011031"> </a><div><font color="#000000" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+
+</font></div>
+
+<a name="wp1010402"> </a><h5><font color="#336699" face="Arial, Verdana, Helvetica, sans-serif" size="2"><i>
+Microsoft Windows XP Professional, Win 64, Windows 2000 Server, Windows Server 2003 
+</i></font></h5>
+
+<a name="wp1011252"> </a><div><font color="#000000" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+</font></div><div align="left">
+<table border="1">
+  <caption></caption>
+  <tr align="left">    <td>
+<a name="wp1011256"> </a><div><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+Platform:
+</font></div>
+</td>
+    <td>
+<a name="wp1011258"> </a><div><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+Intel Itanium
+</font></div>
+</td>
+</tr>
+  <tr align="left">    <td>
+<a name="wp1011260"> </a><div><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+OS:
+</font></div>
+</td>
+    <td>
+<a name="wp1011262"> </a><div><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+Windows XP Professional, 64-bit, Microsoft 2000 server, or Microsoft Server 2003
+</font></div>
+</td>
+</tr>
+  <tr align="left">    <td>
+<a name="wp1011229"> </a><div><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+FLEX<i>lm</i> Platform name:
+</font></div>
+</td>
+    <td>
+<a name="wp1011231"> </a><div><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+it64_n (installer name is <font face="Courier New, Courier, mono">flexlmia64.exe</font>)
+</font></div>
+</td>
+</tr>
+  <tr align="left">    <td>
+<a name="wp1011233"> </a><div><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+Built with:
+</font></div>
+</td>
+    <td><ul>
+
+<a name="wp1011235"> </a><li><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">Microsoft Platform SDK July 2002, 64-bit</font></li>
+
+<a name="wp1011236"> </a><li><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">Microsoft C/C++ compiler version 13.10.2154.8 for IA-64 </font></li>
+
+<a name="wp1011237"> </a><li><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">Microsoft Incremental Linker version 7.10.2154.8</font></li>
+
+<a name="wp1011238"> </a><li><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">Microsoft Program Maintenance Utility version 7.10.2154.8</font></li>
+</ul>
+</td>
+</tr>
+  <tr align="left">    <td>
+<a name="wp1011240"> </a><div><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+Notes:
+</font></div>
+</td>
+    <td><ul>
+
+<a name="wp1011242"> </a><li><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">Itanium CPU B3 Stepping or greater</font></li>
+
+<a name="wp1011243"> </a><li><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">BIOS Firmware revision 89 or greater</font></li>
+
+<a name="wp1011244"> </a><li><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">Memory RAM, 500 MB or greater</font></li>
+
+<a name="wp1011245"> </a><li><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">Hard Disk, 25 MB space free or greater</font></li>
+
+<a name="wp1011246"> </a><li><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2"><font face="Courier New, Courier, mono">genlic</font> GUI license generator utility support not available, please use lmcrypt or makekey command-line utilities.</font></li>
+
+<a name="wp1011247"> </a><li><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">Parallel or USB Dongle (FLEXid) support not available.</font></li>
+
+<a name="wp1011248"> </a><li><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">CPU Serial number support (Pentium III) not available on Itanium Chip.</font></li>
+
+<a name="wp1011249"> </a><li><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">The following situation can occur while building a vendor daemon in it64_n:</font></li>
+<dl>
+<a name="wp1011250"> </a><dd><font color="Black" face="Courier New, Courier, mono" size="2">
+if exist lm_new.c del lm_new.c<br>lmnewgen.exe demo.exe  -o lm_new.c<br>Verify failed, 0xc6f8 != 0x30f8NMAKE : <br>&#160;&#160;&#160;&#160;&#160;&#160;&#160;fatal error U1077:<br>&#39;lmnewgen.exe&#39; : return<br>code &#39;0xffffffff&#39;<br>Stop.
+</font></dd>
+</dl></ul>
+
+<a name="wp1011251"> </a><div><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+The workaround for this error is to run <font face="Courier New, Courier, mono">nmake</font> again. This error may occur many times before a successful build.
+</font></div>
+</td>
+</tr>
+</table>
+</div>
+<div><font color="#000000" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+</font></div>
+
+<a name="wp1011218"> </a><div><font color="#000000" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+
+</font></div>
+
+<a name="wp1010403"> </a><h5><font color="#336699" face="Arial, Verdana, Helvetica, sans-serif" size="2"><i>
+Red Hat Linux
+</i></font></h5>
+
+<a name="wp1010453"> </a><div><font color="#000000" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+</font></div><div align="left">
+<table border="1">
+  <caption></caption>
+  <tr align="left">    <td>
+<a name="wp1010431"> </a><div><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+Platform:
+</font></div>
+</td>
+    <td>
+<a name="wp1010433"> </a><div><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+DEC Alpha
+</font></div>
+</td>
+</tr>
+  <tr align="left">    <td>
+<a name="wp1010435"> </a><div><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+OS:
+</font></div>
+</td>
+    <td>
+<a name="wp1010437"> </a><div><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+Red Hat Linux 6.2 or higher
+</font></div>
+</td>
+</tr>
+  <tr align="left">    <td>
+<a name="wp1010442"> </a><div><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+FLEX<i>lm</i> Platform name:
+</font></div>
+</td>
+    <td>
+<a name="wp1010444"> </a><div><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+alpha_r6
+</font></div>
+</td>
+</tr>
+  <tr align="left">    <td>
+<a name="wp1010446"> </a><div><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+Built with:
+</font></div>
+</td>
+    <td>
+<a name="wp1010448"> </a><div><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+cc: <font face="Courier New, Courier, mono">/usr/bin/cc -DLINUX -DALPHA_LINUX</font>
+</font></div>
+</td>
+</tr>
+  <tr align="left">    <td>
+<a name="wp1010450"> </a><div><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+Notes:
+</font></div>
+</td>
+    <td><ul>
+
+<a name="wp1010452"> </a><li><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">uname -a: <font face="Courier New, Courier, mono">Linux sysxxx 2.2.14-6.0 #1 Tue Mar 28 <br>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;16:56:56 EST 2000 alpha unknown</font></font></li>
+</ul>
+</td>
+</tr>
+</table>
+</div>
+<div><font color="#000000" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+</font></div>
+
+<a name="wp1010822"> </a><div><font color="#000000" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+</font></div><div align="left">
+<table border="1">
+  <caption></caption>
+  <tr align="left">    <td>
+<a name="wp1010826"> </a><div><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+Platform:
+</font></div>
+</td>
+    <td>
+<a name="wp1010828"> </a><div><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+Intel x86
+</font></div>
+</td>
+</tr>
+  <tr align="left">    <td>
+<a name="wp1010830"> </a><div><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+OS:
+</font></div>
+</td>
+    <td>
+<a name="wp1010832"> </a><div><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+Red Hat Linux 5.2 or higher
+</font></div>
+</td>
+</tr>
+  <tr align="left">    <td>
+<a name="wp1010807"> </a><div><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+FLEX<i>lm</i> Platform name:
+</font></div>
+</td>
+    <td>
+<a name="wp1010809"> </a><div><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+i86_g2 - Red Hat 5
+</font></div>
+
+<a name="wp1010810"> </a><div><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+i86_r6 - Red Hat 6
+</font></div>
+
+<a name="wp1016638"> </a><div><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+i86_r9 - Red Hat 9
+</font></div>
+</td>
+</tr>
+  <tr align="left">    <td>
+<a name="wp1010812"> </a><div><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+Built with:
+</font></div>
+</td>
+    <td>
+<a name="wp1010814"> </a><div><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+cc: <font face="Courier New, Courier, mono">/usr/bin/cc -DLINUX -DGLIBC -DREDHAT</font>
+</font></div>
+</td>
+</tr>
+  <tr align="left">    <td>
+<a name="wp1010816"> </a><div><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+Notes:
+</font></div>
+</td>
+    <td><ul>
+
+<a name="wp1010818"> </a><li><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">uname -a: <font face="Courier New, Courier, mono">Linux sysxxx 2.2.5-15 #1 Mon <br>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;Apr 1922:21:09 EDT 1999 i586 unknown</font></font></li>
+
+<a name="wp1010819"> </a><li><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">i86_g2 binaries will run fine on Red Hat 6, but mixing objects and libraries between Red Hat 5 and 6 will not behave correctly when linked and run,.</font></li>
+
+<a name="wp1010821"> </a><li><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">Multi-threaded heartbeats supported with Red Hat 6 and Red Hat 9 only.</font></li>
+</ul>
+</td>
+</tr>
+</table>
+</div>
+<div><font color="#000000" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+</font></div>
+
+<a name="wp1011293"> </a><div><font color="#000000" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+</font></div><div align="left">
+<table border="1">
+  <caption></caption>
+  <tr align="left">    <td>
+<a name="wp1013476"> </a><div><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+Platform:
+</font></div>
+</td>
+    <td>
+<a name="wp1013478"> </a><div><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+Intel Itanium
+</font></div>
+</td>
+</tr>
+  <tr align="left">    <td>
+<a name="wp1013480"> </a><div><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+OS:
+</font></div>
+</td>
+    <td>
+<a name="wp1013482"> </a><div><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+Red Hat Linux 7.0 or higher
+</font></div>
+</td>
+</tr>
+  <tr align="left">    <td>
+<a name="wp1013487"> </a><div><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+FLEX<i>lm</i> Platform name:
+</font></div>
+</td>
+    <td>
+<a name="wp1013489"> </a><div><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+it64_lr2
+</font></div>
+</td>
+</tr>
+  <tr align="left">    <td>
+<a name="wp1013491"> </a><div><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+Built with:
+</font></div>
+</td>
+    <td>
+<a name="wp1013493"> </a><div><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+cc: <font face="Courier New, Courier, mono">/usr/bin/gcc -DLINUX -DLINUX64 -DRHLINUX64</font>
+</font></div>
+</td>
+</tr>
+  <tr align="left">    <td>
+<a name="wp1013495"> </a><div><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+Notes:
+</font></div>
+</td>
+    <td><ul>
+
+<a name="wp1013497"> </a><li><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">uname -a: <font face="Courier New, Courier, mono">Linux sysxxx 2.4.0-0.43smp #1 SMP Mon <br>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;Dec 4 18:37:06 EST 2000 ia64 unknown</font></font></li>
+</ul>
+</td>
+</tr>
+</table>
+</div>
+<div><font color="#000000" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+</font></div>
+
+<a name="wp1010427"> </a><div><font color="#000000" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+
+</font></div>
+
+<a name="wp1010404"> </a><h5><font color="#336699" face="Arial, Verdana, Helvetica, sans-serif" size="2"><i>
+SCO UnixWare
+</i></font></h5>
+
+<a name="wp1010874"> </a><div><font color="#000000" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+</font></div><div align="left">
+<table border="1">
+  <caption></caption>
+  <tr align="left">    <td>
+<a name="wp1010878"> </a><div><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+Platform:
+</font></div>
+</td>
+    <td>
+<a name="wp1010880"> </a><div><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+Intel x86
+</font></div>
+</td>
+</tr>
+  <tr align="left">    <td>
+<a name="wp1010882"> </a><div><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+OS:
+</font></div>
+</td>
+    <td>
+<a name="wp1010884"> </a><div><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+UnixWare 3.2 to 7.5
+</font></div>
+</td>
+</tr>
+  <tr align="left">    <td>
+<a name="wp1010861"> </a><div><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+FLEX<i>lm</i> Platform name:
+</font></div>
+</td>
+    <td>
+<a name="wp1010863"> </a><div><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+sco_u3
+</font></div>
+</td>
+</tr>
+  <tr align="left">    <td>
+<a name="wp1010866"> </a><div><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+Built with:
+</font></div>
+</td>
+    <td>
+<a name="wp1010868"> </a><div><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+cc: <font face="Courier New, Courier, mono">/bin/cc</font>
+</font></div>
+</td>
+</tr>
+  <tr align="left">    <td>
+<a name="wp1010870"> </a><div><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+Notes:
+</font></div>
+</td>
+    <td><ul>
+
+<a name="wp1010872"> </a><li><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">If CRO is used, you will get lots of warnings during link. These are harmless and should be ignored.</font></li>
+
+<a name="wp1010873"> </a><li><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">Multi-threaded heartbeats not supported.</font></li>
+</ul>
+</td>
+</tr>
+</table>
+</div>
+<div><font color="#000000" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+</font></div>
+
+<a name="wp1011003"> </a><div><font color="#000000" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+</font></div><div align="left">
+<table border="1">
+  <caption></caption>
+  <tr align="left">    <td>
+<a name="wp1011007"> </a><div><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+Platform:
+</font></div>
+</td>
+    <td>
+<a name="wp1011009"> </a><div><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+Intel x86
+</font></div>
+</td>
+</tr>
+  <tr align="left">    <td>
+<a name="wp1011011"> </a><div><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+OS:
+</font></div>
+</td>
+    <td>
+<a name="wp1011021"> </a><div><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+UnixWare 7.5 or higher
+</font></div>
+</td>
+</tr>
+  <tr align="left">    <td>
+<a name="wp1010992"> </a><div><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+FLEX<i>lm</i> Platform name:
+</font></div>
+</td>
+    <td>
+<a name="wp1010994"> </a><div><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+i86_u7
+</font></div>
+</td>
+</tr>
+  <tr align="left">    <td>
+<a name="wp1010996"> </a><div><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+Built with:
+</font></div>
+</td>
+    <td>
+<a name="wp1010998"> </a><div><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+cc: <font face="Courier New, Courier, mono">/bin/cc -Dsco -DSCO -DSCO5</font>
+</font></div>
+</td>
+</tr>
+  <tr align="left">    <td>
+<a name="wp1011000"> </a><div><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+Notes:
+</font></div>
+</td>
+    <td><ul>
+
+<a name="wp1011002"> </a><li><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">uname -a: <font face="Courier New, Courier, mono">UnixWare sysxxx 5 7 i386 x86at SCO UNIX_SVR5</font></font></li>
+</ul>
+</td>
+</tr>
+</table>
+</div>
+<div><font color="#000000" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+</font></div>
+
+<a name="wp1010850"> </a><div><font color="#000000" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+
+</font></div>
+
+<a name="wp1010933"> </a><h5><font color="#336699" face="Arial, Verdana, Helvetica, sans-serif" size="2"><i>
+Siemens Nixdorf RM400 Sinux
+</i></font></h5>
+
+<a name="wp1013699"> </a><div><font color="#000000" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+</font></div><div align="left">
+<table border="1">
+  <caption></caption>
+  <tr align="left">    <td>
+<a name="wp1013676"> </a><div><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+Platform:
+</font></div>
+</td>
+    <td>
+<a name="wp1013678"> </a><div><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+Siemens Nixdorf RM400 (mips)
+</font></div>
+</td>
+</tr>
+  <tr align="left">    <td>
+<a name="wp1013680"> </a><div><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+OS:
+</font></div>
+</td>
+    <td>
+<a name="wp1013682"> </a><div><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+SINIX-N 5.41 or higher
+</font></div>
+</td>
+</tr>
+  <tr align="left">    <td>
+<a name="wp1013687"> </a><div><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+FLEX<i>lm</i> Platform name:
+</font></div>
+</td>
+    <td>
+<a name="wp1013689"> </a><div><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+rm400_u5
+</font></div>
+</td>
+</tr>
+  <tr align="left">    <td>
+<a name="wp1013691"> </a><div><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+Built with:
+</font></div>
+</td>
+    <td>
+<a name="wp1013693"> </a><div><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+cc: <font face="Courier New, Courier, mono">/bin/cc -Dsinix -DSINIX -DSINIX_MIPS</font>
+</font></div>
+
+<a name="wp1013694"> </a><div><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+link: <font face="Courier New, Courier, mono">/bin/cc -lsocket -lnsl</font>
+</font></div>
+</td>
+</tr>
+  <tr align="left">    <td>
+<a name="wp1013696"> </a><div><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+Notes:
+</font></div>
+</td>
+    <td><ul>
+
+<a name="wp1013698"> </a><li><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">uname -a: <font face="Courier New, Courier, mono">SINIX-N sysxxx 5.41 C0005 RM400 1/64 R3000</font></font></li>
+</ul>
+</td>
+</tr>
+</table>
+</div>
+<div><font color="#000000" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+</font></div>
+
+<a name="wp1013895"> </a><div><font color="#000000" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+
+</font></div>
+
+<a name="wp1016898"> </a><h5><font color="#336699" face="Arial, Verdana, Helvetica, sans-serif" size="2"><i>
+Solaris 32-bit
+</i></font></h5>
+
+<a name="wp1016982"> </a><div><font color="#000000" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+</font></div><div align="left">
+<table border="1">
+  <caption></caption>
+  <tr align="left">    <td>
+<a name="wp1016901"> </a><div><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+Platform:
+</font></div>
+</td>
+    <td>
+<a name="wp1016903"> </a><div><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+Intel x86
+</font></div>
+</td>
+</tr>
+  <tr align="left">    <td>
+<a name="wp1016905"> </a><div><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+OS:
+</font></div>
+</td>
+    <td>
+<a name="wp1016907"> </a><div><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+Solaris 2.4 or higher
+</font></div>
+</td>
+</tr>
+  <tr align="left">    <td>
+<a name="wp1016912"> </a><div><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+FLEX<i>lm</i> Platform name:
+</font></div>
+</td>
+    <td>
+<a name="wp1016914"> </a><div><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+i86_x5
+</font></div>
+</td>
+</tr>
+  <tr align="left">    <td>
+<a name="wp1016916"> </a><div><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+Built with:
+</font></div>
+</td>
+    <td>
+<a name="wp1016918"> </a><div><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+cc: <font face="Courier New, Courier, mono">/bin/cc -DSUNOS5 -Dsun</font>
+</font></div>
+</td>
+</tr>
+  <tr align="left">    <td>
+<a name="wp1016920"> </a><div><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+Notes:
+</font></div>
+</td>
+    <td><ul>
+
+<a name="wp1016922"> </a><li><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">uname -a: <font face="Courier New, Courier, mono">SunOS sysxxx 5.4 generic i86pc i386</font></font></li>
+</ul>
+</td>
+</tr>
+</table>
+</div>
+<div><font color="#000000" face="Arial, Verdana, Helvetica, sans-serif" size="2"></font></div><div align="left">
+<table border="1">
+  <caption></caption>
+  <tr align="left">    <td>
+<a name="wp1016925"> </a><div><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+Platform:
+</font></div>
+</td>
+    <td>
+<a name="wp1016927"> </a><div><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+Sun 32-bit
+</font></div>
+</td>
+</tr>
+  <tr align="left">    <td>
+<a name="wp1016929"> </a><div><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+OS:
+</font></div>
+</td>
+    <td>
+<a name="wp1016931"> </a><div><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+Solaris 2.5 to 2.6
+</font></div>
+</td>
+</tr>
+  <tr align="left">    <td>
+<a name="wp1016936"> </a><div><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+FLEX<i>lm</i> Platform name:
+</font></div>
+</td>
+    <td>
+<a name="wp1016938"> </a><div><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+sun4_u5
+</font></div>
+</td>
+</tr>
+  <tr align="left">    <td>
+<a name="wp1016940"> </a><div><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+Built with:
+</font></div>
+</td>
+    <td>
+<a name="wp1016942"> </a><div><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+cc: <font face="Courier New, Courier, mono">/usr/ucb/cc -DSUNOS5</font>
+</font></div>
+
+<a name="wp1016943"> </a><div><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+link: <font face="Courier New, Courier, mono">/usr/ucb/cc -lsocket -lnsl -lintl -lpthread</font>
+</font></div>
+</td>
+</tr>
+  <tr align="left">    <td>
+<a name="wp1016945"> </a><div><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+Notes:
+</font></div>
+</td>
+    <td><ul>
+
+<a name="wp1016947"> </a><li><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">uname -a:<font face="Courier New, Courier, mono"> SunOS sysxxx 5.5 Generic_103093-27 sun4m <br>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;sparc SUNW,SPARCstation-4</font></font></li>
+
+<a name="wp1016948"> </a><li><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">Supports synchronous I/O multiplexing, via select(), for up to 1024 file descriptors.</font></li>
+</ul>
+</td>
+</tr>
+</table>
+</div>
+<div><font color="#000000" face="Arial, Verdana, Helvetica, sans-serif" size="2"></font></div><div align="left">
+<table border="1">
+  <caption></caption>
+  <tr align="left">    <td>
+<a name="wp1016952"> </a><div><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+Platform:
+</font></div>
+</td>
+    <td>
+<a name="wp1016954"> </a><div><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+Sun 32-bit
+</font></div>
+</td>
+</tr>
+  <tr align="left">    <td>
+<a name="wp1016956"> </a><div><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+OS:
+</font></div>
+</td>
+    <td>
+<a name="wp1016958"> </a><div><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+Solaris 2.7 or higher
+</font></div>
+</td>
+</tr>
+  <tr align="left">    <td>
+<a name="wp1016963"> </a><div><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+FLEX<i>lm</i> Platform name:
+</font></div>
+</td>
+    <td>
+<a name="wp1016965"> </a><div><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+sun4_u7
+</font></div>
+</td>
+</tr>
+  <tr align="left">    <td>
+<a name="wp1016967"> </a><div><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+Built with:
+</font></div>
+</td>
+    <td>
+<a name="wp1016969"> </a><div><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+cc:<font face="Courier New, Courier, mono"> </font><font face="Courier New, Courier, mono">/opt/SUNWspro/SC5.0/bin/cc -DSUNOS5 -DFD_SETSIZE=65535</font>
+</font></div>
+
+<a name="wp1016970"> </a><div><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+link: <font face="Courier New, Courier, mono">/opt/SUNWspro/SC5.0/bin/cc -lsocket -lnsl \<br>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;-lintl -lpthread</font>
+</font></div>
+</td>
+</tr>
+  <tr align="left">    <td>
+<a name="wp1016972"> </a><div><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+Notes:
+</font></div>
+</td>
+    <td><ul>
+
+<a name="wp1016974"> </a><li><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">uname -a:<font face="Courier New, Courier, mono"> SunOS ultra5 5.7 Generic_106541-17 sun4u sparc SUNW,Ultra-5_10</font></font></li>
+
+<a name="wp1016975"> </a><li><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">Supports synchronous I/O multiplexing, via select(), for up to 65535 file descriptors.</font></li>
+</ul>
+</td>
+</tr>
+</table>
+</div>
+<div><font color="#000000" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+</font></div>
+
+<a name="wp1016977"> </a><div><font color="#000000" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+
+</font></div>
+
+<a name="wp1016892"> </a><h5><font color="#336699" face="Arial, Verdana, Helvetica, sans-serif" size="2"><i>
+Solaris 64-bit
+</i></font></h5>
+
+<a name="wp1011807"> </a><div><font color="#000000" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+</font></div><div align="left">
+<table border="1">
+  <caption></caption>
+  <tr align="left">    <td>
+<a name="wp1011811"> </a><div><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+Platform:
+</font></div>
+</td>
+    <td>
+<a name="wp1011813"> </a><div><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+Sun 64-bit
+</font></div>
+</td>
+</tr>
+  <tr align="left">    <td>
+<a name="wp1011815"> </a><div><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+OS:
+</font></div>
+</td>
+    <td>
+<a name="wp1011817"> </a><div><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+Solaris 2.7 or higher
+</font></div>
+</td>
+</tr>
+  <tr align="left">    <td>
+<a name="wp1011794"> </a><div><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+FLEX<i>lm</i> Platform name:
+</font></div>
+</td>
+    <td>
+<a name="wp1011796"> </a><div><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+sun64_u5
+</font></div>
+</td>
+</tr>
+  <tr align="left">    <td>
+<a name="wp1011798"> </a><div><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+Built with:
+</font></div>
+</td>
+    <td>
+<a name="wp1011800"> </a><div><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+cc: <font face="Courier New, Courier, mono">/usr/ucb/cc -DSUNOS5 -DSUN64 -xarch=v9</font>
+</font></div>
+
+<a name="wp1011801"> </a><div><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+link: <font face="Courier New, Courier, mono">/usr/ucb/cc -lsocket -lnsl -lintl -xarch=v9 <br>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;-xildoff -lpthread</font>
+</font></div>
+</td>
+</tr>
+  <tr align="left">    <td>
+<a name="wp1011803"> </a><div><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+Notes:
+</font></div>
+</td>
+    <td><ul>
+
+<a name="wp1011805"> </a><li><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">uname -a: <font face="Courier New, Courier, mono">SunOS sysxxx 5.7 Generic_106541-02 sun4u <br>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;sparc SUNW,Ultra-5_10</font></font></li>
+
+<a name="wp1011806"> </a><li><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">Older, 32-bit binaries run fine on this OS.</font></li>
+</ul>
+</td>
+</tr>
+</table>
+</div>
+<div><font color="#000000" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+</font></div>
+
+<a name="wp1014833"> </a><div><font color="#000000" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+
+</font></div>
+
+<a name="wp1015011"> </a><h2><font color="#336699" face="Arial, Verdana, Helvetica, sans-serif" size="4"><b>
+Copyright
+</b></font></h2>
+
+<a name="wp1014998"> </a><p><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+NOTICE OF COPYRIGHT AND OWNERSHIP OF RELEASE NOTES:
+</font></p>
+
+<a name="wp1014999"> </a><p><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+Copyright (c) 2003, Macrovision Corporation. All Rights Reserved.
+</font></p>
+
+<a name="wp1015000"> </a><p><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+These release notes are the property of Macrovision Corporation of Santa Clara, California, U.S.A. Any use, copy, publication, distribution, display, modification, or transmission of these release notes in whole or in part in any form or by any means without the prior express written permission of Macrovision Corporation is strictly prohibited. Except when expressly provided by Macrovision Corporation in writing, possession of these release notes shall not be construed to confer any license or rights under any of Macrovision Corporation&#39;s intellectual property rights, whether by estoppel, implication, or otherwise. 
+</font></p>
+
+<a name="wp1015001"> </a><p><font color="Black" face="Arial, Verdana, Helvetica, sans-serif" size="2">
+ALL COPIES OF THESE RELEASE NOTES, IF ALLOWED BY MACROVISION CORPORATION, MUST DISPLAY THIS NOTICE OF COPYRIGHT AND OWNERSHIP IN FULL.
+</font></p>
+    </blockquote>
+
+    </body>
+</html>

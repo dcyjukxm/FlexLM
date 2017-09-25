@@ -1,0 +1,87 @@
+#!/bin/csh -f
+#******************************************************************************
+#
+#	    COPYRIGHT (c) 1988, 1998 by Globetrotter Software Inc.
+#	This software has been provided pursuant to a License Agreement
+#	containing restrictions on its use.  This software contains
+#	valuable trade secrets and proprietary information of 
+#	Globetrotter Software Inc and is protected by law.  It may 
+#	not be copied or distributed in any form or medium, disclosed 
+#	to third parties, reverse engineered or used in any manner not 
+#	provided for in said License Agreement except with the prior 
+#	written authorization from Globetrotter Software Inc.
+#
+#	Module:	BINARY_CLEAN v3.21.0.0
+#	Last changed:  6/9/98
+#******************************************************************************
+#
+#	Clean up stuff that doesn't belong on binary kits
+#
+
+#
+#	Stuff that doesn't belong
+#
+set nonomatch
+rm -f lmswitch
+rm -f lmswitch.o
+rm -f test_licenses
+rm -f binary.makefile
+rm -f lmver
+rm -f osver
+rm -f ts.a
+rm -f demo_config
+#
+#	objects/executables that can be re-created
+#
+rm -f makekey makepkg _* validdat lmfeats  demo lmclient gplat* lmcrypt
+rm -f lmrandom lmrandomf lmrandomf2 
+mv lmrand2.o lmrand2_o
+rm -f *.o
+mv lmrand2_o lmrand2.o
+rm lmrand2
+rm -f demo lmclient
+rm -f lmstrip
+
+#
+#	Remove the stuff that is in the machine independent directory
+#
+rm -f BINARY_KIT BINARY_CLEAN CONFIG_DAEMON INSTALL MANUAL RELEASE_NOTES
+rm -f CONFIG_DAEMON.MINI CONFIG_DAEMON.sh BINARY_KIT.sh DEMO_INSTALL
+rm -f create_license.csh 
+
+#
+#	Misc
+#
+rm -f *.c
+rm -f *.h
+rm -f lmchgexp*
+rm -f lm_code.mini
+rm -f mini.makefile
+rm -f mini_lmgr.a
+rm -f lminfo*
+rm -f lmborrow mkborrow.o mkborrow
+
+#
+#	Server lint libraries - no one needs these
+#
+rm -f *lmgr_as.ln
+rm -f *lmgr_s.ln
+if (-e lmgr.ln) then
+	mv lmgr.ln llib-llmgr.ln
+endif
+#
+# 	remove lmutil utilities
+#
+
+rm -f lmcksum lmdiag lmdown lmhostid lmremove lmreread lmstat lmswitchr \
+	lminstall
+rm -f ckoutx hostx
+
+#
+# 	strip
+#
+strip lmutil lmgrd
+
+#
+#	End binary kit cleanup
+#

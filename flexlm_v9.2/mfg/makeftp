@@ -1,0 +1,165 @@
+#!/bin/sh -
+#
+#	    COPYRIGHT (c) 1996 by Globetrotter Software Inc.
+#	This software has been provided pursuant to a License Agreement
+#	containing restrictions on its use.  This software contains
+#	valuable trade secrets and proprietary information of 
+#	Globetrotter Software Inc and is protected by law.  It may 
+#	not be copied or distributed in any form or medium, disclosed 
+#	to third parties, reverse engineered or used in any manner not 
+#	provided for in said License Agreement except with the prior 
+#	written authorization from Globetrotter Software Inc.
+#	Module:	makeftp v1.14.0.0
+#	Last changed:  07/29/97
+#
+#	Creates an ftp directory
+
+[ `gplatform` != sun4_u4 ] && echo "Warning:  This is only safe on sun4_u4!"
+
+if [ $# -lt 1 ] 
+then
+	echo "$0 version [platforms ... ]"
+	exit 1
+fi
+
+VERSION=$1
+BADPLATS="i86_n3 i86_w3 i86_z3 alpha_n3 i86_l2"
+
+PRODDIR=/u/releases/flexlm/$VERSION
+TARGET=/ftpsite/flexlm/$VERSION/unix
+echo "placing $PRODDIR in result in $TARGET"
+
+CRYPT_PATH=/u/local/bin
+
+#case $VERSION in 
+#	v5* ) 	SEED=32 
+#		ENCRYPT=encrypt.`gplatform`
+#		DECRYPTVER=""
+#		;;
+#	v6.1) 	SEED=07
+#		ENCRYPT=encrypt.v5.1.`gplatform` 
+#		DECRYPTVER=.v5.1
+#		;;
+#	v6*) 	SEED=06
+#		ENCRYPT=encrypt.v5.1.`gplatform` 
+#		DECRYPTVER=.v5.1
+#		;;
+#	v7*) 	SEED=47
+#		ENCRYPT=encrypt.v5.1.`gplatform` 
+#		DECRYPTVER=.v5.1
+#		;;
+#esac
+
+ENDTARFILE=Tarfile.End
+MKENDTAR() {
+	rm -f $ENDTARFILE; 
+	echo __END_OF_TAR_FILE__ > $ENDTARFILE; 
+	chmod 666 $ENDTARFILE; 
+}
+
+cd $PRODDIR
+if [ $# -gt 1 ] 
+then
+	shift
+	PLATS="$*"
+else
+	PLATS=`echo [a-z]*_[a-z]*[0-9]*`
+fi
+#PLATS="alpha_u3 sun4_u5" # for testing
+cd $TARGET
+rm -rf tmp
+mkdir tmp 
+mkdir tmp/flexlm
+mkdir tmp/flexlm/$VERSION
+
+DEST=$TARGET/tmp/flexlm/$VERSION
+
+#
+#	first put all the necessary unpacking stuff..
+#
+for plat in $PLATS
+do
+	if echo $BADPLATS | grep $plat > /dev/null
+	then
+		echo ignoring $plat
+		continue
+	fi
+	cd tmp
+	echo "making $TARGET/$plat"
+	mkdir $DEST/$plat
+	ln -s $PRODDIR/$plat/* $DEST/$plat
+	rm $DEST/$plat/liblmutil.a
+	rm $DEST/$plat/liblmgrd.a
+	case $plat in
+	*_v?) ln -s /u/releases/flexlm/vms/mftu.com $DEST ;;
+	esac
+	MKENDTAR
+#	tar chf - flexlm $ENDTARFILE |
+#		compress | 
+#		$CRYPT_PATH/$ENCRYPT $SEED > $TARGET/$plat.tar.Z.fc 2>/dev/null
+	tar chf - flexlm $ENDTARFILE |
+ 		compress > $TARGET/$plat.tar.Z 2>/dev/null
+	rm -f $ENDTARFILE $DEST/mftu.com
+	rm -rf $DEST/$plat
+	cd $TARGET
+#	if [ -f $CRYPT_PATH/decrypt$DECRYPTVER.$plat ]
+#	then
+#		ln -s $CRYPT_PATH/decrypt$DECRYPTVER.$plat decrypt.$plat
+#		MKENDTAR
+#		tar chf $plat.tar $plat.tar.Z.fc decrypt.$plat $ENDTARFILE
+#		rm -f $ENDTARFILE
+#		rm decrypt.$plat
+#	else 
+		MKENDTAR
+		tar chf $plat.tar $plat.tar.Z $ENDTARFILE
+		rm -f $ENDTARFILE
+#	fi
+	rm $plat.tar.Z
+done
+echo "making $TARGET/machind"
+cd tmp
+mkdir $DEST/machind
+ln -s $PRODDIR/machind/* $DEST/machind
+mv $DEST/machind/blank_lm_code.h $DEST/machind/lm_code.h
+chmod 666 $DEST/machind/lm_code.h
+echo "#include winsock.h" > $DEST/machind/pcsock.h
+echo "/*This is an empty header file*/" > $DEST/machind/lm_comm.h
+echo "/*This is an empty header file*/" > $DEST/machind/ls_sprot.h
+ln -s $PRODDIR/VERSION $DEST
+ln -s $PRODDIR/examples $DEST
+
+#HTMLMAN stuff
+mkdir $DEST/htmlman
+ln -s $PRODDIR/htmlman/index.htm $DEST/htmlman/index.htm
+htmlmandirs="flexprog flexref flexuser"
+for dir in $htmlmandirs
+do
+	mkdir $DEST/htmlman/$dir
+	ln -s $PRODDIR/htmlman/$dir/htmlman/* $DEST/htmlman/$dir/
+	ln -s $PRODDIR/htmlman/$dir/*.pdf $DEST/machind/
+	rm -f $DEST/htmlman/$dir/CVS
+	if [ -f $DEST/htmlman/$dir/all.htm ]
+	then
+		rm $DEST/htmlman/$dir/all*.htm
+		rm $DEST/htmlman/$dir/TOC.htm
+		rm $DEST/htmlman/$dir/IX.htm
+	fi
+done
+#ln -s $PRODDIR/htmlman/flexfaq $DEST/htmlman
+#END HTMLMAN stuff
+
+
+MKENDTAR
+#tar chf - `find flexlm -type f -follow -print | grep -v CVS` $ENDTARFILE | 
+#	compress | 
+#	$CRYPT_PATH/$ENCRYPT $SEED > $TARGET/machind.tar.Z.fc  2>/dev/null
+tar chf - `find flexlm -type f -follow -print | grep -v CVS` $ENDTARFILE | 
+	compress > $TARGET/machind.tar.Z  2>/dev/null
+rm -f $ENDTARFILE
+cd $TARGET
+rm -rf tmp
+#cp /u/local/bin/gplatform .
+MKENDTAR
+echo $VERSION > $VERSION
+tar chf machine_ind.tar machind.tar.Z $VERSION $ENDTARFILE
+rm -f $ENDTARFILE $VERSION machind.tar.Z

@@ -1,0 +1,24 @@
+EXPECT_KEYWORD 1.log _______________________________________
++++++++ API
+---------------Test 1. serial number
+---------------Test 2. dump
+---------------Test 3. get-counter
+---------------Test 4. update_key
+---------------Test 5. increment
+---------------Test 6. free_counter
+---------------Test 7. increment
+---------------Test 8. checkout
+---------------Test 9. borrow
+---------------Test 10. borrow package
++++++++ lmutil funcs
+---------------Test 11. update server
++++++++ error conditions
+---------------Test 12. NONETOBORROW
+---------------Test 13. BORROWED_ALREADY
+---------------Test 14. unborrow twice
++++++++ Advanced tests
+---------------Test 15. Add to meter, reread
+---------------Test 16. Use up client meter
++++++++ Options file
+---------------Test 17. Options file
+Reset

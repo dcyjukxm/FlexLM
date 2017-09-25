@@ -1,0 +1,155 @@
+//Microsoft Developer Studio generated resource script.
+//
+#include "lmgr327a.h"
+
+#define APSTUDIO_READONLY_SYMBOLS
+/////////////////////////////////////////////////////////////////////////////
+//
+// Generated from the TEXTINCLUDE 2 resource.
+//
+#include "afxres.h"
+
+/////////////////////////////////////////////////////////////////////////////
+#undef APSTUDIO_READONLY_SYMBOLS
+
+/////////////////////////////////////////////////////////////////////////////
+// English (U.S.) resources
+
+#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_ENU)
+#ifdef _WIN32
+LANGUAGE LANG_ENGLISH, SUBLANG_ENGLISH_US
+#pragma code_page(1252)
+#endif //_WIN32
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Dialog
+//
+
+FLEXLM_CHOOSE DIALOG DISCARDABLE  0, 0, 250, 113
+STYLE DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "Choose Server or File"
+FONT 8, "MS Sans Serif"
+BEGIN
+    LTEXT           "Your application was not able to obtain a license because the FLEXlm license manager could not determine where to find the licensing data it needs.  Please choose one of the following:",
+                    IDC_STATIC,78,4,153,39
+    GROUPBOX        "",IDC_STATIC,74,41,159,59
+    CONTROL         "Specify the License Server",IDC_SERVER,"Button",
+                    BS_AUTORADIOBUTTON,85,49,103,10
+    CONTROL         "Specify the License File",IDC_LFILE,"Button",
+                    BS_AUTORADIOBUTTON,85,62,100,10
+    CONTROL         "FLEXLM_CANTLOCATE",IDC_STATIC,"Static",SS_BITMAP | 
+                    SS_SUNKEN | WS_BORDER,0,7,69,90
+    LTEXT           "Copyright (c) 1999, 2003 Macrovision Corporation",IDC_STATIC,
+                    78,101,150,12
+    CONTROL         "Fulfill license from the Internet",IDC_WEBKEY,"Button",
+                    BS_AUTORADIOBUTTON,85,75,118,8
+    CONTROL         "Select Demo Mode",IDC_FLEXLOCK,"Button",
+                    BS_AUTORADIOBUTTON,85,87,113,8
+END
+
+FLEXLM_SERVER DIALOG DISCARDABLE  0, 0, 246, 95
+STYLE DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "License Server Selection"
+FONT 8, "MS Sans Serif"
+BEGIN
+    CONTROL         "FLEXLM_CANTLOCATE",IDC_STATIC,"Static",SS_BITMAP | 
+                    SS_SUNKEN | WS_BORDER,0,7,67,87
+    LTEXT           "Enter the Computer Name of the License Server.  ( Contact your System Administrator if you do not know this)",
+                    IDC_STATIC,83,13,110,32
+    EDITTEXT        IDC_SERVER,88,60,85,15,ES_AUTOHSCROLL
+END
+
+FLEXLM_FILE DIALOG DISCARDABLE  0, 0, 246, 95
+STYLE DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "License File Selection"
+FONT 8, "MS Sans Serif"
+BEGIN
+    CONTROL         "FLEXLM_CANTLOCATE",IDC_STATIC,"Static",SS_BITMAP | 
+                    SS_SUNKEN | WS_BORDER,0,7,67,87
+    LTEXT           "Your application was not able to find a license file or server for the FLEXlm License Manager.  Choose the filename you want to use for a license file.",
+                    IDC_STATIC,74,2,151,48
+    EDITTEXT        IDC_FILE,135,65,91,15,ES_AUTOHSCROLL
+    PUSHBUTTON      "Browse",IDC_BROWSE,75,65,56,14
+END
+
+FLEXLM_END DIALOG DISCARDABLE  0, 0, 246, 95
+STYLE DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "End"
+FONT 8, "MS Sans Serif"
+BEGIN
+    CONTROL         "FLEXLM_FLEXSHIP",IDC_STATIC,"Static",SS_BITMAP | 
+                    SS_SUNKEN | WS_BORDER,0,7,67,87
+    LTEXT           "Press Finish to continue",IDC_STATIC,107,13,88,28
+END
+
+FLEXLM_WAITPING DIALOG DISCARDABLE  0, 0, 186, 95
+STYLE WS_POPUP | WS_VISIBLE | WS_CAPTION
+CAPTION "Trying to Connect to the Server"
+FONT 8, "MS Sans Serif"
+BEGIN
+    LTEXT           "Attempting to make a connection to the server. This should take 5 seconds",
+                    IDC_STATIC,75,16,92,45
+    CONTROL         "FLEXLM_CANTLOCATE",IDC_STATIC,"Static",SS_BITMAP | 
+                    SS_SUNKEN | WS_BORDER,0,7,67,87
+END
+
+
+#ifdef APSTUDIO_INVOKED
+/////////////////////////////////////////////////////////////////////////////
+//
+// TEXTINCLUDE
+//
+
+1 TEXTINCLUDE DISCARDABLE 
+BEGIN
+    "lmgr327a.h\0"
+END
+
+2 TEXTINCLUDE DISCARDABLE 
+BEGIN
+    "#include ""afxres.h""\r\n"
+    "\0"
+END
+
+3 TEXTINCLUDE DISCARDABLE 
+BEGIN
+    "\r\n"
+    "\0"
+END
+
+#endif    // APSTUDIO_INVOKED
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// DESIGNINFO
+//
+
+#ifdef APSTUDIO_INVOKED
+
+#endif    // APSTUDIO_INVOKED
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Bitmap
+//
+
+FLEXLM_CANTLOCATE       BITMAP  DISCARDABLE     "flexlmnp2.BMP"
+FLEXLM_FLEXSHIP         BITMAP  DISCARDABLE     "flxlmshp.BMP"
+#endif    // English (U.S.) resources
+/////////////////////////////////////////////////////////////////////////////
+
+
+
+#ifndef APSTUDIO_INVOKED
+/////////////////////////////////////////////////////////////////////////////
+//
+// Generated from the TEXTINCLUDE 3 resource.
+//
+
+
+/////////////////////////////////////////////////////////////////////////////
+#endif    // not APSTUDIO_INVOKED
+

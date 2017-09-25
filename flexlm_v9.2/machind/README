@@ -1,0 +1,33 @@
+The files below, located in the machind directory, 
+provide FLEXlm-licensed application examples:
+    
+
+       Trivial API  - lmclient.c
+                      To build, from the platform directory,
+                      type:
+                          make lmclient (UNIX)
+                          nmake lmclient.exe (Windows)
+
+                    - lmwin.c (Windows only, WIN32 application)
+                      To build, from the platform directory,
+                      type:
+                          nmake lmwin.exe   
+             
+       Simple API   - lmflex.c
+                      To build, from the platform directory,
+                      type:
+                          make lmsimple (UNIX)
+                          nmake lmsimple.exe (Windows)
+
+       FLEXible API - lmflex.c
+                      To build, from the platform directory,
+                      type:
+                          make lmflex (UNIX)
+                          nmake lmflex.exe (Windows)
+
+
+Additional examples, showcasing other FLEXlm features,
+are provided in the examples directory:
+
+          <install_dir>/flexlm/v8.3/examples (UNIX)
+          C:/Program Files/flexlm/v8.3/examples (Windows)

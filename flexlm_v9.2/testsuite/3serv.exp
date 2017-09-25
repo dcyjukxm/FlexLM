@@ -1,0 +1,108 @@
+EXPECT_KEYWORD 1 _______________________________________
+lmstat - Copyright (c) 1989-2003 by Macrovision Corporation. All rights reserved.
+Flexible License Manager status on Thu 1/23/2003 16:02
+
+License server status: 2837@flexlm_one,2937@flexlm_two,3037@flexlm_three
+    License file(s) on flexlm_one: C:\working\v9.0a\testsuite\rlicense.dat1:
+
+flexlm_one: license server UP (MASTER) v9.0
+flexlm_two: license server UP v9.0
+flexlm_three: license server UP v9.0
+
+Vendor daemon status (on flexlm_one):
+
+      demo: UP v9.0
+
+Feature usage info:
+
+Users of f1:  (Total of 9 licenses issued;  Total of 0 licenses in use)
+
+EXPECT_KEYWORD 2 _______________________________________
+lmstat - Copyright (c) 1989-2003 by Macrovision Corporation. All rights reserved.
+Flexible License Manager status on Thu 1/23/2003 16:02
+
+License server status: 2837@flexlm_one,2937@flexlm_two,3037@flexlm_three
+    License file(s) on flexlm_one: C:\working\v9.0a\testsuite\rlicense.dat1:
+
+flexlm_one: license server UP (MASTER) v9.0
+flexlm_two: license server UP v9.0
+flexlm_three: license server UP v9.0
+
+Vendor daemon status (on flexlm_one):
+
+      demo: UP v9.0
+
+Feature usage info:
+
+Users of f1:  (Total of 9 licenses issued;  Total of 1 license in use)
+
+  "f1" v1.0, vendor: demo
+  nodelocked license, locked to ethernet address "000625114023"
+
+    jwong mobilesuit mobilesuit (v1.0) (flexlm_one/2837 101), start Thu 1/23 16:02
+
+EXPECT_KEYWORD 3 _______________________________________
+lmstat - Copyright (c) 1989-2003 by Macrovision Corporation. All rights reserved.
+Flexible License Manager status on Thu 1/23/2003 16:04
+
+License server status: 2837@flexlm_one,2937@flexlm_two,3037@flexlm_three
+    License file(s) on flexlm_one: C:\working\v9.0a\testsuite\rlicense.dat2:
+
+flexlm_one: Cannot connect to license server (-15,10:10061 "WinSock: Connection refused")
+flexlm_two: license server UP (MASTER) v9.0
+flexlm_three: license server UP v9.0
+
+Vendor daemon status (on flexlm_two):
+
+      demo: UP v9.0
+
+Feature usage info:
+
+Users of f1:  (Total of 9 licenses issued;  Total of 1 license in use)
+
+  "f1" v1.0, vendor: demo
+  nodelocked license, locked to ethernet address "000625114023"
+
+    jwong mobilesuit mobilesuit (v1.0) (flexlm_one/2837 101), start Thu 1/23 16:04
+
+EXPECT_KEYWORD 6 _______________________________________
+lmstat - Copyright (c) 1989-2003 by Macrovision Corporation. All rights reserved.
+Flexible License Manager status on Thu 1/23/2003 16:06
+
+License server status: 2837@flexlm_one,2937@flexlm_two,3037@flexlm_three
+    License file(s) on flexlm_one: C:\working\v9.0a\testsuite\rlicense.dat1:
+
+flexlm_one: license server UP v9.0
+flexlm_two: license server UP (MASTER) v9.0
+flexlm_three: license server UP v9.0
+
+Vendor daemon status (on flexlm_two):
+
+      demo: UP v9.0
+
+Feature usage info:
+
+Users of f1:  (Total of 9 licenses issued;  Total of 3 licenses in use)
+
+  "f1" v1.0, vendor: demo
+  nodelocked license, locked to ethernet address "000625114023"
+
+    jwong mobilesuit mobilesuit (v1.0) (flexlm_one/2837 202), start Thu 1/23 16:06
+    jwong mobilesuit mobilesuit (v1.0) (flexlm_one/2837 301), start Thu 1/23 16:06
+    jwong mobilesuit mobilesuit (v1.0) (flexlm_one/2837 101), start Thu 1/23 16:04
+
+EXPECT_KEYWORD 7 _______________________________________
+lmdown - Copyright (c) 1989-2003 by Macrovision Corporation. All rights reserved.
+
+   Port@Host            Vendors
+1) 2837@flexlm_one,2937@flexlm_two,3037@flexlm_three demo 
+    2 FLEXlm License Servers shut down
+    Please wait 1 minute for lmgrd processes to shutdown
+EXPECT_KEYWORD 8 _______________________________________
+lmstat - Copyright (c) 1989-2003 by Macrovision Corporation. All rights reserved.
+Flexible License Manager status on Thu 1/23/2003 16:08
+
+License server status: 2837@flexlm_one,2937@flexlm_two,3037@flexlm_three
+    License file(s) on flexlm_one: rlicense.dat1:
+
+lmgrd is not running: Cannot connect to license server (-15,10:10061 "WinSock: Connection refused")

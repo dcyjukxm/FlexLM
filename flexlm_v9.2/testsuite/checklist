@@ -1,0 +1,65 @@
+        o lmgrd can read multiple license files
+Done.
+        o FLEXlm license path can specify a directory, which automatically
+          includes "*.lic" in that directory.
+Done.
+        o License files require no editing for use at the end-user
+          site.  Previously, the end-user had to edit the license
+          file to specify, at a minimum, the path to the vendor
+          daemon, but also the hostname, lmgrd TCP port number, and
+          path to the vendor-daemon options file.  For most sites
+          none of these items need editing by end-users.
+Done.
+        o The path to the daemon (on the DAEMON line) is now optional.
+          If unspecified, the $PATH is searched to start the vendor daemon.
+Done
+        o Licenses can now be shipped in a compressed, largely decimal
+          format, which is designed to be easy to type in for
+          customers that don't have access to email.
+Done.
+        o Feature lines are shorter, easier to understand and type in.
+        o PACKAGE lines can be shipped in separate files that
+          never require user editing.
+Done.
+        o The SERVER port number is now optional.  If left unspecified,
+          FLEXlm default port numbers (27000-27009) are automatically used.
+Done.
+        o End-user options file does not need to be specified in
+          the license file.  A default file name is automatically used:
+          the vendor-daemon name, with ".opt" suffix, in the same
+          directory where licenses are stored.
+Done.
+        o License information can now be stored in a buffer in the
+          program, instead of a file.
+Done.
+        o Hostname on SERVER line can use the default "this_host", which
+          works fine when using LM_LICENSE_FILE set to port@host, or
+          if clients are on the same node as the server.  Makes initial
+          installation easier.
+Done.
+        o License path can be set with a different environment variable
+          for each vendor (in addition to LM_LICENSE_FILE):
+          vendor_LICENSE_FILE (e.g., "GSI_LICENSE_FILE").
+Done.
+        o License path (via LM_LICENSE_FILE or vendor_LICENSE_FILE)
+          can be set to "@host", if the server uses a default port
+          number.
+Done.
+        o License files are case-insensitive.
+Done
+        o Optional START=... start-date in license file.
+Done
+
+        Other Enhancements:
+
+        o Improved security
+        o Improved error message handling
+        o Alternative error message available: paragraph format with
+          - 1-3 line error message, describing error, and possible
+            workarounds
+          - feature name (if applicable)
+          - license path
+          - context-sensitive information (where applicable).
+Done.
+        o API for verifying license key in FEATURE line
+Done.
